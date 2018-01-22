@@ -1,0 +1,405 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Step 3: Detecting Design Errors and Run-time Errors</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-09-27"><meta name="DC.source" content="Step_03.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:2.0em; color:#000077; line-height:150%; font-weight:bold; text-align:center }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.6em; color:#444444; font-weight:bold; font-style:italic; text-align:left; vertical-align:bottom; line-height:200%; border-top:2px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#555555; font-style:italic; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px;} 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Step 3: Detecting Design Errors and Run-time Errors</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li><li><a href="#2">Verification and Validation Tools Used</a></li><li><a href="#3">Running Dead Logic Detection on the Model</a></li><li><a href="#4">Analyzing the Dead Logic Detection Results</a></li><li><a href="#5">Running Divide by Zero Detection on the Model</a></li><li><a href="#6">Analyzing the Divide by Zero Detection Results</a></li><li><a href="#7">Automating Design Error Detection Checks</a></li><li><a href="#8">Run-time Error Checking of S-Function Code</a></li><li><a href="#9">Summary</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p><img vspace="5" hspace="5" src="Step_03_CruiseControl_WhatNow.png" alt=""> </p><p>There are many different ways to perform testing in Simulink. Traditionally, verification involves the user creating a set of test vectors based on certain requirements. The user can also create a set of expected outputs matching the giving inputs, or visually analyze the simulation making sure the behavior is as expected. The type of test vector created can be either functional, or based on certain robustness criteria or standards. With this method, the quality of the test is entirely based on the quality of the input vectors and being able to capture or reproduce a real world scenario as closely as possible. This topic is covered in <b>Step 4:  Testing by Simulation</b>.</p><p>One of the benefits of Model-Based Design is the ability to apply other &#8220;non-simulation&#8221; techniques to your model. These formal techniques are most beneficial when you are working with logic-intensive models. In this section, we will use <b>Simulink Design Verifier</b> to formally analyze our model for us to check if there are any unreachable states or transitions and if there are any divide by zero design errors.  The recommendation is to run these design error checks before executing the simulation based tests to catch errors early and have a more efficient testing workflow.</p><p>There are three main functions <b>Simulink Design Verifier</b>:</p><div><ol><li><b>Design Error Detection</b>:  Focus of this step, finds hard to find design errors including dead logic, divide by zero, overflow and out of bound array access</li><li><b>Test Generation</b>: Focus of <b>Step 5:  Test Case Generation</b>, generate test cases based on model objectives and/or coverage objectives to augment functional test cases</li><li><b>Property Proving</b>:  Focus of <b>Step 7:  Property Proving</b>, model the expected behavior and prove the implementation will always meet requirements</li></ol></div><p>In addition to formal techniques for model checking, there are formal techniques for code checking.  These methods are similar to the checks for the model and we will will perform these checks on the associated code for an s-function block in the model.  We will be using Polyspace Bug Finder to analyze the code for run-time errors including dead code, divide by zero, overflow and out of bound array access.</p><h2>Verification and Validation Tools Used<a name="2"></a></h2><div><ul><li>Simulink Design Verifier</li><li>Polyspace Bug Finder</li></ul></div><h2>Running Dead Logic Detection on the Model<a name="3"></a></h2><p>In this step, we are going to use Simulink Design Verifier to analyze our model. Our goal is find dead (unreachable) logic. We can also analyze our model for design errors like integer overflows, division by zero and out of bound array access.</p><p><b><i>Simulink Design Verifer uses formal methods which means that the analysis is "exhaustive" compared to simulation-based testing which is "non-exhaustive".</i></b></p><p>We will be using the "CruiseControl" model similar to the model used in the ad-hoc testing we performed on the floating point, prototype model. Our goal is to generate production code, so one step towards production will be replacing the floating point signals and parameters with integer types.</p><p>To perform the dead logic analysis, do the following:</p><p>1.  Open <b>CruiseControl_IntCalc.slx</b> &#8211; <b><a href="matlab:B1_DED_DeadLogic">click here</a></b>.</p><p>2.  Go to <b>Analysis</b>, <b>Design Verifier</b>, and <b>Options</b>.</p><p><img vspace="5" hspace="5" src="Step_03_DV_OptMenu.png" alt=""> </p><p>3.  Go to <b>Design Error Detection</b>, check <b>Dead logic</b>, check <b>Identify active logic</b> and select <b>OK</b>.</p><p><img vspace="5" hspace="5" src="Step_03_DV_OptUI.png" alt=""> </p><p>4.  Go to <b>Analysis</b>, <b>Design Verifier</b>, <b>Detect Design Errors</b>, and select <b>Model</b>.</p><p><img vspace="5" hspace="5" src="Step_03_DV_RunDetectDesignErrors.png" alt=""> </p><p>The following status window should appear. Near the top of the status window, there is information that tells the user the current status.  In this case, the model has total of (70) objectives. Each objective matches a particular coverage criterion. For each decision or transition, there are two objectives: one for decision result of true and one for false. There are also two objectives for each condition.  So a single condition decision would only have (2) objectives but a double condition objective would have (6) objectives:  (2) for the decision and (4) for the two conditions.</p><p><img vspace="5" hspace="5" src="Step_03_DV_DetectDesignErros_Progress.png" alt=""> </p><p><b>The analysis will show (2) falsified objectives.</b></p><p>Falsified objectives mean that there are dead logic in the model, and there are no test vectors that will ever achieve those missing coverage objectives. When the analysis has been completed, the results are displayed using model coloring (green = active logic, red = dead logic). In addition, a detailed report is also generated. See pictures below.</p><p><img vspace="5" hspace="5" src="Step_03_DV_ResultsColors.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_03_AnalysisReport.png" alt=""> </p><p>Please take a few minutes to see if you can find the reason why the objective was falsified by the tool. The solution is given in the next section.</p><h2>Analyzing the Dead Logic Detection Results<a name="4"></a></h2><p>Let&#8217;s take a look at the results and see what might be causing the error. Do the following:</p><p>1.  Navigate to the <b>Stateflow Chart</b> in the <b>CruiseControl_IntCalc</b> model. The chart is colored in <b>green (= active logic)</b> and <b>red (= dead logic)</b>.</p><p>2.  Click on the <b>red transition arrow</b> which is where the dead logic has been found.</p><p>The following information is displayed:</p><p><img vspace="5" hspace="5" src="Step_03_DV_ResultsColors.png" alt=""> </p><p>This means that Transition Condition 2, <b>after(incdec/holdrate*10,tick)</b> can never be false. But why can this transition not be false? We will use the main model, <b>CruiseControl_IntCalc</b> to help us gain insight into why the transition can never be false.</p><p>3.  Set a breakpoint on the default transition with the setting <b>When transition is valid</b>.</p><p><img vspace="5" hspace="5" src="Step_03_DV_IntCalcSetBreakpoint.png" alt=""> </p><p>3.  Run the main model and examine the transition in the MATLAB Command Window by entering commands as shown below:</p><p><img vspace="5" hspace="5" src="Step_03_DV_IntCalcDebugWindow.png" alt=""> </p><p>As we study the parameters used in the transition calculation, we find that by replacing the floating point parameters with integer type parameters, the transition calculation will always be zero.</p><p>4.  Replace the transition calculation <b>after(incdec/holdrate*10,tick)</b> with a change in the order of calculations to <b>after(10*incdec/holdrate,tick)</b> or to load the fix <b>CruiseControl_IntCalcFix.slx</b> &#8211; <b><a href="matlab:bdclose('all');clear('all');open_system('CruiseControl_IntCalcFix.slx');">click here</a></b>.</p><p>5.  Rerun the dead logic analysis.  Go to <b>Analysis</b>, <b>Design Verifier</b>, <b>Detect Design Errors</b>, and select <b>Model</b>.  Confirm the transition condition design error is now fixed.</p><p><img vspace="5" hspace="5" src="Step_03_DV_DeadLogicFixed.png" alt=""> </p><h2>Running Divide by Zero Detection on the Model<a name="5"></a></h2><p>Another feature of <b>Design Error Detection</b> is the ability to analyze the model for calculations that result in a divide by zero.  For the dead logic detection we used the nominal calibration value of (5) for the "holdrate" and (1) for "incdec".  Calibrations typically have a range of values that are permissible within specified limits. <b>Simulink Design Verifier</b> provides a means to perform the analysis over a range of values.  To perform the "divide by zero" analysis, do the following:</p><p>1.  Open <b>CruiseControl_DivByZero.slx</b> &#8211; <b><a href="matlab:B2_DED_DivideByZero;">click here</a></b>.</p><p>2.  Specify a range of parameters to be used for the analysis. Go to <b>Analysis</b>, <b>Design Verifier</b>, and <b>Options</b> to open the configuration window.</p><p>3.  Go to <b>Parameters</b>, check <b>Enable parameter configuration</b>, check <b>Use parameter table</b>.  Select <b>Find in Model</b> to populate the parameter table.  Uncheck the <b>Use</b> column for "maxtspeed" and "mintspeed".</p><p><img vspace="5" hspace="5" src="Step_03_DV_ParamTable.png" alt=""> </p><p>4.  In the same configuration dialog, go to <b>Design Error Detection</b>, check <b>Division by zero</b>, and select <b>OK</b>.</p><p><img vspace="5" hspace="5" src="Step_03_DV_CfgDivByZero.png" alt=""> </p><p>5. Go to <b>Analysis</b>, <b>Design Verifier</b>, <b>Detect Design Errors</b>, and select <b>Model</b> to run the analysis.</p><h2>Analyzing the Divide by Zero Detection Results<a name="6"></a></h2><p>Let&#8217;s take a look at the results and see what might be causing the error. Do the following:</p><p>1.  In the <b>Results Inspector</b> window, select <b>Generate detailed analysis results</b>.  We will look at the results to help us debug the divide by zero issue.</p><p><img vspace="5" hspace="5" src="Step_03_DV_DivByZeroReport.png" alt=""> </p><p>Since the analysis included the use of a parameter table to specify a range of parameter values that were part of the analysis.  Navigate in the report to the "Parameter Constraints" section to verify the range that was used in the analysis.  Next look at the generated test cases, noting the parameter values that were used in the test cases.</p><p>2.  From the <b>Results Inspector</b> window, select <b>Create harness model</b>. Run "Test Case 1" to debug the issue.</p><p><img vspace="5" hspace="5" src="Step_03_DV_DivByZeroDebug.png" alt=""> </p><p>3.  The cause of the issue is the "holdrate" lower limit value of (0). Change the lower limit of "holdrate" in the workspace to (1).</p><p><img vspace="5" hspace="5" src="Step_03_DV_SetLimInWS.png" alt=""> </p><p>4.  Go to <b>Analysis</b>, <b>Design Verifier</b>, and <b>Options</b> to open the configuration window.</p><p>5.  Go to <b>Parameters</b>, select all parameters and press <b>Clear</b>. Next select <b>Find in Model</b> to populate the parameter table with the new "holdrate" limits from the workspace.  Make sure to uncheck the <b>Use</b> column for "maxtspeed" and "mintspeed".  Select <b>OK</b>.</p><p><img vspace="5" hspace="5" src="Step_03_DV_CfgDivByZeroFixed.png" alt=""> </p><p>6.  Go to <b>Analysis</b>, <b>Design Verifier</b>, <b>Detect Design Errors</b>, and select <b>Model</b> to run the analysis.  Confirm that the issue has been resolved.</p><p><img vspace="5" hspace="5" src="Step_03_DV_CfgDivByZeroResultsFixed.png" alt=""> </p><h2>Automating Design Error Detection Checks<a name="7"></a></h2><p>What we have shown is an interactive, manual way to run the checks. There is an automated method to run the <b>Design Error Detection</b> checks on the model with <b>Model Advisor</b>.</p><div><ol><li>Go to <b>Analysis</b>, <b>Model Advisor</b> and select <b>Model Advisor</b></li><li>In the popup window, choose the top model, <b>CruiseControl_DivByZero</b> to analyze</li><li>As shown below, navigate to <b>Model Advisor</b>, <b>By Product</b>, <b>Simulink Design Verifier</b>, <b>Design Error Detection</b></li><li>Select (2) checks to run: <b>^Detect Dead Logic</b> and <b>^Detect Division By Zero</b></li><li>Press <b>Run Selected Checks</b> for the <b>Design Error Detection</b> group of checks</li></ol></div><p><img vspace="5" hspace="5" src="Step_03_DV_MdlAdvCfg.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_03_DV_MdlAdvResults.png" alt=""> </p><p>With the inclusion of <b>Design Error Checks</b> in <b>Model Advisor</b> you now have the option of adding these checks as part of your development and testing workflow.  These checks may be a pre-condition to begin the more formalized testing shown in <b>Step 4: Testing by Simulation</b>.</p><h2>Run-time Error Checking of S-Function Code<a name="8"></a></h2><p>From the model we can check our s-function code for run-time errors. This helps us to find these issues early in our development, ideally before simulation based, functional testing.</p><p>Open the Cruise Control Application and S-Function Model Reference model <b>CruiseControl_Integ_PS.slx</b> by <b><a href="matlab:open_system('CruiseControl_Integ_PS.slx');">click here</a></b>.</p><p>Build the project to generate the code prior of running Bug Finder to detect run-time error.</p><p><img vspace="5" hspace="5" src="Step_03_PS_S-Function_Bug_Finder_Check_Step_01.png" alt=""> </p><p>Open Bug Finder Configuration window from the Model.</p><p><img vspace="5" hspace="5" src="Step_03_PS_S-Function_Bug_Finder_Check_Step_02.png" alt=""> </p><p>Enable all the Bug Finder Analysis check and save the Polyspace Bug Finder window and close the window.</p><p><img vspace="5" hspace="5" src="Step_03_PS_S-Function_Bug_Finder_Check_Step_03.png" alt=""> </p><p>From the model Configuration Parameters click on &#8220;Run Configuration&#8221; This invoke Bug Finder analysis from the Model.</p><p><img vspace="5" hspace="5" src="Step_03_PS_S-Function_Bug_Finder_Check_Step_04.png" alt=""> </p><p>Let&#8217;s look at Bug Finder results and investigate the issue.  Modify the hand source code (Lookup1D_C.c&#8221;) at line 26, add a logic at (mySize-1) to prevent array access out of bound.</p><p><img vspace="5" hspace="5" src="Step_03_PS_S-Function_Bug_Finder_Check_Step_05.png" alt=""> </p><p>After modifying the hand code as follow, re-run Bug Finder and review the results.</p><p><img vspace="5" hspace="5" src="Step_03_PS_S-Function_Bug_Finder_Check_Step_06.png" alt=""> </p><p>Re-run Bug Finder analysis and there is no Pointer access out of bounds error:</p><p><img vspace="5" hspace="5" src="Step_03_PS_S-Function_Bug_Finder_Check_Step_07.png" alt=""> </p><h2>Summary<a name="9"></a></h2><p>With the functions above, we were able check our Cruise Control model for difficult design errors like dead logic and divide by zero.  The analysis was very automated with minimal work to configure the analysis to run on our model.  We utilized the <b>Design Error Detection</b> function of <b>Simulink Design Verifer</b> to find the design errors.</p><p>The <b>Design Error Detection</b> function is based on formal methods which does not require dynamic execution of the model or the creation of test vectors to perform the analysis.  Formal methods use the entire specified range of signals and parameters to prove the absence of design errors. If during the analysis, a design error is found then a test case is generated including the input test vectors and parameter values.  A test harness can also be created to execute the test case to isolate and fix the design issue.</p><p>When the <b>Design Error Detection</b> analysis was performed on our Cruise Control model, two types of design issues were found:  dead logic and divide by zero.  It was easy to use the generated test harnesses to fix these issues.  We were able to find and fix these issues early in our development process, increasing confidence in our design.  We will continue to answer more of the questions in the next steps with our structured and formal testing framework for securing the quality, robustness and safety of our cruise controller.</p><p><img vspace="5" hspace="5" src="Step_03_CruiseControl_Summary.png" alt=""> </p><p>When you are finished, close all models and files - <b><a href="matlab:bdclose('all');">click here</a></b>.</p><p>Go to <b>Step 4: Testing by Simulation</b> - <b><a href="Step_04.html">click here</a></b>.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Step 3: Detecting Design Errors and Run-time Errors
+%
+%% Introduction
+%
+% <<Step_03_CruiseControl_WhatNow.png>>
+%
+% There are many different ways to perform testing in Simulink.
+% Traditionally, verification involves the user creating a set of test
+% vectors based on certain requirements. The user can also create a set of
+% expected outputs matching the giving inputs, or visually analyze the
+% simulation making sure the behavior is as expected. The type of test
+% vector created can be either functional, or based on certain robustness
+% criteria or standards. With this method, the quality of the test is
+% entirely based on the quality of the input vectors and being able to
+% capture or reproduce a real world scenario as closely as possible. This
+% topic is covered in *Step 4:  Testing by Simulation*. 
+%
+% One of the benefits of Model-Based Design is the ability to apply other
+% “non-simulation” techniques to your model. These formal techniques are 
+% most beneficial when you are working with logic-intensive models. In this
+% section, we will use *Simulink Design Verifier* to formally analyze our 
+% model for us to check if there are any unreachable states or
+% transitions and if there are any divide by zero design errors.  The 
+% recommendation is to run these design error checks before executing the 
+% simulation based tests to catch errors early and have a more efficient testing 
+% workflow.
+%
+% There are three main functions *Simulink Design Verifier*:
+%
+% # *Design Error Detection*:  Focus of this step, finds hard to find
+% design errors including dead logic, divide by zero, overflow and out of 
+% bound array access
+% # *Test Generation*: Focus of *Step 5:  Test Case Generation*, generate 
+% test cases based on model objectives and/or coverage objectives to
+% augment functional test cases
+% # *Property Proving*:  Focus of *Step 7:  Property Proving*, model the
+% expected behavior and prove the implementation will always meet
+% requirements
+%
+% In addition to formal techniques for model checking, there are formal
+% techniques for code checking.  These methods are similar to the checks
+% for the model and we will will perform these checks on the associated 
+% code for an s-function block in the model.  We will be using Polyspace 
+% Bug Finder to analyze the code for run-time errors including dead 
+% code, divide by zero, overflow and out of bound array access.
+%
+%% Verification and Validation Tools Used
+%
+% * Simulink Design Verifier
+% * Polyspace Bug Finder
+%
+%% Running Dead Logic Detection on the Model
+%
+% In this step, we are going to use Simulink Design Verifier to analyze our
+% model. Our goal is find dead (unreachable) logic. We can also analyze our
+% model for design errors like integer overflows, division by zero and out
+% of bound array access. 
+%
+% *_Simulink Design Verifer uses formal methods which
+% means that the analysis is "exhaustive" compared to simulation-based
+% testing which is "non-exhaustive"._*
+%
+% We will be using the "CruiseControl" model similar to the model used in
+% the ad-hoc testing we performed on the floating point, prototype model.  
+% Our goal is to generate production code, so one step towards production 
+% will be replacing the floating point signals and parameters with integer 
+% types.
+%
+% To perform the dead logic analysis, do the following:
+%
+% 1.  Open *CruiseControl_IntCalc.slx* – *<matlab:B1_DED_DeadLogic click here>*.
+%
+% 2.  Go to *Analysis*, *Design Verifier*, and *Options*.
+%
+% <<Step_03_DV_OptMenu.png>>
+%
+% 3.  Go to *Design Error Detection*, check *Dead logic*, check 
+% *Identify active logic* and select *OK*.
+%
+% <<Step_03_DV_OptUI.png>>
+%
+% 4.  Go to *Analysis*, *Design Verifier*, *Detect Design Errors*, and
+% select *Model*.
+%
+% <<Step_03_DV_RunDetectDesignErrors.png>>
+%
+% The following status window should appear. Near the top of the status
+% window, there is information that tells the user the current status.  In
+% this case, the model has total of (70) objectives. Each objective matches
+% a particular coverage criterion. For each decision or transition, there
+% are two objectives: one for decision result of true and one for false.
+% There are also two objectives for each condition.  So a single condition
+% decision would only have (2) objectives but a double condition objective
+% would have (6) objectives:  (2) for the decision and (4) for the two
+% conditions.
+% 
+% <<Step_03_DV_DetectDesignErros_Progress.png>>
+% 
+% *The analysis will show (2) falsified objectives.*
+% 
+% Falsified objectives mean that there are dead logic in the model, and
+% there are no test vectors that will ever achieve those missing coverage
+% objectives. When the analysis has been completed, the results are
+% displayed using model coloring (green = active logic, red = dead logic).
+% In addition, a detailed report is also generated. See pictures below.
+% 
+% <<Step_03_DV_ResultsColors.png>>
+%
+% <<Step_03_AnalysisReport.png>>
+%
+% Please take a few minutes to see if you can find the reason why the 
+% objective was falsified by the tool. The solution is given in the next section.
+%
+%% Analyzing the Dead Logic Detection Results
+%
+% Let’s take a look at the results and see what might be causing the error.
+% Do the following:
+%
+% 1.  Navigate to the *Stateflow Chart* in the *CruiseControl_IntCalc* model. 
+% The chart is colored in *green (= active logic)* and *red (= dead logic)*.
+%
+% 2.  Click on the *red transition arrow* which is where the dead logic has
+% been found.
+%
+% The following information is displayed:
+%
+% <<Step_03_DV_ResultsColors.png>>
+%
+% This means that Transition Condition 2, *after(incdec/holdrate*10,tick)* 
+% can never be false. But why can this transition not be false?  
+% We will use the main model, *CruiseControl_IntCalc* to help us gain 
+% insight into why the transition can never be false.
+%
+% 3.  Set a breakpoint on the default transition with the setting 
+% *When transition is valid*.
+% 
+% <<Step_03_DV_IntCalcSetBreakpoint.png>>
+%
+% 3.  Run the main model and examine the transition in the MATLAB Command 
+% Window by entering commands as shown below:  
+%
+% <<Step_03_DV_IntCalcDebugWindow.png>>
+%
+% As we study the parameters used in the transition calculation, we find
+% that by replacing the floating point parameters with integer type parameters, 
+% the transition calculation will always be zero. 
+% 
+% 4.  Replace the transition calculation *after(incdec/holdrate*10,tick)*
+% with a change in the order of calculations to *after(10*incdec/holdrate,tick)*
+% or to load the fix *CruiseControl_IntCalcFix.slx* – 
+% *<matlab:bdclose('all');clear('all');open_system('CruiseControl_IntCalcFix.slx'); click here>*.
+% 
+% 5.  Rerun the dead logic analysis.  Go to *Analysis*, *Design Verifier*,
+% *Detect Design Errors*, and select *Model*.  Confirm the transition 
+% condition design error is now fixed.
+%
+% <<Step_03_DV_DeadLogicFixed.png>>
+%
+%% Running Divide by Zero Detection on the Model
+%
+% Another feature of *Design Error Detection* is the ability to
+% analyze the model for calculations that result in a divide by zero.  For 
+% the dead logic detection we used the nominal calibration value of (5) for the
+% "holdrate" and (1) for "incdec".  Calibrations typically have a range of values
+% that are permissible within specified limits. *Simulink Design Verifier* 
+% provides a means to perform the analysis over a range of values.  To 
+% perform the "divide by zero" analysis, do the following:
+%
+% 1.  Open *CruiseControl_DivByZero.slx* – *<matlab:B2_DED_DivideByZero; click here>*.
+%
+% 2.  Specify a range of parameters to be used for the analysis. 
+% Go to *Analysis*, *Design Verifier*, and *Options* to open the 
+% configuration window.
+%
+% 3.  Go to *Parameters*, check *Enable parameter configuration*, check 
+% *Use parameter table*.  Select *Find in Model* to populate the parameter
+% table.  Uncheck the *Use* column for "maxtspeed" and "mintspeed". 
+%
+% <<Step_03_DV_ParamTable.png>>
+%
+% 4.  In the same configuration dialog, go to *Design Error Detection*, 
+% check *Division by zero*, and select *OK*.
+%
+% <<Step_03_DV_CfgDivByZero.png>>
+%
+% 5. Go to *Analysis*, *Design Verifier*, *Detect Design Errors*, and
+% select *Model* to run the analysis.
+%
+%% Analyzing the Divide by Zero Detection Results
+%
+% Let’s take a look at the results and see what might be causing the error.
+% Do the following:
+%
+% 1.  In the *Results Inspector* window, select *Generate detailed analysis
+% results*.  We will look at the results to help us debug the divide by 
+% zero issue.
+%
+% <<Step_03_DV_DivByZeroReport.png>>
+%
+% Since the analysis included the use of a parameter table to specify a
+% range of parameter values that were part of the analysis.  Navigate in 
+% the report to the "Parameter Constraints" section to verify the range 
+% that was used in the analysis.  Next look at the generated test cases, 
+% noting the parameter values that were used in the test cases.
+%
+% 2.  From the *Results Inspector* window, select *Create harness model*.  
+% Run "Test Case 1" to debug the issue.
+%
+% <<Step_03_DV_DivByZeroDebug.png>>
+%
+% 3.  The cause of the issue is the "holdrate" lower limit value of (0).
+% Change the lower limit of "holdrate" in the workspace to (1).  
+% 
+% <<Step_03_DV_SetLimInWS.png>>
+%
+% 4.  Go to *Analysis*, *Design Verifier*, and *Options* to open the 
+% configuration window.  
+%
+% 5.  Go to *Parameters*, select all parameters and press *Clear*. 
+% Next select *Find in Model* to populate the parameter table with the
+% new "holdrate" limits from the workspace.  Make sure to uncheck the 
+% *Use* column for "maxtspeed" and "mintspeed".  Select *OK*. 
+%
+% <<Step_03_DV_CfgDivByZeroFixed.png>>
+%
+% 6.  Go to *Analysis*, *Design Verifier*, *Detect Design Errors*, and
+% select *Model* to run the analysis.  Confirm that the issue has been
+% resolved.
+%
+% <<Step_03_DV_CfgDivByZeroResultsFixed.png>>
+%
+%% Automating Design Error Detection Checks
+%
+% What we have shown is an interactive, manual way to run the checks.  
+% There is an automated method to run the *Design Error Detection* checks
+% on the model with *Model Advisor*.
+%
+% # Go to *Analysis*, *Model Advisor* and select *Model Advisor*
+% # In the popup window, choose the top model, *CruiseControl_DivByZero* to
+% analyze 
+% # As shown below, navigate to *Model Advisor*, *By Product*, *Simulink 
+% Design Verifier*, *Design Error Detection*
+% # Select (2) checks to run: *^Detect Dead Logic* and *^Detect Division By
+% Zero*
+% # Press *Run Selected Checks* for the *Design Error Detection* group of
+% checks
+%
+% <<Step_03_DV_MdlAdvCfg.png>>
+%
+% <<Step_03_DV_MdlAdvResults.png>>
+%
+% With the inclusion of *Design Error Checks* in *Model Advisor* you now
+% have the option of adding these checks as part of your development and 
+% testing workflow.  These checks may be a pre-condition to begin the more
+% formalized testing shown in *Step 4: Testing by Simulation*.
+%% Run-time Error Checking of S-Function Code
+%
+% From the model we can check our s-function code for run-time errors.
+% This helps us to find these issues early in our development, ideally
+% before simulation based, functional testing.
+%
+% Open the Cruise Control Application and S-Function Model Reference
+% model *CruiseControl_Integ_PS.slx* by 
+% *<matlab:open_system('CruiseControl_Integ_PS.slx'); click here>*.
+%
+% Build the project to generate the code prior of running Bug Finder to
+% detect run-time error.
+%
+% <<Step_03_PS_S-Function_Bug_Finder_Check_Step_01.png>>
+% 
+% Open Bug Finder Configuration window from the Model.
+%
+% <<Step_03_PS_S-Function_Bug_Finder_Check_Step_02.png>>
+% 
+% Enable all the Bug Finder Analysis check and save the Polyspace Bug
+% Finder window and close the window.
+%
+% <<Step_03_PS_S-Function_Bug_Finder_Check_Step_03.png>>
+% 
+% From the model Configuration Parameters click on “Run Configuration”
+% This invoke Bug Finder analysis from the Model.
+%
+% <<Step_03_PS_S-Function_Bug_Finder_Check_Step_04.png>>
+%
+% Let’s look at Bug Finder results and investigate the issue.  Modify the
+% hand source code (Lookup1D_C.c”) at line 26, add a logic at (mySize-1) to
+% prevent array access out of bound.
+%
+% <<Step_03_PS_S-Function_Bug_Finder_Check_Step_05.png>>
+% 
+% After modifying the hand code as follow, re-run Bug Finder and review the
+% results.
+% 
+% <<Step_03_PS_S-Function_Bug_Finder_Check_Step_06.png>>
+%
+% Re-run Bug Finder analysis and there is no Pointer access out of bounds
+% error:
+% 
+% <<Step_03_PS_S-Function_Bug_Finder_Check_Step_07.png>>
+%
+%% Summary
+%
+% With the functions above, we were able check our Cruise Control model 
+% for difficult design errors like dead logic and divide by zero.  The 
+% analysis was very automated with minimal work to configure the analysis
+% to run on our model.  We utilized the *Design Error Detection* function 
+% of *Simulink Design Verifer* to find the design errors.    
+%
+% The *Design Error Detection* function is based on formal methods which 
+% does not require dynamic execution of the model or the creation of test 
+% vectors to perform the analysis.  Formal methods use the entire specified
+% range of signals and parameters to prove the absence of design errors.
+% If during the analysis, a design error is found then a test case is 
+% generated including the input test vectors and parameter values.  A test 
+% harness can also be created to execute the test case to isolate and fix 
+% the design issue.  
+%
+% When the *Design Error Detection* analysis was performed on our Cruise 
+% Control model, two types of design issues were found:  dead logic and 
+% divide by zero.  It was easy to use the generated test harnesses to fix 
+% these issues.  We were able to find and fix these issues early in our 
+% development process, increasing confidence in our design.  We will 
+% continue to answer more of the questions in the next steps with our 
+% structured and formal testing framework for securing the quality, 
+% robustness and safety of our cruise controller.    
+%
+% <<Step_03_CruiseControl_Summary.png>>
+%
+% When you are finished, close all models and files -
+% *<matlab:bdclose('all'); click here>*.
+%
+% Go to *Step 4: Testing by Simulation* - *<Step_04.html click here>*.
+%
+##### SOURCE END #####
+--></body></html>

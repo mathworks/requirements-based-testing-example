@@ -1,0 +1,332 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Step 5: Test Case Generation</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-02"><meta name="DC.source" content="Step_05.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:2.0em; color:#000077; line-height:150%; font-weight:bold; text-align:center }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.6em; color:#444444; font-weight:bold; font-style:italic; text-align:left; vertical-align:bottom; line-height:200%; border-top:2px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#555555; font-style:italic; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px;} 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Step 5: Test Case Generation</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li><li><a href="#2">Verification and Validation Tools Used</a></li><li><a href="#3">Collect Initial Model Coverage with <b>Simulink Test</b></a></li><li><a href="#4">Generate Test Cases for Missing Model Coverage</a></li><li><a href="#5">Run Test Cases for Full Coverage in <b>Simulink Test</b></a></li><li><a href="#6">Summary</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p>In this section, we are going to collect coverage on our cruise control module using the test harness model with the initial set of input test vectors.  The coverage analysis from running these test vector provided high but partial model coverage.  As before we are going to run these initial test cases in <b>Simulink Test</b> but this time we will ask <b>Simulink Design Verifier</b> to generate the test cases to cover the missing coverage objectives.  The test generation tool can ignore the already satisfied objectives and only create test cases that when combined with the inital test vectors provide complete model coverage. This is typically called a "top-it-off" test generation workflow.  In this step we will see how the integration of <b>Simulink Test</b> and <b>Simulink Design Verifier</b> supports this workflow.</p><p>This step is a prerequisite to the next step <b>Code Verification</b> where we will perform "equivalence testing".  In order to verify equivalent behaviors between the model and the generated code, the comparison analysis requires 100% model coverage, input test vectors. In addition we will verify that the code generation did not create unintended functionality by comparing model and code coverage.  With 100% model coverage, sections of the code with incomplete coverage may indicate possible unintended functionality.</p><p>In our previous step we were able to analyze the coverage results on the model, identify missing requirements and incomplete test cases to achieve 100% coverage.  On a more complex model or within a tight development schedule, a "top-it-off" workflow is often used to quickly create a set of test vectors to support equivalence testing.  A side benefit to the test generation is to identify dead logic when the test generation procedure reports certain coverage objectives as "unsatisfiable" although this is now typically done with the <b>Design Error Detection</b> feature of <b>Simulink Design Verifier</b>.</p><h2>Verification and Validation Tools Used<a name="2"></a></h2><div><ul><li>Simulink Test</li><li>Simulink Verification and Validation</li><li>Simulink Design Verifier</li></ul></div><h2>Collect Initial Model Coverage with <b>Simulink Test</b><a name="3"></a></h2><p>As we said in the introduction we will be using our partial coverage test harness model with the (14) test cases from the previous step but with a "Cruise Control" model with all the previous bug fixes.  <b>Simulink Test</b> will be used to run the tests and collect the intial coverage.</p><p>Do the following:</p><p>1. Load the <b>Simulink Test</b>, <b>Test Manager</b> configuration file named "topItOff" - <b><a href="matlab:loadCoverageHarnessMdlFix_SLT;">click here</a></b>.</p><p>2. Navigate to the test case "Partial Cov" and analyze the configuration.</p><p><img vspace="5" hspace="5" src="Step_05_TestMgrTopItOff.png" alt=""> </p><p>3. We will use the <b>Test Manager</b> to open the "Cruise Control" model with all the bug fixes including the logic issue we found in the last step. Open the "Cruise Control" model by clicking the "arrow" next to the <b>Model</b> field.</p><p>We will be generating test cases on a production version that is ready for code generation.  Typically test cases are generated on a production version to support equivalence testing to verify the behavior of the model and code match.  We will run the equivalence test in the next step <b>Component Code Verification</b>.  For now review the production version to confirm the model contains the bug fixes.</p><p><img vspace="5" hspace="5" src="Step_05_NoDesignIssue.png" alt=""> </p><p>4. Open the test harness "CruiseControl_Harness_SB" containing the partial coverage test vectors by clicking on the "arrow" next to the <b>Harness</b> field.</p><p><img vspace="5" hspace="5" src="step_05_PartialCovHarness.png" alt=""> </p><p>Confirm the test harness model contains the partial coverage test vectors.</p><p><img vspace="5" hspace="5" src="step_05_PartialCovSigBldr.png" alt=""> </p><p>The <b>Test Manager</b> configuration is very similar to what was configured manually in the previous step <b>Testing by Simulation</b>.  It has been configured for you so we can focus on test generation for coverage.  The details of how to configure the <b>Test Manager</b> can be found in the previous step <b>Testing by Simulation</b>.  Let's review the test case configuration.</p><p>5. Return to the <b>Test Manager</b> to check that the <b>Signal Builder</b> test cases have been configured to be used in the <b>Inputs</b> section.</p><p><img vspace="5" hspace="5" src="Step_05_InputsSetupInitCov.png" alt=""> </p><p>6. Examine the <b>Iterations</b> configuration to see that we will iterate across the (14) <b>Signal Builder</b> test cases.  Notice the <b>Scripted Iterations</b> method is being so select <b>Show Iterations</b> to confirm the (14) initial test cases will be executed.</p><p><img vspace="5" hspace="5" src="Step_05_ItersSetupInitCov.png" alt=""> </p><p>7. Check the file level <b>coverage settings</b> configuration to see that decision, condition and MCDC coverage has been enabled at the file level and the test case level.</p><p><img vspace="5" hspace="5" src="Step_05_TestMgrCovSettings.png" alt=""> </p><p>8. We are ready to execute the partial coverage, test vectors and collect the coverage results.  At the "Partial Cov" test case level, select <b>Run</b>.</p><p><img vspace="5" hspace="5" src="Step_05_RunInitCov.png" alt=""> </p><p>From the results, we can see that (14) test cases have been successfully executed and the model coverage has been measured.</p><p><img vspace="5" hspace="5" src="Step_05_PartialCovResults.png" alt=""> </p><p>This completes the initial model coverage collection task.  Next we will generate test vectors for complete coverage.</p><h2>Generate Test Cases for Missing Model Coverage<a name="4"></a></h2><p>The coverage results from the initial test vectors were:</p><div><ul><li>92% Decision Coverage</li><li>81% Condition Coverage</li><li>63% MCDC Coverage</li></ul></div><p><b>Simulink Design Verifier</b> will be used to create additional test cases that will provide the missing coverage.  When the generated test cases are executed along with the initial test cases the coverage analysis will show 100% model coverage.  Now let&#8217;s see how the integration of <b>Simulink Design Verifier</b> facilitates the generation of these "top-it-off" test cases.</p><p>From <b>Results Explorer</b> pane in the <b>Test Manager</b> we will begin the "top-it-off" test case generation.</p><p>1.  <b>Click</b> on <b>Add Tests for Missing Coverage</b></p><p><img vspace="5" hspace="5" src="Step_05_AddMissingTests.png" alt=""> </p><p>2.  Populate the <b>Add Tests for Missing Coverage</b> dialog as shown.</p><p><img vspace="5" hspace="5" src="Step_05_AddMissingTestsDlg.png" alt=""> </p><p>A dialog popups to show the status of the test case generation. <b>Simulink Design Verifier</b> is only generating test cases for the missing coverage by using the coverage results from the <b>Test Manager</b>.</p><p><img vspace="5" hspace="5" src="Step_05_DV_ProgressDlg.png" alt=""> </p><p>When the analysis has completed, <b>Simulink Design Verifier</b> has generated test cases for the (15) coverage objectives, and exports the test cases to the <b>Test Manager</b> in the new test case "New Test Case 1".</p><p><img vspace="5" hspace="5" src="Step_05_ExpTestCasesInTestMgr.png" alt=""> </p><p>3.  Cut and paste the exported test cases into the original test suite.</p><p>4.  Rename exported test to "Generated"</p><p><img vspace="5" hspace="5" src="Step_05_ExpTestCasesMovedRenamed.png" alt=""> </p><p>A new test case "Generated" has been created in the <b>Test Manager</b>.  In the next section we will look at the contents of the generated test cases and run all the test cases to demonstrate full coverage.</p><h2>Run Test Cases for Full Coverage in <b>Simulink Test</b><a name="5"></a></h2><p>In the <b>Test Manager</b> we have a new test case that was created during the export of the generated test cases to <b>Simulink Test</b>.  Let's examine the contents of the generated test case "Generated" and then run all the tests for the module:</p><p>1.  Navigate to the test case "Generated".  The test case is a <b>Baseline Test</b> type so the evaluation will be based on external files for the comparison.</p><p><img vspace="5" hspace="5" src="Step_05_TestCaseCfgHarness.png" alt=""> </p><p>2.  Looking at the <b>SYSTEM UNDER TEST</b> section, the <b>Model</b> is "CruiseControl" as expected but the <b>Harness</b> is the newly, generated "CruiseControl_Harness1".  The harness is a <b>Simulink Test</b> harness that is now contained in the model.</p><p>The test case is using the <b>Simulink Design Verifier</b> the (8) generated test cases along with the expected results.</p><p>3.  Expand the <b>INPUTS</b> section to see the <b>EXTERNAL INPUTS</b> section has been populated with test cases from the <b>Simulink Design Verifier</b> data file "CruiseControl_sldvdata.mat".</p><p><img vspace="5" hspace="5" src="Step_05_TestCaseCfgInputsBaseline.png" alt=""> </p><p>4. Expand the <b>BASELINE CRITERIA</b> section to see the test case has been populated with expected outputs from the test generation data file. These were included in the export as a result of configuring <b>Design Verifier</b> to <b>Include expected output values</b>.</p><p><img vspace="5" hspace="5" src="Step_05_TestGenCfgExpValues.png" alt=""> </p><p>These values are outputs that were measured by executing the generated test case inputs.  So these expected output test vectors may not be useful for checking the current model but will be useful for checking the generated code in the next step and for checking later versions of the model.</p><p>5. Look at the <b>ITERATIONS</b> section to see the test case will be iterated over the input data files and the expected output data files. Optionally check <b>Run test iterations in fast restart</b>.</p><p><img vspace="5" hspace="5" src="Step_05_TestGenCfgIterations.png" alt=""> </p><p>We will be executing the original, partial coverage test vectors along with the generated test vectors to produce complete coverage.  As a personal choice, the generated test cases were copied into the original test suite so all the test will be executed from a single suite. This way all the test cases for the "Cruise Control" model will be contained in a single test file.  But you may choose to have these in separate files depending on your process.</p><p>6.  Run the tests from the "topItOff/Test Suite" level to measure the expected full coverage.</p><p><img vspace="5" hspace="5" src="Step_05_RunReqAndGenTests.png" alt=""> </p><p>In the <b>Results and Artifacts</b> pane the test results show 100% coverage. Notice there are the original (14) requirements based test vectors along with the (8) coverage based generated test vectors.  Depending on the available development time, the generated test cases may be used as hints that can be used to reverse engineer functional test cases from them, associate them with a requirement and create expected outputs. But for the purpose of equivalence testing we are ready for the next step <b>Component Verification</b>.</p><p><img vspace="5" hspace="5" src="Step_05_TestMgrGenTestResults.png" alt=""> </p><h2>Summary<a name="6"></a></h2><p>We demonstrated the "top-it-off" workflow where coverage information from the partial coverage, requirements based test cases were combined with the generated test cases to achieve 100% coverage.  <b>Simuink Design Verifier</b> was configured to use the partial coverage data file to only create test cases necessary to achieve the 100% coverage goal.  Expected outputs were also included with the generated test cases that were the measured outputs with the current version of the "Cruise Control" module. We now have a test suite with 100% coverage, test vectors that can be used to evaluate newer versions of the implementation.  In the next step we will use the complete <b>Simulink Test</b> suite to verify the outputs of the model match the generated code in the next step <b>Code Verification</b>.</p><p>One last item to note is there will be some additional management of the "Generated" test case to include the external files for the inputs and baseline criteria.</p><div><ul><li>When you are finished, close all models and files - or <b><a href="matlab:bdclose('all');">click here</a></b>.</li><li>Go to <b>Step 6: Component Code Verification</b> - <b><a href="Step_06.html">click here</a></b>.</li></ul></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Step 5: Test Case Generation 
+% 
+%% Introduction
+%
+% In this section, we are going to collect coverage on our cruise control
+% module using the test harness model with the initial set of input test 
+% vectors.  The coverage analysis from running these test vector provided
+% high but partial model coverage.  As before we are going to run these 
+% initial test cases in *Simulink Test* but this time we will ask 
+% *Simulink Design Verifier* to generate the test cases to cover the 
+% missing coverage objectives.  The test generation tool can ignore the 
+% already satisfied objectives and only create test cases that when 
+% combined with the inital test vectors provide complete model coverage.  
+% This is typically called a "top-it-off" test generation workflow.  In 
+% this step we will see how the integration of *Simulink Test* and 
+% *Simulink Design Verifier* supports this workflow.
+%
+% This step is a prerequisite to the next step *Code Verification* where 
+% we will perform "equivalence testing".  In order to verify equivalent
+% behaviors between the model and the generated code, the comparison 
+% analysis requires 100% model coverage, input test vectors. In addition we
+% will verify that the code generation did not create unintended
+% functionality by comparing model and code coverage.  With 100% model
+% coverage, sections of the code with incomplete coverage may indicate 
+% possible unintended functionality.
+%
+% In our previous step we were able to analyze the coverage 
+% results on the model, identify missing requirements and incomplete test 
+% cases to achieve 100% coverage.  On a more complex model or within a 
+% tight development schedule, a "top-it-off" workflow is often used to 
+% quickly create a set of test vectors to support equivalence testing.  A
+% side benefit to the test generation is to identify dead logic when the
+% test generation procedure reports certain coverage objectives as 
+% "unsatisfiable" although this is now typically done with the *Design
+% Error Detection* feature of *Simulink Design Verifier*.
+%
+%% Verification and Validation Tools Used
+% * Simulink Test
+% * Simulink Verification and Validation
+% * Simulink Design Verifier
+%
+%% Collect Initial Model Coverage with *Simulink Test*
+% As we said in the introduction we will be using our partial coverage test
+% harness model with the (14) test cases from the previous step but with
+% a "Cruise Control" model with all the previous bug fixes.  *Simulink Test*
+% will be used to run the tests and collect the intial coverage.
+%
+% Do the following:
+% 
+% 1. Load the *Simulink Test*, *Test Manager* configuration file named 
+% "topItOff" - *<matlab:loadCoverageHarnessMdlFix_SLT; click here>*.
+%
+% 2. Navigate to the test case "Partial Cov" and analyze the configuration.
+%
+% <<Step_05_TestMgrTopItOff.png>>
+%
+% 3. We will use the *Test Manager* to open the "Cruise Control" model with 
+% all the bug fixes including the logic issue we found in the last step.  
+% Open the "Cruise Control" model by clicking the "arrow" next to the
+% *Model* field.
+%
+% We will be generating test cases on a production version that is ready 
+% for code generation.  Typically test cases are generated on a production
+% version to support equivalence testing to verify the behavior of the 
+% model and code match.  We will run the equivalence test in the next  
+% step *Component Code Verification*.  For now review the production version
+% to confirm the model contains the bug fixes.
+%
+% <<Step_05_NoDesignIssue.png>>
+%
+% 4. Open the test harness "CruiseControl_Harness_SB" containing the 
+% partial coverage test vectors by clicking on the "arrow" next to the 
+% *Harness* field. 
+%
+% <<step_05_PartialCovHarness.png>>
+%
+% Confirm the test harness model contains the partial coverage test
+% vectors.
+%
+% <<step_05_PartialCovSigBldr.png>>
+%
+% The *Test Manager* configuration is very similar to what was configured 
+% manually in the previous step *Testing by Simulation*.  It has been 
+% configured for you so we can focus on test generation for coverage.  The 
+% details of how to configure the *Test Manager* can be found in the 
+% previous step *Testing by Simulation*.  Let's review the test case 
+% configuration.  
+%
+% 5. Return to the *Test Manager* to check that the *Signal Builder* test 
+% cases have been configured to be used in the *Inputs* section.  
+%
+% <<Step_05_InputsSetupInitCov.png>>
+%
+% 6. Examine the *Iterations* configuration to see that we will iterate 
+% across the (14) *Signal Builder* test cases.  Notice the *Scripted
+% Iterations* method is being so select *Show Iterations* to confirm the
+% (14) initial test cases will be executed.
+%
+% <<Step_05_ItersSetupInitCov.png>>
+%
+% 7. Check the file level *coverage settings* configuration to see that 
+% decision, condition and MCDC coverage has been enabled at the file level 
+% and the test case level.
+%
+% <<Step_05_TestMgrCovSettings.png>>
+%
+% 8. We are ready to execute the partial coverage, test vectors and collect
+% the coverage results.  At the "Partial Cov" test case level, select *Run*.
+%
+% <<Step_05_RunInitCov.png>>
+%
+% From the results, we can see that (14) test cases have been successfully
+% executed and the model coverage has been measured.
+%
+% <<Step_05_PartialCovResults.png>>
+%
+% This completes the initial model coverage collection task.  Next we will
+% generate test vectors for complete coverage.
+% 
+%% Generate Test Cases for Missing Model Coverage
+%
+% The coverage results from the initial test vectors were:
+%
+% * 92% Decision Coverage
+% * 81% Condition Coverage
+% * 63% MCDC Coverage
+%
+% *Simulink Design Verifier* will be used to create additional test cases
+% that will provide the missing coverage.  When the generated test cases
+% are executed along with the initial test cases the coverage analysis will
+% show 100% model coverage.  Now let’s see how the integration of 
+% *Simulink Design Verifier* facilitates the generation of these 
+% "top-it-off" test cases.
+%
+% From *Results Explorer* pane in the *Test Manager* we will begin the 
+% "top-it-off" test case generation.
+%
+% 1.  *Click* on *Add Tests for Missing Coverage*
+%
+% <<Step_05_AddMissingTests.png>>
+%
+% 2.  Populate the *Add Tests for Missing Coverage* dialog as shown.
+%
+% <<Step_05_AddMissingTestsDlg.png>>
+%
+% A dialog popups to show the status of the test case generation.  
+% *Simulink Design Verifier* is only generating test cases for the missing 
+% coverage by using the coverage results from the *Test Manager*.
+%
+% <<Step_05_DV_ProgressDlg.png>>
+%
+% When the analysis has completed, *Simulink Design Verifier* has generated
+% test cases for the (15) coverage objectives, and exports the test cases 
+% to the *Test Manager* in the new test case "New Test Case 1".
+%
+% <<Step_05_ExpTestCasesInTestMgr.png>>
+%
+% 3.  Cut and paste the exported test cases into the original test suite.
+%
+% 4.  Rename exported test to "Generated"
+%
+% <<Step_05_ExpTestCasesMovedRenamed.png>>
+%
+% A new test case "Generated" has been created in the *Test Manager*.  In 
+% the next section we will look at the contents of the generated test cases
+% and run all the test cases to demonstrate full coverage.
+%
+%% Run Test Cases for Full Coverage in *Simulink Test*
+%
+% In the *Test Manager* we have a new test case that was created during 
+% the export of the generated test cases to *Simulink Test*.  Let's examine
+% the contents of the generated test case "Generated" and then run all the 
+% tests for the module:
+%
+% 1.  Navigate to the test case "Generated".  The test case is a 
+% *Baseline Test* type so the evaluation will be based on external files 
+% for the comparison.  
+%
+% <<Step_05_TestCaseCfgHarness.png>>
+%
+% 2.  Looking at the *SYSTEM UNDER TEST* section, the *Model* is 
+% "CruiseControl" as expected but the *Harness* is the newly, generated 
+% "CruiseControl_Harness1".  The harness is a *Simulink Test* harness 
+% that is now contained in the model.
+%
+% The test case is using the *Simulink Design Verifier* the (8) generated 
+% test cases along with the expected results. 
+%
+% 3.  Expand the *INPUTS* section to see the *EXTERNAL INPUTS* section has
+% been populated with test cases from the *Simulink Design Verifier* data file
+% "CruiseControl_sldvdata.mat".
+% 
+% <<Step_05_TestCaseCfgInputsBaseline.png>>
+%
+% 4. Expand the *BASELINE CRITERIA* section to see the test case has been
+% populated with expected outputs from the test generation data file.
+% These were included in the export as a result of configuring *Design Verifier* 
+% to *Include expected output values*. 
+%
+% <<Step_05_TestGenCfgExpValues.png>>
+%
+% These values are outputs that were measured by executing the 
+% generated test case inputs.  So these expected output test vectors may 
+% not be useful for checking the current model but will be useful for 
+% checking the generated code in the next step and for checking later 
+% versions of the model.
+%
+% 5. Look at the *ITERATIONS* section to see the test case will be
+% iterated over the input data files and the expected output data files.
+% Optionally check *Run test iterations in fast restart*.
+%
+% <<Step_05_TestGenCfgIterations.png>>
+%
+% We will be executing the original, partial coverage test vectors along
+% with the generated test vectors to produce complete coverage.  As a
+% personal choice, the generated test cases were copied into the
+% original test suite so all the test will be executed from a single suite.
+% This way all the test cases for the "Cruise Control" model will be 
+% contained in a single test file.  But you may choose to have these in
+% separate files depending on your process.
+%
+% 6.  Run the tests from the "topItOff/Test Suite" level to measure the 
+% expected full coverage.
+%
+% <<Step_05_RunReqAndGenTests.png>>
+%
+% In the *Results and Artifacts* pane the test results show 100% coverage.
+% Notice there are the original (14) requirements based test vectors along
+% with the (8) coverage based generated test vectors.  Depending on the 
+% available development time, the generated test cases may be used as hints
+% that can be used to reverse engineer functional test cases from them, 
+% associate them with a requirement and create expected outputs. But for 
+% the purpose of equivalence testing we are ready for the next step
+% *Component Verification*.
+%
+% <<Step_05_TestMgrGenTestResults.png>>
+%
+%% Summary
+%
+% We demonstrated the "top-it-off" workflow where coverage information from
+% the partial coverage, requirements based test cases were combined with the
+% generated test cases to achieve 100% coverage.  *Simuink Design Verifier* 
+% was configured to use the partial coverage data file to only create test 
+% cases necessary to achieve the 100% coverage goal.  Expected outputs were
+% also included with the generated test cases that were the measured 
+% outputs with the current version of the "Cruise Control" module. We now 
+% have a test suite with 100% coverage, test vectors that can be used to 
+% evaluate newer versions of the implementation.  In the next step we will 
+% use the complete *Simulink Test* suite to verify the outputs of the model
+% match the generated code in the next step *Code Verification*.
+%
+% One last item to note is there will be some additional management of the 
+% "Generated" test case to include the external files for the inputs and
+% baseline criteria.
+%
+% * When you are finished, close all models and files - or
+% *<matlab:bdclose('all'); click here>*.
+% * Go to *Step 6: Component Code Verification* - *<Step_06.html click here>*.
+%
+
+##### SOURCE END #####
+--></body></html>

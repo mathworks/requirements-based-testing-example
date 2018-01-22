@@ -1,0 +1,659 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Step 2: Modeling Standards</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-01-14"><meta name="DC.source" content="Step_02.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:2.0em; color:#000077; line-height:150%; font-weight:bold; text-align:center }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.6em; color:#444444; font-weight:bold; font-style:italic; text-align:left; vertical-align:bottom; line-height:200%; border-top:2px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#555555; font-style:italic; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px;} 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Step 2: Modeling Standards</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li><li><a href="#2">Verification and Validation Tools Used</a></li><li><a href="#3">Using Edit Time Checking</a></li><li><a href="#4">Running Model Advisor</a></li><li><a href="#5">Creating a Restore Point</a></li><li><a href="#6">Fixing the Non-Passing Model Advisor Checks</a></li><li><a href="#7">Excluding Blocks from Model Advisor Analysis</a></li><li><a href="#8">Adding Customized Checks to Model Advisor</a></li><li><a href="#9">Customizing Model Advisor Menu</a></li><li><a href="#10">MISRA Checks with Model Advisor</a></li><li><a href="#11">MISRA Checks with Polyspace Bug Finder</a></li><li><a href="#12">Summary</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p><img vspace="5" hspace="5" src="Step_02_CruiseControl_WhatNow.png" alt=""> </p><p>Model Advisor finds unwanted model properties, such as incorrect or deprecated blocks and block parameters, non-robust model constructs and other practices that do not facilitate consistentcy, readability and sharing.  Model Advisor is a part of the Simulink basic functionality, but <b>Simulink Check</b> extends the Model Advisor capability by providing the user with pre-defined "checks" based on the following industry standards:</p><div><ul><li>DO-178C and DO-331 Checks</li><li>IEC 61508 Checks</li><li>ISO 26262 Checks</li><li>EN 50128 Checks</li><li>MathWorks Automotive Advisory Board Checks (MAAB Style Guidelines)</li></ul></div><p>A "check" in Model Advisor means a rule that the tool will use to examine your model and flag any settings that don't agree with the pre-defined criteria.  The set of checks provided by <b>Simulink Check</b> can be seen under the <b>By Product/Simulink Check</b> folder.  In addition to the modeling standard checks listed above, <b>Simulink Check</b> provides the following functionality:</p><div><ol><li>Application program interface (API) for building custom checks.</li><li>Model Metrics checks</li></ol></div><p><img vspace="5" hspace="5" src="Step_02_MA_ListOfChecks.png" alt=""> </p><p>The Embedded Coder product also adds checks to Model Advisor:</p><div><ul><li>MISRA C:2012 Checks</li></ul></div><p><img vspace="5" hspace="5" src="Step_02_MA_MISRA_Checks.png" alt=""> </p><h2>Verification and Validation Tools Used<a name="2"></a></h2><div><ul><li>Simulink Check</li><li>Polyspace Bug Finder</li></ul></div><h2>Using Edit Time Checking<a name="3"></a></h2><p><b>Model Advisor</b> has a comprehensive set of checks that can be used to verify the model has been constructed and configured to ensure standards compliance as discussed above.  What if we could perform these checks earlier in the development process?  It is possible to perform a subset of these checks to detect compliance issues at design time.  There is a feature called <b>edit-time checking</b> that will check the model as it is being design or constructed. To enable <b>edit-time checking</b>, do the following:</p><div><ul><li>Open the <b>CruiseControl_MdlAdv_ReqLink.slx</b> &#8211; <b><a href="matlab:open_system('CruiseControl_MdlAdv_ReqLink.slx')">click here</a></b></li></ul></div><div><ul><li>Go to <b>Analysis/Model Advisor/Model Advisor/Display Advisor Checks in Editor</b></li></ul></div><p><img vspace="5" hspace="5" src="Step_02_EditTimeMenuEnable.png" alt=""> </p><p>After <b>edit-time checking</b> has been enabled, the checks have been automatically run and the results displayed on the model canvas.</p><p>Note the name violation found for the subsystem "Compute target speed". To fix the violation:</p><div><ul><li>Remove the spaces in the block name by renaming the block to "ComputeTargetSpeed"</li></ul></div><p><img vspace="5" hspace="5" src="Step_02_EditTimeModelIssue.png" alt=""> </p><p>Open the state chart to find another violation regarding the "ON" state. To fix the violation:</p><div><ul><li>Add a CR to place "engaged = true;" on a separate line.</li></ul></div><p><img vspace="5" hspace="5" src="Step_02_EditTimeStateflowIssue.png" alt=""> </p><h2>Running Model Advisor<a name="4"></a></h2><p>In this section, we will show how to view and select from all of the available Model Advisor checks.  The default Model Advisor set of checks falls into two different categories:</p><div><ul><li>By Product</li><li>By Task</li></ul></div><p>For this workshop, we will run our model through the MAAB style guide checks first in order to get a good understanding of what this feature would do for you, and then we will explore more advanced maneuvers such as how custom checks are created.</p><p>Do the following:</p><div><ol><li>Open the <b>CruiseControl_MdlAdv_ReqLink.slx</b> &#8211; <b><a href="matlab:bdclose('all');open_system('CruiseControl_MdlAdv_ReqLink.slx')">click here</a></b></li><li>Go to <b>Analysis/Model Advisor/Model Advisor</b></li></ol></div><p>You should then see a window pop up:</p><p><img vspace="5" hspace="5" src="Step_02_MA_SystemSelect.png" alt=""> </p><p>At this point, you can select only the subsystem you want to run Model Advisor on.  In general, you would want to run Model Advisor on the whole model and we will run the checks on the entire model.</p><p>3. Select <b>OK</b>.</p><p>You should now see the Model Advisor menu below open up. You can expand the folders or groups as you would with Windows Explorer. For this exercise, we are going to look at various MAAB style guide checks.</p><p>4. Expand the folder (as shown in the picture below) so you can see the different MAAB style guide categories.</p><p>5. Check the checkbox of <b>Modeling Standards for MAAB</b>. This should check all subcategories.</p><p>6. Hit the <b>Run Selected Checks</b> button.</p><p><img vspace="5" hspace="5" src="Step_02_MA_UI_MAAB.png" alt=""> </p><p>Note: Your list of checks might be slightly different than the screen shot. The list of checks is a function of installed products.</p><p>After the analysis is done, the summary is listed in the right pane for the MAAB checks.</p><p><img vspace="5" hspace="5" src="Step_02_MA_MAABsummary.png" alt=""> </p><p>Note that there are <b>8 warnings</b>.  Let's take a look at what is causing these warning messages:</p><div><ol><li><b>Check subsystem names</b>--  name contains spaces; C code issue, readability</li><li><b>Check model diagnostic parameters</b>--  (2) diagnostics need to be set to none; workflow, code generation</li><li><b>Check for diagram using nonstandard display attributes</b>-- several issues; consistency</li><li><b>Check font formatting</b>-- usage of two font sizes in model; consistency</li><li><b>Check for propagated signal labels</b>-- outport signals need to be set for label propagation; readability, code generation, verification &amp; validation</li><li><b>Check entry formatting in State blocks in Stateflow charts</b>-- entry label not a line by itself, readability</li><li><b>Check default transition placement in Stateflow charts</b>-- default state not the top-most state; readability</li><li><b>Check for comparison operations in Stateflow charts</b>-- value is not cast to the same type as the signal: code generation, verification &amp; validation</li></ol></div><h2>Creating a Restore Point<a name="5"></a></h2><p>Before we investigate and fix these issues we need to create a <b>restore point</b> so if we decide a different strategy on how to handle these issues then we can easily go back to our last "good" model.</p><p><img vspace="5" hspace="5" src="Step_02_MA_RestorePoint.png" alt=""> </p><h2>Fixing the Non-Passing Model Advisor Checks<a name="6"></a></h2><p>First let's go through an example to show the workflow for fixing issues found in Model Advisor.  We will fix the issue associated with <b>Check subsystem names</b>.  To navigate to this issue in the Model Advisor, do the following:</p><p>1.  Go to the <b>Simulink</b> folder under <b>Modeling Standards for MAAB</b>. There are 8 warnings in this category.</p><p>2.  Select the <b>Check subsystem names</b> warning. The right pane should now have a detailed reason of why the check failed (see picture below).</p><p>According to the rule description we need to modify name so that it is a correct name for C code.  For more information, you can click on the <b>See Also</b> hyperlink or the <b>Help</b> button.  You can also <a href="http://www.mathworks.com/automotive/standards/maab.html">download the MAAB style guide</a> from the web for more detailed information.</p><p><img vspace="5" hspace="5" src="Step_02_MA_CheckSubsystemNames.png" alt=""> </p><p>Let's try to fix this warning:</p><p>3.  Click on the <b>.../Compute target speed</b> link. That should bring you to the correpsponding block that violated this rule/check.</p><p>4.  Eliminate spaces in the name, change the name to "ComputeTargetSpeed"</p><p>5.  Rerun <b>Check subsystem names</b> check and it should pass (see picture below).</p><p><img vspace="5" hspace="5" src="Step_02_MA_CheckSubsystemNamesPass.png" alt=""> </p><p>Repeat this procedure to fix the remaining issues.  To help you work through this task efficiently, here are some helpful hints:</p><div><ol><li><b>Check model diagnostic parameters</b>-- set both to warning</li><li><b>Check for diagram using nonstandard display attributes</b>-- use the <b>Modify</b> button to fix</li><li><b>Check font formatting</b>-- use the <b>Modify All Fonts</b> to fix</li><li><b>Check for propagated signal labels</b>-- set both output signal properties to "Show propagated signals"</li><li><b>Check entry formatting in State blocks in Stateflow charts</b>-- modify so <b>en:</b> is on a separate line</li><li><b>Check default transition placement in Stateflow charts</b>-- <b>SKIP</b> until next section <b>Excluding Blocks from Model Advisor Analysis</b></li><li><b>Check for comparison operations in Stateflow charts</b>-- change to <b>tspeed!=uint8(0)</b></li></ol></div><h2>Excluding Blocks from Model Advisor Analysis<a name="7"></a></h2><p>If you want to exclude a check, you simply uncheck it and it will be exluded from the analysis. You can also put together a custom list of checks to only run those that you think make sense for you. This is covered in the last section of this step.</p><p>However, sometimes you want to run a check on a model, but exclude only specific blocks or specific bloc types from all checks or individual checks. The <b>Check default transition placement in Stateflow charts</b> is a good candidate for exclusion since this may require a major rework of the the Stateflow chart.  We will now show how to exclude this block to enable us to pass all the MAAB checks.  We would likely still have to justify this during the model review but as we will see the use of exclusion is documented in the final report.</p><p>1.  Open <b>Model Advisor</b> window, and expand the <b>Model Architecture</b> folder (under <b>Modeling Standards for MAAB</b>)</p><p>2.  Select the warning for <b>Check default transition placement in Stateflow charts</b></p><p><img vspace="5" hspace="5" src="Step_02_MA_DefaultPlacement.png" alt=""> </p><p>The <b>Recommended Action</b> is to rearrange the states so the default state is the top-most state. Place the destination state of the default transition above all other states in the state hierarchy.  However, let's say that we approve this deviation from the MAAB standard  for our model. To do this, follow the steps below:</p><p>3.  Click on the hyperlink to the first default state</p><p>4.  Navigate up one level and select the state chart</p><p>5.  Right-click the state chart block and select <b>Model Advisor</b>, <b>Exclude block only</b></p><p><img vspace="5" hspace="5" src="Step_02_MA_ExcludeDefaultPlacement.png" alt=""> </p><p>6.  Find <b>Check default transition placement in Stateflow charts</b> in the list box.  Look at the relative position in the list box to help find the check (see picture below):</p><p><img vspace="5" hspace="5" src="Step_02_MA_ExcludeDefPlaceSelector.png" alt=""> </p><p>7.  This opens the <b>Model Advisor Exclusion Editor</b> (see picture below)</p><p>8.  Click the <b>Change</b> button to name the exclusion file</p><p>9.  Click <b>Save as</b> in the dialog that appears, name the file <b>CruiseControl_exclusions.xml</b></p><p><img vspace="5" hspace="5" src="Step_02_ExclusionDialog.png" alt=""> </p><p>10. Rerun the check <b>Check default transition placement in Stateflow charts</b> under % <b>Model Architecture</b> to confirm that this check now passes.</p><p><img vspace="5" hspace="5" src="Step_02_ExclusionsDone.png" alt=""> </p><p>11. Rerun the entire <b>Modeling Standards for MAAB</b> The <b>Model Advisor Exclusion Editor</b> to confirm all checks now pass.</p><p><img vspace="5" hspace="5" src="Step_02_MA_MAABsummaryAllPass.png" alt=""> </p><p>12. Select report hyperlink to view report <b>..\report_NNN.html</b></p><p><img vspace="5" hspace="5" src="Step_02_MA_MAABreportAllPass.png" alt=""> </p><h2>Adding Customized Checks to Model Advisor<a name="8"></a></h2><p>As mentioned at the beginning of this section, Simulink Verification and Validation allows users to add customized checks to Model Advisor. This is done through the Model Advisor API and the <b>sl_customization.m</b> file. For this workshop, three new custom checks will be added based on the MATLAB code in <b>sl_customization.m</b> file.</p><p>Do the following:</p><div><ol><li>Close all model files and the Model Advisor window &#8211; <b><a href="matlab:bdclose('all');">click here</a></b></li><li>Setup the <b>sl_customization.m</b> file &#8211; <b><a href="matlab:setupCustomMAchecks;">click here</a></b> (this copies sl_customization.m into the working dir)</li><li>To view <b>sl_customization.m</b> - <b><a href="matlab:edit('sl_customization.m');">click here</a></b></li><li>At the MATLAB command prompt, enter the following command:  &gt;&gt; <b>Advisor.Manager.refresh_customizations</b> <b><a href="matlab:Advisor.Manager.refresh_customizations">or click here</a></b></li><li>Open the <b>CruiseControl_MdlAdv_ReqLink.slx</b> &#8211; <b><a href="matlab:open_system('CruiseControl_MdlAdv_ReqLink.slx')">click here</a></b></li><li>Re-open <b>Model Advisor</b>.</li></ol></div><p>You should see the following window appear. If you do, click <b>Remove existing report and continue</b>. This just means that there is an old result in the system from your previous run that needs to be removed before continuing.</p><p><img vspace="5" hspace="5" src="Step_02_MA_RemovePopup.png" alt=""> </p><p>This time, a new folder has appeared under <b>By Product</b> named <b>Custom Workshop Checks</b> (see picture below).</p><p>The folder contains the following 3 customized checks:</p><div><ul><li>Check Simulink block font</li><li>Check Simulink window screen color</li><li>Check model optimization settings</li></ul></div><p>These checks were scripted in MATLAB using the Simulink API and added to the Model Advisor UI using the <b>sl_customization.m</b> file. When <b>sl_customization.m</b> changes, the UI must be refreshed with the <b>sl_refresh_customizations</b> command. You can take a look at the content of the file by <a href="matlab:edit('sl_customization');">clicking here</a>.</p><p>Let's run through all three of these custom checks:</p><div><ol><li>Select and check <b>Custom Workshop Checks</b>.</li><li>Click on the <b>Run Selected Checks</b> button (see picture below).</li></ol></div><p><img vspace="5" hspace="5" src="Step_02_MA_CustomChecks.png" alt=""> </p><p>3. After you have run the checks, select the first one - <b>Check Simulink block font</b> - which has failed.</p><p>4. Click on the <b>Fix block fonts</b> button (see picture below).</p><p><img vspace="5" hspace="5" src="Step_02_CustomChecksFix.png" alt=""> </p><p>In some cases, it is possible have a "*Fix ...*" action, in which Model Advisor would follow a pre-defined or programmed fix action to correct the model for you. Since font type and size have a very "objective" procedure to fix the model, we can implement a "*Fix ...*" action.</p><p>5. The <b>Check Simulink window screen color</b> also does not pass. Following the same procedure, use the <b>Fix window screen color</b> button to correct the window screen color.</p><p>The model should now look like below. The fonts have been updated to Tahoma, size 16 and the window screen color is white.</p><p><img vspace="5" hspace="5" src="Step_02_MA_CustomChecksPassModel.png" alt=""> </p><p>6. Re-run the <b>Custom Workshop Checks</b> - they should now all pass.</p><p><img vspace="5" hspace="5" src="Step_02_MA_CustomChecksPass.png" alt=""> </p><h2>Customizing Model Advisor Menu<a name="9"></a></h2><p>In addition to being able to add your own checks, you can also configure the Model Advisor menu with different folders, or different initial check configurations (enable/disable/hidden).</p><p>Do the following:</p><p>1.  In <b>Model Advisor</b> window, under <b>Settings</b>, select <b>Open Configuration Editor</b>.</p><p><img vspace="5" hspace="5" src="Step_02_ConfigurationEditorMenu.png" alt=""> </p><p>You should see the following windows open up:</p><p><img vspace="5" hspace="5" src="Step_02_MA_ConfigurationEditor.png" alt=""> </p><p>You can now modify (drag and drop) the check tree structure in the left-hand window using the checks available in the right-hand window.</p><p>2.  Drag and drop check from Right (Source) window to the Left (Destination) window.</p><p>3.  Create and delete folders in the left window.</p><p>4.  Enable or disable specific checks in the left window.</p><p><img vspace="5" hspace="5" src="Step_02_MA_CfgEditorDragDrop.png" alt=""> </p><p>Once you are done, you can save the configuration as a <b>.mat</b> file, and share the configuration setting with others.</p><p>5.  Select <b>File</b> and <b>Save As</b>.</p><p>6.  Save the configuration as <b>CruiseControl_MA_Config.mat</b>.</p><p><img vspace="5" hspace="5" src="Step_02_ConfigurationEditorSave.png" alt=""> </p><p>Now that you have a custom Model Advisor configuration, let's use it.</p><p>7.  Select <b>File</b> and <b>Set Current Configuration as Default</b>, also press <b>OK</b> to warning popup</p><p><img vspace="5" hspace="5" src="Step_02_MA_CfgEditorSetAsDefault.png" alt=""> </p><p>8.  Exit the Model Advisor Configuration Editor and reopen Model Advisor</p><p><img vspace="5" hspace="5" src="Step_02_MA_CustomConfig.png" alt=""> </p><p>9.  Another way to load your custom Model Advisor configuration -- In the <b>Model Advisor</b> window, under <b>Settings</b>, select <b>Load Configuration...</b></p><p>10. To restore default settings -- In <b>Model Advisor</b> window, under <b>Settings</b>, select <b>Restore Default Configuration</b>.</p><h2>MISRA Checks with Model Advisor<a name="10"></a></h2><p><b>Introduction of Model Advisory</b></p><p>The Model Advisor checks a model or subsystem for conditions and configuration settings that you select, including conditions that cause inaccurate or inefficient simulation of the system that the model represents. If you have a Simulink&reg; Coder&#8482; or Simulink Verification and Validation&#8482; license, the Model Advisor can check for model settings that cause generation of inefficient code or code unsuitable for safety-critical applications.</p><p>In this workshop we are going to concentrate check for model settings and generating efficient code generation.  These checks perform and identify configuration parameters that might impact MISRA C:2012 compliant code generation.  There are set of recommendations checks to increases the likelihood of generating MISRA C:2012 will comply with MISRA.</p><p><b>Note: More information about Model Advisor can be found in:</b> <a href="http://www.mathworks.com/help/simulink/ug/consult-the-model-advisor.html">http://www.mathworks.com/help/simulink/ug/consult-the-model-advisor.html</a></p><p><b>Lets&#8217; look at a few checks and what they exactly do.</b></p><div><ul><li>Check configuration parameters for MISRA C:2012</li><li>Parenthesis level</li><li>Casting Mode</li><li>Model Verification block</li><li>System Target</li><li>Right shits on signed integers</li><li>Bitwise shifts</li></ul></div><p><b>Note: More info in the following:</b> <a href="http://www.mathworks.com/help/ecoder/ref/embedded-codersimulink-coder-checks.html#bsc06fj-1">http://www.mathworks.com/help/ecoder/ref/embedded-codersimulink-coder-checks.html#bsc06fj-1</a></p><div><ul><li>Check for blocks not recommended for MISRA C:2012. Identify blocks that are not supported or recommended for MISRA C:2012 compliant code generation. To get the list of Simulink Blocks not recommended for MISRA,             please type <b>&#8220;showblockdatatypetable&#8221;</b> in the MATLAB command.             The <b>&#8220;Simulink Block Data Type Support&#8221;</b> table will display.             In the &#8216;Code Generation Support&#8217; column there will be             <b>Footnote #4</b> - Not recommended for production code.</li><li>Check for unsupported block names</li><li>Block names containing / were found in the model or subsystem.</li><li>Check usage of Assignment blocks</li><li>^Check for bitwise operations on signal integers</li><li>^Check for recursive function calls</li><li>^Check for equality and inequality operation on floating-point values</li><li>^Check for switch case expressions without a default case</li></ul></div><p><b>Note: The entire list above and its detail information can be found in the following link:</b>   <a href="http://www.mathworks.com/help/ecoder/ug/model-advisor-checks.html">http://www.mathworks.com/help/ecoder/ug/model-advisor-checks.html</a></p><p>1.  Open the <b>CruiseControl_PS.slx</b> model &#8211; <b><a href="matlab:loadCruiseControl_PS;">click here</a></b>.</p><p>2. Verifying all the MISRA related check prior of generating Code:</p><div><ul><li>Please follow the instructions below:</li></ul></div><p><b>Open Model Configuration Parameters</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_01.png" alt=""> </p><p><b>Select Embedded Coder &#8220;ert.tls&#8221;</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_02.png" alt=""> </p><p><b>Open Model Advisory</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_03.png" alt=""> </p><p><b>Opening Model Advisory for the entire project</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_04.png" alt=""> </p><p><b>Selecting Model MISRA C: 2012 checks</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_05.png" alt=""> </p><p><b>Fix the warnings by following the next steps:</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_06.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_07.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_08.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_09.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_10.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_11.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_12.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_13.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_02_PS_MISRA_Check_Step_14.png" alt=""> </p><p>3. Verify MISRA Compliance with Polyspace Bug Finder:</p><p>MISRA compliance can be confirmed by running checks against the generated code. To demonstrate compliance, run <b>Polyspace Bug Finder</b> using the steps below:</p><p><b>Build the model [Ctrl + B]</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_Bug_Finder_Check_Step_01.png" alt=""> </p><h2>MISRA Checks with Polyspace Bug Finder<a name="11"></a></h2><p><b>Open Polyspace Bug Finder Configuration setup from the model</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_Bug_Finder_Check_Step_02.png" alt=""> </p><p><b>Select "Bug Finder" and "Project configuration and MISRA C 2012 ACG checking</b> Then click on "Configure"* <b>(Note: if warning &#8220;?&#8221; click on &#8220;Apply&#8221;).</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_Bug_Finder_Check_Step_03.png" alt=""> </p><p><b>Enable all Bug Finder Defect detection, save and then close the</b> <b>Bug Finder window.</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_Bug_Finder_Check_Step_04.png" alt=""> </p><p><b>Click on "Apply" to dismiss the configuration window</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_Bug_Finder_Check_Step_05.png" alt=""> </p><p><b>Run the Polyspace verification</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_Bug_Finder_Check_Step_056A.png" alt=""> </p><p>Verify the code monitor the status in the MATLAB Command window*</p><p><b>Verify Bug Finder has completed</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_Bug_Finder_Check_Step_06.png" alt=""> </p><p><b>Open Bug Finder Result from Simulink, review the results</b></p><p><img vspace="5" hspace="5" src="Step_02_PS_Bug_Finder_Check_Step_07.png" alt=""> </p><h2>Summary<a name="12"></a></h2><p>With the functions above, we were able to check our Cruise Control model for compliance with industry, international and company standards, and best practices.  We were able to carry out this task using the base Simulink, Model Advisor tool along with the modeling standards checks provided by <b>Simulink Verification and Validation</b>.  MISRA Compliance was verified using <b>Polyspace Bug Finder</b></p><p>In the exercises we demonstrated compliance to the MAAB modeling standard. The benefits of complying to the MAAB modeling standard include readability, making the model production code ready, facilitating a standard V&amp;V workflow and enabling re-use.  Additional checks for complying to a safety standard like ISO 26262 are also available to be used as part of an overall process to demonstrate ISO 26262 compliance. The safety standards were not part of the exercises but the same procedure used in the MAAB exercises would apply to demonstrating compliance to the safety standard.</p><p>The standards checking can be customized to fit your model-based design process.  Methods used to provide this customization to your process were also demonstrated:</p><div><ol><li>Custom checks can be created to check models for internal modeling standards</li><li>Custom model checking configurations can include only the checks that apply or provide benefit to your workflow</li></ol></div><p>Going forward we have increased confidence in our design knowing that are model follows a modeling standard.  We have now answered all the questions as we have now demonstrated a structured and formal testing framework for securing the quality, robustness and safety of our cruise controller.</p><p><img vspace="5" hspace="5" src="Step_02_CruiseControl_Summary.png" alt=""> </p><div><ol><li>Close all models - <b><a href="matlab:bdclose('all');">click here</a></b>.</li><li>Go to <b>Step 3: Detecting Design Errors</b> - <b><a href="Step_03.html">click here</a></b>.</li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Step 2: Modeling Standards
+%
+%% Introduction
+%
+% <<Step_02_CruiseControl_WhatNow.png>>
+%
+% Model Advisor finds unwanted model properties, such as incorrect or
+% deprecated blocks and block parameters, non-robust model constructs
+% and other practices that do not facilitate consistentcy, readability and
+% sharing.  Model Advisor is a part of the Simulink basic functionality,
+% but *Simulink Check* extends the Model Advisor capability by providing 
+% the user with pre-defined "checks" based on the following industry standards:
+%
+% * DO-178C and DO-331 Checks
+% * IEC 61508 Checks
+% * ISO 26262 Checks
+% * EN 50128 Checks
+% * MathWorks Automotive Advisory Board Checks (MAAB Style Guidelines)
+%
+% A "check" in Model Advisor means a rule that the tool will use to examine
+% your model and flag any settings that don't agree with the pre-defined
+% criteria.  The set of checks provided by *Simulink Check* can be seen 
+% under the *By Product/Simulink Check* folder.  In addition to the 
+% modeling standard checks listed above, *Simulink Check* provides the 
+% following functionality:
+%
+% # Application program interface (API) for building custom checks.
+% # Model Metrics checks
+%
+% <<Step_02_MA_ListOfChecks.png>>
+%
+% The Embedded Coder product also adds checks to Model Advisor:
+%
+% * MISRA C:2012 Checks
+%
+% <<Step_02_MA_MISRA_Checks.png>>
+%
+%% Verification and Validation Tools Used
+%
+% * Simulink Check
+% * Polyspace Bug Finder
+%
+%% Using Edit Time Checking
+% 
+% *Model Advisor* has a comprehensive set of checks that can be used to
+% verify the model has been constructed and configured to ensure standards
+% compliance as discussed above.  What if we could perform these checks 
+% earlier in the development process?  It is possible to perform a subset 
+% of these checks to detect compliance issues at design time.  There is a 
+% feature called *edit-time checking* that will check the model as it is 
+% being design or constructed. To enable *edit-time checking*, do the 
+% following: 
+%
+% * Open the *CruiseControl_MdlAdv_ReqLink.slx* – 
+% *<matlab:open_system('CruiseControl_MdlAdv_ReqLink.slx') click here>*
+%
+% * Go to *Analysis/Model Advisor/Model Advisor/Display Advisor Checks in Editor*
+%
+% <<Step_02_EditTimeMenuEnable.png>>
+%
+% After *edit-time checking* has been enabled, the checks have been 
+% automatically run and the results displayed on the model canvas.  
+%
+% Note the name violation found for the subsystem "Compute target speed".
+% To fix the violation:
+%
+% * Remove the spaces in the block name by renaming the block to
+% "ComputeTargetSpeed"
+%
+% <<Step_02_EditTimeModelIssue.png>>
+%
+% Open the state chart to find another violation regarding the "ON" state.
+% To fix the violation:
+%
+% * Add a CR to place "engaged = true;" on a separate line.
+%
+% <<Step_02_EditTimeStateflowIssue.png>>
+%
+%% Running Model Advisor 
+%
+% In this section, we will show how to view and select from all of the 
+% available Model Advisor checks.  The default Model Advisor set of checks 
+% falls into two different categories:  
+%
+% * By Product 
+% * By Task
+%
+% For this workshop, we will run our model through the MAAB style guide
+% checks first in order to get a good understanding of what this feature
+% would do for you, and then we will explore more advanced maneuvers such
+% as how custom checks are created.
+% 
+% Do the following:
+%
+% # Open the *CruiseControl_MdlAdv_ReqLink.slx* – *<matlab:bdclose('all');open_system('CruiseControl_MdlAdv_ReqLink.slx') click here>*
+% # Go to *Analysis/Model Advisor/Model Advisor*
+% 
+% You should then see a window pop up:
+%
+% <<Step_02_MA_SystemSelect.png>>
+%
+% At this point, you can select only the subsystem you want to run Model
+% Advisor on.  In general, you would want to run Model Advisor on the whole
+% model and we will run the checks on the entire model.
+%
+% 3. Select *OK*.
+%
+% You should now see the Model Advisor menu below open up. You can expand
+% the folders or groups as you would with Windows Explorer. For this
+% exercise, we are going to look at various MAAB style guide checks.
+% 
+% 4. Expand the folder (as shown in the picture below) so you can see the
+% different MAAB style guide categories.
+%
+% 5. Check the checkbox of *Modeling Standards for MAAB*. This should check
+% all subcategories.
+%
+% 6. Hit the *Run Selected Checks* button.
+% 
+% <<Step_02_MA_UI_MAAB.png>>
+%
+% Note: Your list of checks might be slightly different than the screen
+% shot. The list of checks is a function of installed products. 
+%
+% After the analysis is done, the summary is listed in the right pane for 
+% the MAAB checks.  
+%  
+% <<Step_02_MA_MAABsummary.png>>
+%
+% Note that there are *8 warnings*.  Let's take a look at what is causing
+% these warning messages:
+%
+% # *Check subsystem names*REPLACE_WITH_DASH_DASH  name contains spaces; C code issue,
+% readability
+% # *Check model diagnostic parameters*REPLACE_WITH_DASH_DASH  (2) diagnostics need to be set
+% to none; workflow, code generation
+% # *Check for diagram using nonstandard display attributes*REPLACE_WITH_DASH_DASH several
+% issues; consistency
+% # *Check font formatting*REPLACE_WITH_DASH_DASH usage of two font sizes in model; consistency
+% # *Check for propagated signal labels*REPLACE_WITH_DASH_DASH outport signals need to be set for
+% label propagation; readability, code generation, verification & validation
+% # *Check entry formatting in State blocks in Stateflow charts*REPLACE_WITH_DASH_DASH entry
+% label not a line by itself, readability
+% # *Check default transition placement in Stateflow charts*REPLACE_WITH_DASH_DASH default state
+% not the top-most state; readability
+% # *Check for comparison operations in Stateflow charts*REPLACE_WITH_DASH_DASH value is not cast
+% to the same type as the signal: code generation, verification & validation
+%
+%% Creating a Restore Point
+%
+% Before we investigate and fix these issues we need to create a *restore point* 
+% so if we decide a different strategy on how to handle these issues then we
+% can easily go back to our last "good" model. 
+%
+% <<Step_02_MA_RestorePoint.png>>
+%
+%% Fixing the Non-Passing Model Advisor Checks 
+%
+% First let's go through an example to show the workflow for fixing issues
+% found in Model Advisor.  We will fix the issue associated with 
+% *Check subsystem names*.  To navigate to this issue in the Model Advisor,
+% do the following:
+%
+% 1.  Go to the *Simulink* folder under *Modeling Standards for MAAB*. There
+% are 8 warnings in this category.
+%
+% 2.  Select the *Check subsystem names* warning. The right pane
+% should now have a detailed reason of why the check failed (see picture
+% below).
+%
+% According to the rule description we need to modify name so that it is 
+% a correct name for C code.  For more information, you can click on the 
+% *See Also* hyperlink or the *Help* button.  You can also
+% <http://www.mathworks.com/automotive/standards/maab.html download the 
+% MAAB style guide> from the web for more detailed information. 
+%
+% <<Step_02_MA_CheckSubsystemNames.png>>
+%
+% Let's try to fix this warning:
+%
+% 3.  Click on the *.../Compute target speed* link. That
+% should bring you to the correpsponding block that violated this
+% rule/check. 
+%
+% 4.  Eliminate spaces in the name, change the name to "ComputeTargetSpeed"
+%
+% 5.  Rerun *Check subsystem names* check and it should pass (see
+% picture below).
+%
+% <<Step_02_MA_CheckSubsystemNamesPass.png>>
+%
+% Repeat this procedure to fix the remaining issues.  To help you work 
+% through this task efficiently, here are some helpful hints:
+%
+% # *Check model diagnostic parameters*REPLACE_WITH_DASH_DASH set both to warning
+% # *Check for diagram using nonstandard display attributes*REPLACE_WITH_DASH_DASH use the
+% *Modify* button to fix 
+% # *Check font formatting*REPLACE_WITH_DASH_DASH use the *Modify All Fonts* to fix
+% # *Check for propagated signal labels*REPLACE_WITH_DASH_DASH set both output signal
+% properties to "Show propagated signals"
+% # *Check entry formatting in State blocks in Stateflow charts*REPLACE_WITH_DASH_DASH modify 
+% so *en:* is on a separate line
+% # *Check default transition placement in Stateflow charts*REPLACE_WITH_DASH_DASH *SKIP* until
+% next section *Excluding Blocks from Model Advisor Analysis*
+% # *Check for comparison operations in Stateflow charts*REPLACE_WITH_DASH_DASH change to
+% *tspeed!=uint8(0)*
+%
+%% Excluding Blocks from Model Advisor Analysis
+%
+% If you want to exclude a check, you simply uncheck it and it will be
+% exluded from the analysis. You can also put together a custom list of
+% checks to only run those that you think make sense for you. This is
+% covered in the last section of this step.
+%
+% However, sometimes you want to run a check on a model, but exclude only
+% specific blocks or specific bloc types from all checks or individual
+% checks. The *Check default transition placement in Stateflow charts* is a
+% good candidate for exclusion since this may require a major rework of the
+% the Stateflow chart.  We will now show how to exclude this block
+% to enable us to pass all the MAAB checks.  We would likely 
+% still have to justify this during the model review but as we will see
+% the use of exclusion is documented in the final report.
+%
+% 1.  Open *Model Advisor* window, and expand the *Model Architecture* folder
+% (under *Modeling Standards for MAAB*)
+%
+% 2.  Select the warning for *Check default transition placement in Stateflow charts*
+% 
+% <<Step_02_MA_DefaultPlacement.png>>
+%
+% The *Recommended Action* is to rearrange the states so the default state 
+% is the top-most state. Place the destination state of the default 
+% transition above all other states in the state hierarchy.  However, let's
+% say that we approve this deviation from the MAAB standard  for our model.  
+% To do this, follow the steps below:
+% 
+% 3.  Click on the hyperlink to the first default state
+%
+% 4.  Navigate up one level and select the state chart
+%
+% 5.  Right-click the state chart block and select *Model Advisor*, *Exclude
+% block only*
+%
+% <<Step_02_MA_ExcludeDefaultPlacement.png>>
+%
+% 6.  Find *Check default transition placement in Stateflow charts* in the
+% list box.  Look at the relative position in the list box to help find the
+% check (see picture below): 
+%
+% <<Step_02_MA_ExcludeDefPlaceSelector.png>>
+%
+% 7.  This opens the *Model Advisor Exclusion Editor* (see picture below)
+%
+% 8.  Click the *Change* button to name the exclusion file
+%
+% 9.  Click *Save as* in the dialog that appears, name the file 
+% *CruiseControl_exclusions.xml*
+%
+% <<Step_02_ExclusionDialog.png>>
+%
+% 10. Rerun the check *Check default transition placement in Stateflow charts* 
+% under % *Model Architecture* to confirm that this check now passes.
+%
+% <<Step_02_ExclusionsDone.png>>
+%
+% 11. Rerun the entire *Modeling Standards for MAAB* The *Model Advisor Exclusion Editor*
+% to confirm all checks now pass.
+%
+% <<Step_02_MA_MAABsummaryAllPass.png>> 
+%
+% 12. Select report hyperlink to view report *..\report_NNN.html*
+%
+% <<Step_02_MA_MAABreportAllPass.png>> 
+%
+%% Adding Customized Checks to Model Advisor
+%
+% As mentioned at the beginning of this section, Simulink Verification and
+% Validation allows users to add customized checks to Model Advisor. This
+% is done through the Model Advisor API and the *sl_customization.m* file.
+% For this workshop, three new custom checks will be added based on the MATLAB
+% code in *sl_customization.m* file.
+%
+% Do the following:
+%
+% # Close all model files and the Model Advisor window –
+% *<matlab:bdclose('all'); click here>*  
+% # Setup the *sl_customization.m* file – *<matlab:setupCustomMAchecks;
+% click here>* (this copies sl_customization.m into the working dir)
+% # To view *sl_customization.m* - *<matlab:edit('sl_customization.m');
+% click here>*
+% # At the MATLAB command prompt, enter the following command:  >>
+% *Advisor.Manager.refresh_customizations* *<matlab:Advisor.Manager.refresh_customizations or click here>*
+% # Open the *CruiseControl_MdlAdv_ReqLink.slx* – *<matlab:open_system('CruiseControl_MdlAdv_ReqLink.slx') click here>*
+% # Re-open *Model Advisor*.
+% 
+% You should see the following window appear. If you do, click *Remove
+% existing report and continue*. This just means that there is an 
+% old result in the system from your previous run that needs to be removed
+% before continuing.
+%
+% <<Step_02_MA_RemovePopup.png>>
+% 
+% This time, a new folder has appeared under *By Product* named *Custom
+% Workshop Checks* (see picture below).
+% 
+% The folder contains the following 3 customized checks:
+%
+% * Check Simulink block font
+% * Check Simulink window screen color
+% * Check model optimization settings
+%
+% These checks were scripted in MATLAB using the Simulink API and added to
+% the Model Advisor UI using the *sl_customization.m* file. When
+% *sl_customization.m* changes, the UI must be refreshed with the
+% *sl_refresh_customizations* command.
+% You can take a look at the content of the file by
+% <matlab:edit('sl_customization'); clicking here>. 
+% 
+% Let's run through all three of these custom checks:
+%
+% # Select and check *Custom Workshop Checks*.
+% # Click on the *Run Selected Checks* button (see picture below).
+%
+% <<Step_02_MA_CustomChecks.png>>
+%
+% 3. After you have run the checks, select the first one - *Check Simulink
+% block font* - which has failed.
+%
+% 4. Click on the *Fix block fonts* button (see picture below).
+% 
+% <<Step_02_CustomChecksFix.png>>
+%
+% In some cases, it is possible have a "*Fix ...*" action, in which Model
+% Advisor would follow a pre-defined or programmed fix action to correct 
+% the model for you. Since font type and size have a very "objective" 
+% procedure to fix the model, we can implement a "*Fix ...*" action.   
+%
+% 5. The *Check Simulink window screen color* also does not pass.  
+% Following the same procedure, use the *Fix window screen color* button
+% to correct the window screen color.
+%
+% The model should now look like below. The fonts have been updated to
+% Tahoma, size 16 and the window screen color is white. 
+%
+% <<Step_02_MA_CustomChecksPassModel.png>>
+%
+% 6. Re-run the *Custom Workshop Checks* - they should now all pass.
+%
+% <<Step_02_MA_CustomChecksPass.png>>
+%
+%% Customizing Model Advisor Menu
+%
+% In addition to being able to add your own checks, you can also configure
+% the Model Advisor menu with different folders, or different initial check
+% configurations (enable/disable/hidden). 
+%
+% Do the following:
+%
+% 1.  In *Model Advisor* window, under *Settings*, select *Open Configuration
+% Editor*.
+% 
+% <<Step_02_ConfigurationEditorMenu.png>>
+%
+% You should see the following windows open up:
+%
+% <<Step_02_MA_ConfigurationEditor.png>>
+% 
+% You can now modify (drag and drop) the check tree structure in the
+% left-hand window using the checks available in the right-hand window. 
+% 
+% 2.  Drag and drop check from Right (Source) window to the Left
+% (Destination) window.
+%
+% 3.  Create and delete folders in the left window.
+%
+% 4.  Enable or disable specific checks in the left window.
+%
+% <<Step_02_MA_CfgEditorDragDrop.png>>
+%
+% Once you are done, you can save the configuration as a *.mat* file, and
+% share the configuration setting with others. 
+%
+% 5.  Select *File* and *Save As*.
+%
+% 6.  Save the configuration as *CruiseControl_MA_Config.mat*.
+%
+% <<Step_02_ConfigurationEditorSave.png>>
+%
+% Now that you have a custom Model Advisor configuration, let's use it.
+%
+% 7.  Select *File* and *Set Current Configuration as Default*, also press
+% *OK* to warning popup
+%
+% <<Step_02_MA_CfgEditorSetAsDefault.png>>
+%
+% 8.  Exit the Model Advisor Configuration Editor and reopen Model Advisor
+%
+% <<Step_02_MA_CustomConfig.png>>
+%
+% 9.  Another way to load your custom Model Advisor configuration REPLACE_WITH_DASH_DASH In the
+% *Model Advisor* window, under *Settings*, select *Load Configuration...*
+%
+% 10. To restore default settings REPLACE_WITH_DASH_DASH In *Model Advisor* window, under 
+% *Settings*, select *Restore Default Configuration*.
+%
+%% MISRA Checks with Model Advisor
+%
+%
+% *Introduction of Model Advisory*
+%
+% The Model Advisor checks a model or subsystem for conditions and 
+% configuration settings that you select, including conditions that cause
+% inaccurate or inefficient simulation of the system that the model 
+% represents. If you have a Simulink® Coder™ or Simulink Verification 
+% and Validation™ license, the Model Advisor can check for model 
+% settings that cause generation of inefficient code or code unsuitable 
+% for safety-critical applications.
+%
+% In this workshop we are going to concentrate check for model settings 
+% and generating efficient code generation.  These checks perform and 
+% identify configuration parameters that might impact MISRA C:2012 
+% compliant code generation.  There are set of recommendations checks 
+% to increases the likelihood of generating MISRA C:2012 will comply with MISRA.
+%   
+% *Note: More information about Model Advisor can be found in:*
+% http://www.mathworks.com/help/simulink/ug/consult-the-model-advisor.html
+%   
+% *Lets’ look at a few checks and what they exactly do.*
+%
+% * Check configuration parameters for MISRA C:2012
+% * Parenthesis level
+% * Casting Mode
+% * Model Verification block
+% * System Target
+% * Right shits on signed integers
+% * Bitwise shifts
+%
+% *Note: More info in the following:*
+% http://www.mathworks.com/help/ecoder/ref/embedded-codersimulink-coder-checks.html#bsc06fj-1
+%
+% * Check for blocks not recommended for MISRA C:2012.
+% Identify blocks that are not supported or recommended for MISRA C:2012 compliant code generation.
+% To get the list of Simulink Blocks not recommended for MISRA, 
+%             please type *“showblockdatatypetable”* in the MATLAB command.  
+%             The *“Simulink Block Data Type Support”* table will display.  
+%             In the ‘Code Generation Support’ column there will be 
+%             *Footnote #4* - Not recommended for production code.
+% * Check for unsupported block names
+% * Block names containing / were found in the model or subsystem.
+% * Check usage of Assignment blocks
+% * ^Check for bitwise operations on signal integers
+% * ^Check for recursive function calls
+% * ^Check for equality and inequality operation on floating-point values
+% * ^Check for switch case expressions without a default case
+%
+% *Note: The entire list above and its detail information can be found in the following link:*
+%   http://www.mathworks.com/help/ecoder/ug/model-advisor-checks.html
+%
+% 1.  Open the *CruiseControl_PS.slx* model – *<matlab:loadCruiseControl_PS; click here>*.
+%
+% 2. Verifying all the MISRA related check prior of generating Code:
+%
+%
+% * Please follow the instructions below:
+%
+% *Open Model Configuration Parameters*
+%
+% <<Step_02_PS_MISRA_Check_Step_01.png>>
+%
+% *Select Embedded Coder “ert.tls”*
+%
+% <<Step_02_PS_MISRA_Check_Step_02.png>>
+%
+% *Open Model Advisory*
+%
+% <<Step_02_PS_MISRA_Check_Step_03.png>>
+%
+% *Opening Model Advisory for the entire project*
+%
+% <<Step_02_PS_MISRA_Check_Step_04.png>>
+%
+% *Selecting Model MISRA C: 2012 checks*
+%
+% <<Step_02_PS_MISRA_Check_Step_05.png>>
+%
+% *Fix the warnings by following the next steps:*
+%
+% <<Step_02_PS_MISRA_Check_Step_06.png>>
+%  
+% <<Step_02_PS_MISRA_Check_Step_07.png>>
+%
+% <<Step_02_PS_MISRA_Check_Step_08.png>>
+%  
+% <<Step_02_PS_MISRA_Check_Step_09.png>>
+%  
+% <<Step_02_PS_MISRA_Check_Step_10.png>>
+%  
+% <<Step_02_PS_MISRA_Check_Step_11.png>>
+%  
+% <<Step_02_PS_MISRA_Check_Step_12.png>>
+%  
+% <<Step_02_PS_MISRA_Check_Step_13.png>>
+%  
+% <<Step_02_PS_MISRA_Check_Step_14.png>>
+%
+% 3. Verify MISRA Compliance with Polyspace Bug Finder:
+%
+% MISRA compliance can be confirmed by running checks against the generated code.
+% To demonstrate compliance, run *Polyspace Bug Finder* using the steps below:
+%
+% *Build the model [Ctrl + B]*
+%
+% <<Step_02_PS_Bug_Finder_Check_Step_01.png>>
+%
+%% MISRA Checks with Polyspace Bug Finder
+%
+% *Open Polyspace Bug Finder Configuration setup from the model*
+% 
+% <<Step_02_PS_Bug_Finder_Check_Step_02.png>>
+%
+% *Select "Bug Finder" and "Project configuration and MISRA C 2012 ACG checking* 
+% Then click on "Configure"* 
+% *(Note: if warning “?” click on “Apply”).*
+%
+% <<Step_02_PS_Bug_Finder_Check_Step_03.png>>
+%
+% *Enable all Bug Finder Defect detection, save and then close the* 
+% *Bug Finder window.*
+%
+% <<Step_02_PS_Bug_Finder_Check_Step_04.png>>
+%
+% *Click on "Apply" to dismiss the configuration window*
+% 
+% <<Step_02_PS_Bug_Finder_Check_Step_05.png>>
+%
+% *Run the Polyspace verification*
+%
+% <<Step_02_PS_Bug_Finder_Check_Step_056A.png>>
+%
+% Verify the code monitor the status in the MATLAB Command window*
+%
+% *Verify Bug Finder has completed*
+%
+% <<Step_02_PS_Bug_Finder_Check_Step_06.png>>
+%
+% *Open Bug Finder Result from Simulink, review the results*
+%
+% <<Step_02_PS_Bug_Finder_Check_Step_07.png>>
+%
+%% Summary
+%
+% With the functions above, we were able to check our Cruise Control model 
+% for compliance with industry, international and company standards, and best 
+% practices.  We were able to carry out this task using the base Simulink,
+% Model Advisor tool along with the modeling standards checks provided by 
+% *Simulink Verification and Validation*.  MISRA Compliance was verified using 
+% *Polyspace Bug Finder*
+%
+% In the exercises we demonstrated compliance to the MAAB modeling standard.   
+% The benefits of complying to the MAAB modeling standard include 
+% readability, making the model production code ready, 
+% facilitating a standard V&V workflow and enabling re-use.  Additional 
+% checks for complying to a safety standard like ISO 26262 are also 
+% available to be used as part of an overall process to demonstrate ISO 
+% 26262 compliance. The safety standards were not part of the exercises
+% but the same procedure used in the MAAB exercises would apply to
+% demonstrating compliance to the safety standard. 
+%
+% The standards checking can be customized to fit your model-based design
+% process.  Methods used to provide this customization to your process were 
+% also demonstrated:
+%
+% # Custom checks can be created to check models for internal modeling
+% standards
+% # Custom model checking configurations can include only the checks that 
+% apply or provide benefit to your workflow
+%
+% Going forward we have increased confidence in our design knowing that are
+% model follows a modeling standard.  We have now answered all the questions as we have now 
+% demonstrated a structured and formal testing framework for securing the 
+% quality, robustness and safety of our cruise controller.
+% 
+% <<Step_02_CruiseControl_Summary.png>>
+%
+% # Close all models - *<matlab:bdclose('all'); click here>*.
+% # Go to *Step 3: Detecting Design Errors* - *<Step_03.html click here>*.
+%
+##### SOURCE END #####
+--></body></html>

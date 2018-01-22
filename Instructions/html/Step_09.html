@@ -1,0 +1,154 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Step 9: Workshop Summary</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-09-28"><meta name="DC.source" content="Step_09.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:2.0em; color:#000077; line-height:150%; font-weight:bold; text-align:center }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.6em; color:#444444; font-weight:bold; font-style:italic; text-align:left; vertical-align:bottom; line-height:200%; border-top:2px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#555555; font-style:italic; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px;} 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Step 9: Workshop Summary</h1><p><img vspace="5" hspace="5" src="Step_08_OverallWorkflow.png" alt=""> </p><p>We started with the overall workflow as shown above, and worked through a series of exercises to add continuous verification and validation activities to the workflow.  In the end, we established a structured, formal testing framework for securing the quality, robustness and safety of our cruise controller:</p><div><ol><li><i>Showed benefits of ad-hoc testing for finding issues early,</i></li><li><i>Linked textual requirements to the model and source code for traceability and early verification of requirements,</i></li><li><i>Enforced modeling standards for model readability and source code efficiency, enabling re-use.</i></li><li><i>Detected model design errors like "dead logic" and "divide by zero" using formal verification techniques,</i></li><li><i>Dynamically tested the design using simulation test harnesses with requirements based input test vectors and expected outputs to verify design behavior meets the requirements,</i></li><li><i>Verified the generated source code, compiled for host (SIL) and production hardware (PIL), by testing for equvalence in behavior with model,</i></li><li><i>Modeled and validated key safety requirements using formal proofs.</i></li></ol></div><p>In addition we have incorporated the use of Polyspace in an MBD workflow:</p><p><img vspace="5" hspace="5" src="Step_09_PS_MBD_Workflow.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_08_MdlVerWorkflow.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_08_CodeVerWorkflow.png" alt=""> </p><p>We have seen how to create and re-use test assets but there is more to consider when implementing a V&amp;V workflow:</p><p>1.  <i><b>Creation of test inputs.</b></i>  These have been in the form of time traces, managed in spreadsheets.  But we could also use .mat files to import into the Signal Builder block.  But it's also possible to map a .mat file to the root inports.  Test inputs could be in the form of a MATLAB function block or be managed in a Stateflow chart.</p><p>2.  <i><b>Creation of test harnesses.</b></i>  We have seen how to create these with the <b>Test Harness</b> functionality of <b>Simulink Test</b>.  But what if you want to run tests on a subsystem in the model?  Testing and debugging subsystems although not shown in the workshop is a core functionality of <b>Simulink Test</b> that includes synchronization of changes between the source model and the subsystem test harness. It is also possible to run the model by the <b>root inport</b> mapping method to apply test inputs directly to the algorithm model.  Mapping .mat files and spreadsheet data to root inports is also supported in the <b>Test Manager</b>. So with this method no test harnesses are required.  But you will still need to consider how the outputs will be verified.</p><p>3.  <i><b>Verification of results.</b></i>  We have seen how to do this in the test harness with the expected outputs with simple comparison operators and also using the <b>compare runs</b> function of <b>SDI</b>.  But there are other ways to do the evaluation including using more sophisticated models to do online checking.  In addition, the evaluation could be a MATLAB function block or a Stateflow chart.  The unit under test may have several inputs and outputs that can be ignored at different times using validation time windows to specify when the evaluation is active.  How the tests are executed needs to considered since this is often coupled to the selected evaluation method.  We have seen how to manually run the model and do online evaluations. We have also shown how the <b>Test Manager</b> will run the tests, perform the evaluation and produce a test report.</p><p>4.  <i><b>Test automation.</b></i>  Several methods have been presented, starting with using the "Run All" button in Signal Builder to automate test execution with test inputs and outputs stored in <b>SDI</b> for manual evaluation.  Next a script was created using the <b>SDI</b> API to automate the evaluation and creation of test reports.  Lastly, <b>Report Generator</b> was used to completely automate the loading of model, test execution, evaluation and the report creation.</p><p>The general idea is to consider what methods will work best for your development and testing process based on the above points and other considerations.  These may include the available resources to develop and maintain a custom process and tools.  So often it is better to begin in a minimal way and then add as necessary through continuous improvement. Another consideration is the archiving of test result and the sharing or re-use of test assets.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Step 9: Workshop Summary
+%
+% <<Step_08_OverallWorkflow.png>>
+%
+% We started with the overall workflow as shown above, and worked through a series
+% of exercises to add continuous verification and validation activities to the 
+% workflow.  In the end, we established a structured, formal testing framework 
+% for securing the quality, robustness and safety of our cruise controller:
+%
+% # _Showed benefits of ad-hoc testing for finding issues early,_
+% # _Linked textual requirements to the model and source code for
+% traceability and early verification of requirements,_
+% # _Enforced modeling standards for model readability and source
+% code efficiency, enabling re-use._
+% # _Detected model design errors like "dead logic" and "divide by zero"
+% using formal verification techniques,_
+% # _Dynamically tested the design using simulation test harnesses with requirements based input 
+% test vectors and expected outputs to verify design behavior meets 
+% the requirements,_
+% # _Verified the generated source code, compiled for host (SIL) and
+% production hardware (PIL), by testing for equvalence in behavior with
+% model,_
+% # _Modeled and validated key safety requirements using formal proofs._
+%
+% In addition we have incorporated the use of Polyspace in an MBD workflow:
+%
+% <<Step_09_PS_MBD_Workflow.png>>
+%
+% <<Step_08_MdlVerWorkflow.png>>
+%
+% <<Step_08_CodeVerWorkflow.png>>
+%
+% We have seen how to create and re-use test assets but there is more to
+% consider when implementing a V&V workflow:
+%
+% 1.  _*Creation of test inputs.*_  These have been in the form of time
+% traces, managed in spreadsheets.  But we could also use .mat files to 
+% import into the Signal Builder block.  But it's also possible to map a 
+% .mat file to the root inports.  Test inputs could be in the form of a 
+% MATLAB function block or be managed in a Stateflow chart.
+%
+% 2.  _*Creation of test harnesses.*_  We have seen how to create these with 
+% the *Test Harness* functionality of *Simulink Test*.  But what
+% if you want to run tests on a subsystem in the model?  Testing and
+% debugging subsystems although not shown in the workshop is a core 
+% functionality of *Simulink Test* that includes synchronization of changes
+% between the source model and the subsystem test harness. It is also 
+% possible to run the model by the *root inport* mapping method to apply 
+% test inputs directly to the algorithm model.  Mapping .mat files and 
+% spreadsheet data to root inports is also supported in the *Test Manager*.
+% So with this method no test harnesses are required.  But you will still 
+% need to consider how the outputs will be verified.
+%
+% 3.  _*Verification of results.*_  We have seen how to do this in the test
+% harness with the expected outputs with simple comparison operators and
+% also using the *compare runs* function of *SDI*.  But there are other
+% ways to do the evaluation including using more sophisticated models to 
+% do online checking.  In addition, the evaluation could be a MATLAB
+% function block or a Stateflow chart.  The unit under test may have
+% several inputs and outputs that can be ignored at different times using
+% validation time windows to specify when the evaluation is active.  How
+% the tests are executed needs to considered since this is often coupled to
+% the selected evaluation method.  We have seen how to manually run the 
+% model and do online evaluations. We have also shown how the *Test Manager*
+% will run the tests, perform the evaluation and produce a test report.
+%
+% 4.  _*Test automation.*_  Several methods have been presented, starting with 
+% using the "Run All" button in Signal Builder to automate test execution
+% with test inputs and outputs stored in *SDI* for manual evaluation.  Next
+% a script was created using the *SDI* API to automate the evaluation and
+% creation of test reports.  Lastly, *Report Generator* was used to
+% completely automate the loading of model, test execution, evaluation and
+% the report creation.
+%
+% The general idea is to consider what methods will work best for your
+% development and testing process based on the above points and other
+% considerations.  These may include the available resources to develop 
+% and maintain a custom process and tools.  So often it is better to begin 
+% in a minimal way and then add as necessary through continuous improvement.
+% Another consideration is the archiving of test result and the sharing or
+% re-use of test assets.
+%
+##### SOURCE END #####
+--></body></html>
