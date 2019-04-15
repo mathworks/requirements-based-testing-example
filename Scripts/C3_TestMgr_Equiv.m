@@ -1,5 +1,12 @@
 %% ========================================================================
-%       Requirements Based Functional Testing - Short Test Plan - Test Mgr
+%       Equivalence Testing - Full Cov Test Plan - Test Mgr
 %  ========================================================================
-%% open full coverage func test model - for importing into Test Mgr
-loadSILTestHarness
+
+%%  Load model with exit condition fix and SB harnesses
+loadCoverageHarnessMdlFix_SLT;
+%%  Open test file preconfigured for "top-it-off" workflow
+sltest.testmanager.clear;
+sltest.testmanager.load('topItOff_final');
+sltest.testmanager.view;
+
+% manually select "SIL" mode and run tests

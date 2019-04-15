@@ -29,6 +29,16 @@ bdclose all
 clear all
 
 %% ========================================================================
+%       Requirements Authoring and Linking
+%  ========================================================================
+open_system('CruiseControl_Req.slx');
+uiopen('MW_CruiseControl.slreqx',1);
+
+%% close
+bdclose all
+clear all
+
+%% ========================================================================
 %       Model Advisor Checks
 %  ========================================================================
 % 0) Load model advisor / req linking example model

@@ -1,0 +1,454 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Step 4m: More Test Automation</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-09"><meta name="DC.source" content="Step_04m.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:2.0em; color:#000077; line-height:150%; font-weight:bold; text-align:center }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.6em; color:#444444; font-weight:bold; font-style:italic; text-align:left; vertical-align:bottom; line-height:200%; border-top:2px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#555555; font-style:italic; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px;} 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Step 4m: More Test Automation</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li><li><a href="#2">Verification and Validation Tools Used</a></li><li><a href="#3">Importing a Spreadsheet Test Specification</a></li><li><a href="#4">Automating the Spreadsheet Import</a></li><li><a href="#5">Signal Editor Harness Creation and Test Vector Authoring</a></li><li><a href="#6">Automating Signal Editor based Test Execution</a></li><li><a href="#7">Using the Import Adapter for Custom Formats</a></li><li><a href="#8">Summary</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p>In the previous step we showed how to create test harnesses based on the <b>Signal Builder</b> block and the <b>Test Sequence</b> block.  Next we automated the test execution of the <b>Signal Builder</b> harness using the <b>Test Manager</b>. We ignored the test automation of the <b>Test Sequence</b> block based harness. There are methods we can use to automate the test execution of harnesses based on the <b>Test Sequence</b> blocks and other types of blocks used to author test cases in Simulink.  In addition, there are methods we can apply using thet <b>Test Manager</b> alone that will not require a test harness.</p><p>In this step we will look at additional test specfication or authoring methods:</p><div><ul><li>Using spreadsheets alone for applying test vectors without a harness plus support for custom spreadsheet formats</li><li>Using the <b>Signal Editor</b> block in a harness to replace <b>Signal Builder</b> for authoring test vectors</li><li>Using variant based <b>Test Sequence</b> blocks in a harness to overcome the one <b>Test Sequence</b> per test harness limitation</li></ul></div><p>For all of the above methods we will walk through an example that will include test automation in the <b>Test Manager</b>.</p><p>All of the examples will be based on the "short" test plan that includes only (6) test case. To open the test plan document &#8211; <b><a href="matlab:winopen('cruise_control_testplan_short.docx')">click here</a></b>.</p><p><img vspace="5" hspace="5" src="Step_04_TestPlan.png" alt=""> </p><h2>Verification and Validation Tools Used<a name="2"></a></h2><div><ul><li>Simulink Test</li><li>Signal Editor Block (part of Simulink)</li></ul></div><h2>Importing a Spreadsheet Test Specification<a name="3"></a></h2><p>In the <b>Test Manager</b>, there is support for importing the spreadsheet without a need for a test harness.  The spreadsheet format required includes "time" in the first column and then each input signal in its own column.  If expected outputs are specified in the spreadsheet, then the "time" column is repeated after the last input signal followed by each expected output signal in its own column.</p><p>To import and execute the spreadsheet based test specification, do the following:</p><p>1.  Open the <b>CruiseControl.slx</b> model - <b><a href="matlab:loadMore_SLT;">click here</a></b>.</p><p>2.  Open the Excel file that contains the test vectors to import - <b><a href="matlab:winopen('CruiseControlTests_Import_BuiltIn.xlsx');">click here</a></b>.</p><p>For each of the 6 test cases described in the test plan document, there is a corresponding worksheet.  Note the format used for the time, input and expected output vectors as described above.</p><p><img vspace="5" hspace="5" src="Step_04m_BuiltInImportXLS.png" alt=""> </p><p>3.  Open the test file "CruiseControlTests_BuiltIn.mldatx" in the <b>Test Manager</b> - <b><a href="matlab:openBuiltInTestFile;">click here</a></b></p><p><img vspace="5" hspace="5" src="Step_04m_BuiltInTestFile.png" alt=""> </p><p>4.  Navigate to the "Import_XLS_Short_BuilIn" test case.</p><p>We will be importing from the spreadsheet and mapping the input data directly to the component model without a test harness.  The test case has been created and we will walk through the configuration steps to understand how to use an external spreadsheet in the tool.</p><p>5.  Open the <b>INPUTS</b> section and select <b>Mapped</b> to open the input port mapping dialog.</p><p><img vspace="5" hspace="5" src="Step_04m_BuiltInInputs.png" alt=""> </p><p>6.  In the mapping dialog, the spreadsheet file has been configured and expand the <b>SHEETS AND RANGE SPECIFICATION</b> to see the columns "A:F" from the first worksheet have been selected for input mapping.</p><p><img vspace="5" hspace="5" src="Step_04m_BuiltInPortMapping.png" alt=""> </p><p>7.  Select <b>Map Inputs</b> to map the spreadsheet inputs to the model inports.  Check the status to see all ports have been mapped successfully as shown above.</p><p>8.  To import the expected outputs, open the <b>BASELINE CRITERIA</b> section and select the first sheet hyperlink to open the baseline import dialog.</p><p><img vspace="5" hspace="5" src="Step_04m_BuiltBaseline.png" alt=""> </p><p>9.  In the baseline dialog, the spreadsheet file has been configured and notice the <b>SHEETS AND RANGE SPECIFICATION</b> was set to columns "G:I" from the first worksheet to import baseline time and expected outputs.</p><p><img vspace="5" hspace="5" src="Step_04m_BuiltInBaselineImport.png" alt=""> </p><p>10. To configure the <b>ITERATIONS</b>, select <b>Auto Generate</b> and check <b>External Input</b> and <b>Baseline</b> to iterate over these sets.</p><p><img vspace="5" hspace="5" src="Step_04m_BuiltIterationCfg.png" alt=""> </p><p>The test case based on the imported spreasheet is now ready for test execution.</p><p>11. Run the test case and analyze the results which include the <b>External Inputs</b>, <b>Simulation Output</b>, <b>Baseline</b> and the <b>Baseline Criteria Result</b></p><h2>Automating the Spreadsheet Import<a name="4"></a></h2><p>The previous section used a spreadsheet format supported by the <b>Test Manager</b>.  The spreadsheet matched the inputs/outputs of the model and was manually imported into the test case. What if we could automatically create the spreadsheet and automatically import the spreadsheet into the test case?  The answer is <b>Test from Spreadsheet</b>.</p><p>Let's explore this feature:</p><p>1.  From the main <b>Test Manager</b> menu select <b>New/Test from Spreadsheet</b>.</p><p><img vspace="5" hspace="5" src="Step_04m_TestFromSprdMenu.png" alt=""> </p><p>2.  Select <b>Create a test template file for specifying data</b> in the <b>Data</b> dialog.  If you select <b>Use existing test data from a spreadsheet</b> a test case will be created from an existing spreadsheet.  Press <b>Next</b>.</p><p><img vspace="5" hspace="5" src="Step_04m_TestFromSprdData.png" alt=""> </p><p>3.  Verify "CruiseControl" has been entered for <b>Model</b> and "None" for <b>Harness</b> in the <b>System</b> dialog.  Press <b>Next</b>.</p><p><img vspace="5" hspace="5" src="Step_04m_TestFromSprdSystem.png" alt=""> </p><p>4.  Verify <b>Inputs</b> and <b>Comparison signals</b> are selected.  Verify <b>Yes, include all attributes in the spreadsheet</b> is selected in the <b>Attributes</b> dialog.  Press <b>Next</b>.</p><p><img vspace="5" hspace="5" src="Step_04m_TestFromSprdAttr.png" alt=""> </p><p>5.  Use the default settings in the <b>Scenarios</b> dialog.  Press <b>Next</b>.</p><p><img vspace="5" hspace="5" src="Step_04m_TestFromSprdScenario.png" alt=""> </p><p>6.  Enter "Import_XLS_Auto" for the test file and spreadsheet name. Press <b>Done</b>.</p><p><img vspace="5" hspace="5" src="Step_04m_TestFromSprdGenTest.png" alt=""> </p><p>The test case "Import_XLS_Short_BuiltIn" used the same format that was created with the template wizard.</p><p>7.  Replace the spreadsheet file with "CruiseControlTests_Import_BuiltIn.xlsx" found in the ".\Tests\ExcelImportBuiltIn" folder.</p><p><img vspace="5" hspace="5" src="Step_04m_TestFromSprdReplace.png" alt=""> </p><p>8.  Run the tests.</p><p>Modifications to the test case spreadsheet can now be automatically imported into the test case without any additional steps.</p><h2>Signal Editor Harness Creation and Test Vector Authoring<a name="5"></a></h2><p>In the previous step, we used a harness based on a  <b>Signal Builder</b> block.  A new but similar block was introduced to replace the <b>Signal Builder</b> block that has many of the original block features but it adds the ability to:</p><div><ul><li>Create/edit signals in a tabular manner</li><li>Specify the signal data types</li><li>Set the interpolation method</li></ul></div><p>The <b>Signal Editor</b> block is supported by <b>Simulink Test</b> for harness creation or test automation in the <b>Test Manager</b>. The following steps detail the method to create a <b>Signal Editor</b> based test harness.  To open an existing, pre-built <b>Signal Editor</b> harness that we will use in the <b>Test Manager</b>:</p><p>1.  Navigate to the test case "SigEditorBlock_Short_BuiltIn".</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdOpenHarness.png" alt=""> </p><p>2.  Open the test harness "CruiseControl_Harness_SigEditor".</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdHarness.png" alt=""> </p><p>The test harness was created by performing the following steps:</p><p>1.  Create a harness based on selecting the <b>Signal Editor</b> as the source and default outport blocks for the sink plus select "Add separate assessment block".</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdHarnessCreate.png" alt=""> </p><p>Initially the outport signals will not line up until we had a scenario mat file that contains the test case datasets with the individual signal test vectors.</p><p>2.  Open the <b>Signal Editor</b> block dialog and enter the <b>File name</b> by browsing to the "CruiseControl_Short_SigEditor.mat".</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdBlockDialog.png" alt=""> </p><p>3.  Launch the <b>Signal Editor</b>.</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdEditor.png" alt=""> </p><p>4.  In the <b>Signal Editor</b> dialog experiment with the tabular editor and select the correct data type.  Try the other features to see how to add test cases and signals.</p><p>5.  Close all dialogs and manually connect the <b>Signal Editor</b> block.</p><p>6.  Connect the outputs and expected outputs to the "Test Assessment" block.  Add the verification logic to the block.</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdAssessment.png" alt=""> </p><p>One of the benefits with a test harness that contains the test case vectors is that enables simulation testing outside of the <b>Test Manager</b>. The test cases may be executed, debugged and refined before test automation.</p><h2>Automating Signal Editor based Test Execution<a name="6"></a></h2><p>The <b>Signal Editor</b> based harness is directly supported in the <b>Test Manager</b>.  We will configure a test case to automate the execution of this test harness.</p><p>Let's go through the <b>Signal Editor</b> example by doing the following:</p><p>1.  Navigate to the test case "SigEditorBlock_Short_BuiltIn".</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdBuiltInMdlCfg.png" alt=""> </p><p>Notice the test case type is a "Simulation Test" since the assessment will be done in the "Test Assessment" block.</p><p>2.  Open the <b>INPUTS</b> section to see how the <b>Signal Editor</b> has been configured.</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdBuiltInInputCfg.png" alt=""> </p><p>3.  Open the <b>ITERATIONS</b> section and then the <b>TABLE ITERATIONS</b> section to see how the iterations have been configured to run all the <b>Signal Editor</b> scenarios.</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdBuiltInIteration.png" alt=""> </p><p>4.  Run the test case and analyze the results which include the <b>Verify Statements</b> and the <b>Sim Output</b>.  For each iteration a different test scenario was selected by the script in the post-load callback.</p><p><img vspace="5" hspace="5" src="Step_04m_SigEdBuiltInResults.png" alt=""> </p><h2>Using the Import Adapter for Custom Formats<a name="7"></a></h2><p>In the previous section we imported a spreadsheet in a standard format that aligned with what the <b>Test Manager</b> was able to import using its built-in functions.  What if you had existing test cases in your own format?  Or would like additional functionality not supported with the built-in functions?  The answer to importing custom formats and improving the test automation was delivered in a feature known as the <b>Import Adapter</b>.  This feature provides an integrated way to create scripts to import custom formats based on a user selected test specification file.</p><p>We will be importing a custom format with the following features:</p><div><ul><li>Test vector inputs and expected outputs that can be specified in a sparse or "only on change" manner</li><li>Parameter overrides (calibrations) that can be specified on a per test case basis</li></ul></div><p>As before we will be mapping the directly to the component inports without requiring a test harness and using the baseline evaulation method.</p><p>To begin the review of the <b>Import Adapter</b> example, do the following:</p><p>1.  Open the spreadsheet "CruiseControlTests_ImportAdapter.xlsx", a test specification based on a custom format - <b><a href="matlab:winopen('CruiseControlTests_ImportAdapter.xlsx');">click here</a></b>.</p><p><img vspace="5" hspace="5" src="Step_04m_ImportAdapterXLS.png" alt=""> </p><p>The first row contains headings for "Inputs", "Outputs" and "Calibrations" that will be used to delimit the content for the external inputs, baseline and parameter sets.  The <b>Import Adapter</b> will completely configure test case without manual intervention once the import test file has been specified in the <b>Test Manager</b>.</p><p>2.  Open the test file "CruiseControlTests_ImportXLSadapter.mldatx" in the <b>Test Manager</b> - <b><a href="matlab:openXLSimportAdapterTestFile;">click here</a></b></p><p>3.  Navigate to test case "Import_XLS_Short_Adapter".</p><p><img vspace="5" hspace="5" src="Step_04m_AdapterTestFile.png" alt=""> </p><p>4.  Check/uncheck the <b>Create Test Case from External File</b> to see how the additional UI controls appear for specifying the file and adapter. Notice the <b>Adapter</b> dropdown contains all registered adapters.</p><p>5.  Press the <b>Load from file</b> button (shown above in blue) to begin the spreadsheet importing.  A popup shows the import progress.</p><p><img vspace="5" hspace="5" src="Step_04m_AdapterProgress.png" alt=""> </p><p>Once completed the individual sections can expanded to see the result of the spreadsheet import.  The adapter has created sets of mat files and assigned these to the parameters, inputs and baseline in the test case.</p><p>6.  Open the <b>PARAMETER OVERRIDES</b> section to check the imported parameter values from the spreadsheet.  Notice the parameter set content is "read-only" since this is controlled by the spreadsheet.  The individual mat files from the import have been assigned to each parameter set and the values can also be checked.</p><p><img vspace="5" hspace="5" src="Step_04m_AdapterParams.png" alt=""> </p><p>7.  Open the <b>INPUTS</b> section to check the imported input vectors from the spreadsheet.  Notice the input set content is "read-only". The individual mat files from the import have been assigned to each input signal set and the values can also be checked by selecting the <b>Visualize</b> button.</p><p><img vspace="5" hspace="5" src="Step_04m_AdapterInputs.png" alt=""> </p><p>8.  Open the <b>BASELINE CRITERIA</b> section to check the imported expected output vectors from the spreadsheet.  Notice the baseline set content is "read-only".  The individual mat files from the import have been assigned to each baseline set and the values can also be checked by selecting the <b>Visualize</b> button.</p><p><img vspace="5" hspace="5" src="Step_04m_AdapterBaselines.png" alt=""> </p><p>9.  Open the <b>ITERATIONS</b> section to see the iterations have been configured based on the parameter, external input and baseline sets. Also the iteration has been named based on the worksheet name with a prefix "casenn_" to order the results.</p><p><img vspace="5" hspace="5" src="Step_04m_AdapterIterations.png" alt=""> </p><p>The import adapter is a custom created script to:</p><div><ul><li>Read the input spreadsheet file</li><li>Parse the spreadsheet data into parameter, input and baseline data</li><li>Get the data types and dimensions from the model</li><li>Create the parameter, input and baseline mat files</li><li>Clear the existing test case</li><li>Assign the mat files to test case iterations</li></ul></div><p>10.  To see the implementation details of the import adapter script "XLSadaptor.m" - <b><a href="matlab:edit('XLSadaptor.m');">click here</a></b>.</p><p><img vspace="5" hspace="5" src="Step_04m_AdapterScript1.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_04m_AdapterScript2.png" alt=""> </p><p>The test case based on the imported spreasheet is now ready for test execution that includes parameter settings per test case.</p><p>11. Run the test case and analyze the results which include the <b>External Inputs</b>, <b>Simulation Output</b>, <b>Baseline</b> and the <b>Baseline Criteria Result</b>.  In the test case results, note the values from the <b>PARAMETER OVERRIDES</b> have been recorded.</p><p><img vspace="5" hspace="5" src="Step_04m_AdapterTestResult.png" alt=""> </p><h2>Summary<a name="8"></a></h2><p>In this step we have shown more ways to automate the test execution based on built-in methods and other methods based on the <b>import adapter</b> feature.  The <b>import adapter</b> was used to fill existing gaps and also to completely automate the test case creation from a spreadsheet with a custom format.</p><p>While going through the examples you can begin to see how these methods will fit into your workflows.  The adapter is script based so it can be customized based on your existing or future needs.</p><p>When you are finished, close all models and files - <b><a href="matlab:bdclose('all');">click here</a></b>.</p><p>Go to <b>Step 5: Test Case Generation</b> - <b><a href="Step_05.html">click here</a></b>.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Step 4m: More Test Automation
+%
+%% Introduction
+% In the previous step we showed how to create test harnesses based on the 
+% *Signal Builder* block and the *Test Sequence* block.  Next we automated 
+% the test execution of the *Signal Builder* harness using the *Test Manager*.
+% We ignored the test automation of the *Test Sequence* block based harness.
+% There are methods we can use to automate the test execution of harnesses
+% based on the *Test Sequence* blocks and other types of blocks used to author
+% test cases in Simulink.  In addition, there are methods we can apply using
+% thet *Test Manager* alone that will not require a test harness.
+%
+% In this step we will look at additional test specfication or authoring methods:
+%
+% * Using spreadsheets alone for applying test vectors without a harness plus support 
+% for custom spreadsheet formats
+% * Using the *Signal Editor* block in a harness to replace *Signal Builder*
+% for authoring test vectors
+% * Using variant based *Test Sequence* blocks in a harness to overcome the
+% one *Test Sequence* per test harness limitation
+%
+% For all of the above methods we will walk through an example that will include
+% test automation in the *Test Manager*.
+%
+% All of the examples will be based on the "short" test plan that includes
+% only (6) test case. To open the test plan document –
+% *<matlab:winopen('cruise_control_testplan_short.docx') click here>*.
+%
+% <<Step_04_TestPlan.png>>
+%
+%% Verification and Validation Tools Used
+% * Simulink Test
+% * Signal Editor Block (part of Simulink)
+%
+%% Importing a Spreadsheet Test Specification
+%
+% In the *Test Manager*, there is support for importing the spreadsheet
+% without a need for a test harness.  The spreadsheet format required
+% includes "time" in the first column and then each input signal in its own
+% column.  If expected outputs are specified in the spreadsheet, then the 
+% "time" column is repeated after the last input signal followed by each
+% expected output signal in its own column.
+%
+% To import and execute the spreadsheet based test specification, do the following:
+% 
+% 1.  Open the *CruiseControl.slx* model - *<matlab:loadMore_SLT; click here>*. 
+%
+% 2.  Open the Excel file that contains the test vectors to import - 
+% *<matlab:winopen('CruiseControlTests_Import_BuiltIn.xlsx'); click here>*. 
+%
+% For each of the 6 test cases described in the test plan document, there 
+% is a corresponding worksheet.  Note the format used for the time, input 
+% and expected output vectors as described above.
+%
+% <<Step_04m_BuiltInImportXLS.png>>
+%
+% 3.  Open the test file "CruiseControlTests_BuiltIn.mldatx" in the *Test
+% Manager* - *<matlab:openBuiltInTestFile; click here>*
+%
+% <<Step_04m_BuiltInTestFile.png>>
+%
+% 4.  Navigate to the "Import_XLS_Short_BuilIn" test case.
+%
+% We will be importing from the spreadsheet and mapping the input data 
+% directly to the component model without a test harness.  The test case
+% has been created and we will walk through the configuration steps to
+% understand how to use an external spreadsheet in the tool.
+%
+% 5.  Open the *INPUTS* section and select *Mapped* to open the input port
+% mapping dialog.
+%
+% <<Step_04m_BuiltInInputs.png>>
+%
+% 6.  In the mapping dialog, the spreadsheet file has been configured and
+% expand the *SHEETS AND RANGE SPECIFICATION* to see the columns "A:F" from
+% the first worksheet have been selected for input mapping.
+%
+% <<Step_04m_BuiltInPortMapping.png>>
+%
+% 7.  Select *Map Inputs* to map the spreadsheet inputs to the model
+% inports.  Check the status to see all ports have been mapped
+% successfully as shown above.
+%
+% 8.  To import the expected outputs, open the *BASELINE CRITERIA* section 
+% and select the first sheet hyperlink to open the baseline import dialog.
+%
+% <<Step_04m_BuiltBaseline.png>>
+%
+% 9.  In the baseline dialog, the spreadsheet file has been configured and
+% notice the *SHEETS AND RANGE SPECIFICATION* was set to columns "G:I" from
+% the first worksheet to import baseline time and expected outputs.
+%
+% <<Step_04m_BuiltInBaselineImport.png>>
+%
+% 10. To configure the *ITERATIONS*, select *Auto Generate* and check 
+% *External Input* and *Baseline* to iterate over these sets.
+%
+% <<Step_04m_BuiltIterationCfg.png>>
+%
+% The test case based on the imported spreasheet is now ready for test
+% execution.
+%
+% 11. Run the test case and analyze the results which include the *External
+% Inputs*, *Simulation Output*, *Baseline* and the *Baseline Criteria
+% Result*
+%
+%% Automating the Spreadsheet Import
+%
+% The previous section used a spreadsheet format supported by the *Test
+% Manager*.  The spreadsheet matched the inputs/outputs of the model and
+% was manually imported into the test case. What if we could automatically
+% create the spreadsheet and automatically import the spreadsheet into the
+% test case?  The answer is *Test from Spreadsheet*.
+%
+% Let's explore this feature:
+%
+% 1.  From the main *Test Manager* menu select *New/Test from Spreadsheet*.
+%
+% <<Step_04m_TestFromSprdMenu.png>>
+% 
+% 2.  Select *Create a test template file for specifying data* in the *Data*
+% dialog.  If you select *Use existing test data from a spreadsheet* a test
+% case will be created from an existing spreadsheet.  Press *Next*.
+%
+% <<Step_04m_TestFromSprdData.png>>
+%
+% 3.  Verify "CruiseControl" has been entered for *Model* and "None" for
+% *Harness* in the *System* dialog.  Press *Next*.
+%
+% <<Step_04m_TestFromSprdSystem.png>>
+%
+% 4.  Verify *Inputs* and *Comparison signals* are selected.  Verify 
+% *Yes, include all attributes in the spreadsheet* is selected in the 
+% *Attributes* dialog.  Press *Next*.
+%
+% <<Step_04m_TestFromSprdAttr.png>>
+%
+% 5.  Use the default settings in the *Scenarios* dialog.  Press *Next*.
+%
+% <<Step_04m_TestFromSprdScenario.png>>
+%
+% 6.  Enter "Import_XLS_Auto" for the test file and spreadsheet name.  
+% Press *Done*.
+%
+% <<Step_04m_TestFromSprdGenTest.png>>
+%
+% The test case "Import_XLS_Short_BuiltIn" used the same format that was
+% created with the template wizard.
+%
+% 7.  Replace the spreadsheet file with
+% "CruiseControlTests_Import_BuiltIn.xlsx" found in the
+% ".\Tests\ExcelImportBuiltIn" folder.
+%
+% <<Step_04m_TestFromSprdReplace.png>>
+%
+% 8.  Run the tests.
+%
+% Modifications to the test case spreadsheet can now be automatically 
+% imported into the test case without any additional steps.
+%% Signal Editor Harness Creation and Test Vector Authoring
+%
+% In the previous step, we used a harness based on a  *Signal Builder* 
+% block.  A new but similar block was introduced to replace the *Signal Builder*
+% block that has many of the original block features but it adds the ability 
+% to:
+%
+% * Create/edit signals in a tabular manner
+% * Specify the signal data types
+% * Set the interpolation method
+%
+% The *Signal Editor* block is supported by *Simulink Test* for harness 
+% creation or test automation in the *Test Manager*.  
+% The following steps detail the method to create a *Signal Editor* based 
+% test harness.  To open an existing, pre-built *Signal Editor* harness 
+% that we will use in the *Test Manager*:
+%
+% 1.  Navigate to the test case "SigEditorBlock_Short_BuiltIn".
+%
+% <<Step_04m_SigEdOpenHarness.png>>
+%
+% 2.  Open the test harness "CruiseControl_Harness_SigEditor".
+%
+% <<Step_04m_SigEdHarness.png>>
+%
+% The test harness was created by performing the following steps:
+%
+% 1.  Create a harness based on selecting the *Signal Editor* as the source
+% and default outport blocks for the sink plus select 
+% "Add separate assessment block". 
+%
+% <<Step_04m_SigEdHarnessCreate.png>>
+%
+% Initially the outport signals will not line up until we had a scenario 
+% mat file that contains the test case datasets with the individual signal 
+% test vectors.
+%
+% 2.  Open the *Signal Editor* block dialog and enter the *File name* by
+% browsing to the "CruiseControl_Short_SigEditor.mat".
+%
+% <<Step_04m_SigEdBlockDialog.png>>
+%
+% 3.  Launch the *Signal Editor*.
+%
+% <<Step_04m_SigEdEditor.png>>
+%
+% 4.  In the *Signal Editor* dialog experiment with the tabular editor and 
+% select the correct data type.  Try the other features to see how to add 
+% test cases and signals.
+%
+% 5.  Close all dialogs and manually connect the *Signal Editor* block.
+%
+% 6.  Connect the outputs and expected outputs to the "Test Assessment"
+% block.  Add the verification logic to the block.
+%
+% <<Step_04m_SigEdAssessment.png>>
+% 
+% One of the benefits with a test harness that contains the test case 
+% vectors is that enables simulation testing outside of the *Test Manager*.
+% The test cases may be executed, debugged and refined before test
+% automation. 
+%% Automating Signal Editor based Test Execution
+%
+% The *Signal Editor* based harness is directly supported in the *Test
+% Manager*.  We will configure a test case to automate the execution of 
+% this test harness.
+%
+% Let's go through the *Signal Editor* example by doing the following:
+%
+% 1.  Navigate to the test case "SigEditorBlock_Short_BuiltIn".
+%
+% <<Step_04m_SigEdBuiltInMdlCfg.png>>
+%
+% Notice the test case type is a "Simulation Test" since the assessment 
+% will be done in the "Test Assessment" block.
+%
+% 2.  Open the *INPUTS* section to see how the *Signal Editor* has been 
+% configured.
+%
+% <<Step_04m_SigEdBuiltInInputCfg.png>>
+% 
+% 3.  Open the *ITERATIONS* section and then the *TABLE ITERATIONS* section
+% to see how the iterations have been configured to run all the *Signal Editor*
+% scenarios.
+%
+% <<Step_04m_SigEdBuiltInIteration.png>>
+%
+% 4.  Run the test case and analyze the results which include the *Verify Statements*
+% and the *Sim Output*.  For each iteration a different test scenario was
+% selected by the script in the post-load callback.
+%
+% <<Step_04m_SigEdBuiltInResults.png>>
+%
+%% Using the Import Adapter for Custom Formats
+%
+% In the previous section we imported a spreadsheet in a standard format
+% that aligned with what the *Test Manager* was able to import using its 
+% built-in functions.  What if you had existing test cases in your own 
+% format?  Or would like additional functionality not supported with the 
+% built-in functions?  The answer to importing custom formats and improving
+% the test automation was delivered in a feature known as the *Import
+% Adapter*.  This feature provides an integrated way to create scripts to
+% import custom formats based on a user selected test specification file.
+%
+% We will be importing a custom format with the following features:
+%
+% * Test vector inputs and expected outputs that can be specified in a 
+% sparse or "only on change" manner
+% * Parameter overrides (calibrations) that can be specified on a per test
+% case basis
+%
+% As before we will be mapping the directly to the component inports without
+% requiring a test harness and using the baseline evaulation method.
+%
+% To begin the review of the *Import Adapter* example, do the following:
+%
+% 1.  Open the spreadsheet "CruiseControlTests_ImportAdapter.xlsx", a test
+% specification based on a custom format -
+% *<matlab:winopen('CruiseControlTests_ImportAdapter.xlsx'); click here>*. 
+%
+% <<Step_04m_ImportAdapterXLS.png>>
+%
+% The first row contains headings for "Inputs", "Outputs" and
+% "Calibrations" that will be used to delimit the content for the external
+% inputs, baseline and parameter sets.  The *Import Adapter* will 
+% completely configure test case without manual intervention once the import
+% test file has been specified in the *Test Manager*. 
+%
+% 2.  Open the test file "CruiseControlTests_ImportXLSadapter.mldatx" in the *Test
+% Manager* - *<matlab:openXLSimportAdapterTestFile; click here>*
+%
+% 3.  Navigate to test case "Import_XLS_Short_Adapter". 
+%
+% <<Step_04m_AdapterTestFile.png>>
+%
+% 4.  Check/uncheck the *Create Test Case from External File* to see how
+% the additional UI controls appear for specifying the file and adapter.
+% Notice the *Adapter* dropdown contains all registered adapters.
+% 
+% 5.  Press the *Load from file* button (shown above in blue) to begin the
+% spreadsheet importing.  A popup shows the import progress.
+%  
+% <<Step_04m_AdapterProgress.png>>
+%
+% Once completed the individual sections can expanded to see the result of
+% the spreadsheet import.  The adapter has created sets of mat files and
+% assigned these to the parameters, inputs and baseline in the test case.
+%
+% 6.  Open the *PARAMETER OVERRIDES* section to check the imported parameter values
+% from the spreadsheet.  Notice the parameter set content is "read-only"
+% since this is controlled by the spreadsheet.  The individual mat files
+% from the import have been assigned to each parameter set and the values
+% can also be checked.
+%
+% <<Step_04m_AdapterParams.png>>
+%
+% 7.  Open the *INPUTS* section to check the imported input vectors
+% from the spreadsheet.  Notice the input set content is "read-only".
+% The individual mat files from the import have been assigned to each 
+% input signal set and the values can also be checked by selecting the 
+% *Visualize* button.
+%
+% <<Step_04m_AdapterInputs.png>>
+%
+% 8.  Open the *BASELINE CRITERIA* section to check the imported expected
+% output vectors from the spreadsheet.  Notice the baseline set content is 
+% "read-only".  The individual mat files from the import have been assigned
+% to each baseline set and the values can also be checked by selecting the 
+% *Visualize* button.
+%
+% <<Step_04m_AdapterBaselines.png>>
+%
+% 9.  Open the *ITERATIONS* section to see the iterations have been 
+% configured based on the parameter, external input and baseline sets. 
+% Also the iteration has been named based on the worksheet name with a 
+% prefix "casenn_" to order the results.
+%
+% <<Step_04m_AdapterIterations.png>>
+%
+% The import adapter is a custom created script to:
+%
+% * Read the input spreadsheet file
+% * Parse the spreadsheet data into parameter, input and baseline data
+% * Get the data types and dimensions from the model
+% * Create the parameter, input and baseline mat files
+% * Clear the existing test case
+% * Assign the mat files to test case iterations
+%
+% 10.  To see the implementation details of the import adapter script 
+% "XLSadaptor.m" -
+% *<matlab:edit('XLSadaptor.m'); click here>*. 
+%
+% <<Step_04m_AdapterScript1.png>>
+%
+% <<Step_04m_AdapterScript2.png>>
+%
+% The test case based on the imported spreasheet is now ready for test
+% execution that includes parameter settings per test case. 
+%
+% 11. Run the test case and analyze the results which include the *External
+% Inputs*, *Simulation Output*, *Baseline* and the *Baseline Criteria
+% Result*.  In the test case results, note the values from the *PARAMETER
+% OVERRIDES* have been recorded.
+%
+% <<Step_04m_AdapterTestResult.png>>
+%
+%% Summary
+%
+% In this step we have shown more ways to automate the test execution 
+% based on built-in methods and other methods based on the *import adapter*
+% feature.  The *import adapter* was used to fill existing gaps and also to 
+% completely automate the test case creation from a spreadsheet with a 
+% custom format.
+%
+% While going through the examples you can begin to see how these methods
+% will fit into your workflows.  The adapter is script based so it can
+% be customized based on your existing or future needs.
+%
+% When you are finished, close all models and files - 
+% *<matlab:bdclose('all'); click here>*.
+%
+% Go to *Step 5: Test Case Generation* - *<Step_05.html click here>*.
+%
+##### SOURCE END #####
+--></body></html>

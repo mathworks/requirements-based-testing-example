@@ -13,12 +13,8 @@ clear all
 open_system('CruiseControl_SIL.slx');
 sltest.harness.open('CruiseControl_SIL','CruiseControl_SIL_Harness_SB_Full');
 
-% if exist('CruiseControl_SIL_harness.slx','file')
-%     delete(which('CruiseControl_SIL_harness.slx'));
-% end
-% if exist('CruiseControl_SIL.slx','file')
-%     delete(which('CruiseControl_SIL.slx'));
-% end
+% deleteAllInProj('CruiseControl_SIL_harness.slx');
+% deleteAllInProj('CruiseControl_SIL.slx');
 % 
 % p = slproject.getCurrentProject;
 % copyfile(fullfile(p.RootFolder,'Models','TestGenHarnesses','Coverage', ...

@@ -5,13 +5,10 @@
 bdclose all
 clear all
 %
-%%  Open requirements word doc
-%winopen('cruise_control_reqs_mdl_linked.docx');
-
 %%  Copy Cruise Control version for model advisor check
-% p = slproject.getCurrentProject;
-% copyfile(fullfile(p.RootFolder,'Models','CruiseControl_MdlAdv_ReqLink.slx'), ...
-%     fullfile(p.RootFolder,'Models','CruiseControl.slx'));
-% clear p;
-% open_system('CruiseControl_MdlAdv_ReqLink.slx');
+copyReqsMdl('CruiseControl_Req','CruiseControl_Req');
+copyReqsDataDict('CruiseControl_Req_dd','CruiseControl_Req_dd');
+copyReqSet('MW_CruiseControl','MW_CruiseControl');
+copyExtReqs('SystemReqs_1','SystemReqs',1);
+copyReqsTestCase('CruiseControl_TestCase','CruiseControl_TestCase');
 open_system('CruiseControl_Req.slx');

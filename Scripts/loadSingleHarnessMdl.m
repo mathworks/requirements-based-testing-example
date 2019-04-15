@@ -6,6 +6,10 @@ bdclose all
 clear all
 %%  Copy Cruise Control version for test
 p = slproject.getCurrentProject;
+
+% delete any CruiseControl model files in project
+deleteAllInProj('CruiseControl.slx');
+
 copyfile(fullfile(p.RootFolder,'Models','CruiseControl_SLT_1.slx'), ...
     fullfile(p.RootFolder,'Models','CruiseControl.slx'));
 clear p;

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Step 1: Requirements Traceability</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-01-14"><meta name="DC.source" content="Step_01.m"><style type="text/css">
+      --><title>Step 1: Requirements Traceability</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-26"><meta name="DC.source" content="Step_01.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,7 +66,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Step 1: Requirements Traceability</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li><li><a href="#2">Verification and Validation Tools Used</a></li><li><a href="#3">What requirements are implemented in the model?</a></li><li><a href="#4">Linking Requirements to Simulink Blocks</a></li><li><a href="#5">Linking Requirements to Stateflow Objects</a></li><li><a href="#6">What are the test cases to verify the implementation?</a></li><li><a href="#7">Demonstrating Traceability to the Code</a></li><li><a href="#8">Generating a Requirements Web View</a></li><li><a href="#9">Summary</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_WhatNow.png" alt=""> </p><p>Building executable specifications is an effective and proven way to communicate design ideas and documentation of low level requirements. Simulink and Stateflow are ideal platforms for defining executable specifications in embedded software development.  In the model-based development process these executable specifications are then elaborated to create production code ready models.</p><p>Executable specifications provide an opportunity for early validation of requirements. You can enhance this by providing a link between parts of your model and the corresponding requirements. And you can answer the question:  <i>Are all my requirements implemented?</i></p><p><b>Simulink Requirements</b> provides a requirements editor to enable you to author requirements without an external tool.  <b>Simulink Requirements</b> allows you to associate (or link) requirements to the implementation in Simulink models and to verification test cases in <b>Simulink Test</b>.</p><p>You can use <b>Simulink Requirements</b> to demonstrate requirements traceability by:</p><div><ul><li>Authoring requirements and importing external requirements for linking</li><li>Creating "implementation" links to Simulink blocks, to Stateflow objects and to lines within a MATLAB Function Block</li><li>Creating "verification" links to test cases authored in Simulink Test</li><li>Using the requirements editor (a requirements centric view) to navigate to the implementation and test cases</li><li>Creating a code generation report with hyperlinks to the requirements</li></ul></div><p>In the workshop, we will use <b>Simulink Requirements</b> to create and view two types of requirement links:</p><div><ul><li>Implementation links</li><li>Verification links</li></ul></div><p>As we said above, we will answer the question:  <i>Are all my requirements implemented?</i>  The verification links will answer the question:  <i>Does the implementation pass all functional requirements?</i>  We will pull ahead the execution of the tests to demonstrate the implementation meets the functional requirements along with the requirements traceability to the test cases.  In a later step we will show in detail how to create the test cases.</p><h2>Verification and Validation Tools Used<a name="2"></a></h2><div><ul><li>Simulink Requirements</li><li>Simulink Test</li></ul></div><h2>What requirements are implemented in the model?<a name="3"></a></h2><p>Let's first take a look at a set of requirements for our Cruise Control model authored in <b>Simulink Requirements</b>.</p><p>Open the requirements in the Requirements Editor: <b>MW_CruiseControl.slreqx</b> &#8211; <b><a href="matlab:open_system('CruiseControl_Req.slx');uiopen('MW_CruiseControl.slreqx',1);">click here</a></b>.</p><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_ReqNav.png" alt=""> </p><p>From the Requirements Editor you can navigate from the requirement to the model object using the implementation link as shown above.  To navigate to the implementation, do the following:</p><div><ul><li>Select the requirement"Enable/Disable Switch"</li><li>Click the implementation link "CruiseOnOff" inport in the Cruise Control model</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_ToModel.png" alt=""> </p><p>To navigate to the associated requirement,do the following:</p><div><ul><li>Right-click on "CruiseOnOff" inport to show the block popup menu</li><li>Select <b>Requirements Traceability / 1.  "Enable/Disable Switch ..."</b> to navigate to the associated requirement</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_MdlNav.png" alt=""> </p><p>From the previous exercise, by right clicking on a block, you can tell if there is a requirement associated with that block, but what if you just want to get a "bird's eye view&#8221;?  For this section, we have a model that has multiple links to the requirement document. To get a "bird's eye view&#8221; of the blocks with requirement links, we will use the "Requirements Perspective" feature.</p><p>To enter the "Requirements Perspective", do the following:</p><div><ul><li>In the model, click on the "perspective" badge in the lower right corner of the model to popup the list of perspectives.</li><li>Select  "Requirements" to enter the "Requirements Perspective".</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_EnterReqsPerspective.png" alt=""> </p><p>You can now see all the blocks that have requirement links have a requirements badge.</p><p>To see the associated links, do the following:</p><div><ul><li>Click on any block to see the associated requirement is now highlighted in the "Requirements list", or</li><li>Click on any requirement to see the associated block is now highlighted</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HighlightedModel.png" alt=""> </p><p>To view the links in the state chart, do the following:</p><div><ul><li>Open the "Compute target speed" subsystem to see the links associated with states and transitions in the Stateflow chart.</li><li>Click on transitions and states to see the associated requirement is now highlighted</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HighlightedSF.png" alt=""> </p><p><b>Note</b>:  Model objects can have one or more linked requirements and a requirement may be linked to one or more model objects.</p><h2>Linking Requirements to Simulink Blocks<a name="4"></a></h2><p>In the requirements list, we can see the implementation status for the the requirements by displaying the "Implemented" column to see if there are requirements without implementation (model) links.</p><p>To show the implementation status, do the following:</p><div><ul><li>Right-click in the "Requirements list" to show the popup menu.</li><li>Click "Select Columns" to show the "Column Selector" popup dialog.</li><li>Add the "Implemented" column to display in the "Requirements list"</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ReqPerspectivePopupMenu.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_ReqPerspectiveColumnUI.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_MissingInterfaceReqsLinks.png" alt=""> </p><p>From the implementation status we can see that (2) of the "Interface" requirements have no implementation links:</p><div><ul><li>Vehicle Speed Input</li><li>Vehicle Brake Input</li></ul></div><p>Return to the top level of the Cruise Control model. From the model, we can also see that the "Speed" inport and the "Brake" inport are not linked as shown by the absence of the "requirements badge".</p><p><img vspace="5" hspace="5" src="Step_01_MissingInterfaceMdlLinks.png" alt=""> </p><p>This may have happened due to missing requirements that were found during the implementation design. These requirements are color coded "green" to show they were created after the implementation.</p><p>The next task is to link these ports to the correct new requirement. To link the "Vehicle Speed Input" requirements to the "Speed" inport, drag the requirement to the block.  And do the same for linking "Vehicle Brake Input" to the model "Brake" inport.</p><p><img vspace="5" hspace="5" src="Step_01_SpeedInportLinking.png" alt=""> </p><p>Verify the links are correct by clicking on the model object and checking the correct requirement is highlighted.  You can also select the requirement to see the proper model object is highlighted.</p><p>This completes the exercise of linking requirements to Simulink objects. We will now repeat this for Stateflow in the next exercise.</p><h2>Linking Requirements to Stateflow Objects<a name="5"></a></h2><p>Open the "Compute target speed" state chart. Looking at the requirements link badges on the transitions, there were some inconsistencies with regard to the transitions with links and other transitions without links. One inconsistency to note is that both "hold" function transitions are are not linked to requirements.</p><p><i>We are pulling ahead an issue that we will find in a later step to illustrate linking to Stateflow objects.</i></p><p><img vspace="5" hspace="5" src="Step_01_SF_NotLinked.png" alt=""> </p><p>After reviewing the requirements, it was determined that there were not any requirements for the "hold" function.  These have been added to the requirements document to capture the "hold" function.  As you can see the (2) new "hold" requirements have no implementation links.  We will now link these new requirements to the "hold" transitions.</p><p>The same linking mechanism for the Simulink blocks can be applied to Stateflow objects.  To link the new "hold" function requirements to the Stateflow "hold" transitions, do the following:</p><div><ul><li>Select the requirement: "2.10 Continuous "Accelerate" input increases..."</li><li>Drag to the transition connected to the "Accel" state, "[after(10/holdrate*incdec,tick)]".</li><li>Next, select the requirement: "2.11 Continuous "Decelerate" input decreases..."</li><li>Drag to the transition connected to the "Coast" state, "[after(10/holdrate*incdec,tick)]".</li><li>Verify the links are correct by clicking on the transitions and requirements to check the associated links.</li></ul></div><p>After you've completed the Statelflow linking task, you can exit the "Requirement Perspective" by doing the following:</p><div><ul><li>Select the "perspective" badge and click "Exit Perspective". model.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ExitReqsPerspective.png" alt=""> </p><h2>What are the test cases to verify the implementation?<a name="6"></a></h2><p>In the previous sections we showed how to create and view the implementation links to the requirements.  In this section we discuss how to create and view verification links to the requirements.  Functional requirements require some form of verification to demonstrate the implementation behavior is meeting the requirements.  Typically this is acoomplished with a set of tests that check for the expected response to a stimulus designed to exercise the requirement function.</p><p>To show the requirement links to test cases we will return to the "Requirements Editor" and open the associated <b>Simulink Test</b> file, "CruiseControl_TestCase.mldatx": <b><a href="matlab:uiopen('CruiseControl_TestCase.mldatx',1);uiopen('MW_CruiseControl.slreqx',1);">click here</a></b>.</p><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_ReqEditor.png" alt=""> </p><p>In addition to the implementation link, the requirement also has a verification link to navigate to the test case in <b>Simulink Test</b>.</p><p>To navigate to the test case, do the following:</p><div><ul><li>Click on the verification link "Init Not Enable or Engaged"</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_TestMgr.png" alt=""> </p><p>The test case is now displayed in <b>Simulink Test</b> along with the requirement summary hyperlink to navigate back to the associated requirement.</p><p>To navigate back to the requirement, do the following:</p><div><ul><li>Expand the "Requirement"</li><li>Click on the requirement link "Init Not Enable or Engaged"</li></ul></div><p>As we did before in the "Requirements Perspective", we can get an overall status of the implementation and the verification.  With the verification status we can easily to see what requirements have linked test cases and the result of the test case.</p><p>To show the implementation status and the verification status, do the following:</p><div><ul><li>Right-click in the "Requirements Editor" to show the popup menu.</li><li>Click "Select Columns" to show the "Column Selector" popup dialog.</li><li>Add the "Implemented" and "Verified" column</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ReqEditorPopupMenu.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_ReqEditorInitStatus.png" alt=""> </p><p>Now we can see all the requirements in the "Functional" section have implementation and verification links.  Currently the verification status is "unknown" so we need to execute the test cases to update the status.</p><p>To update the verification status, do the following:</p><div><ul><li>Navigate back to "Test Manager"</li><li>Select the "TestSuite"</li><li>Right-click on the "TestSuite" and select "Run"</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_TestMgrRun.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_TestMgrResults.png" alt=""> </p><p>Once the tests are completed, press "Refresh" to update the verification status with the test results.</p><p><img vspace="5" hspace="5" src="Step_01_ReqEditorFinalStatus.png" alt=""> </p><h2>Demonstrating Traceability to the Code<a name="7"></a></h2><p>Now that we have good traceability from the requirement to the model object.  Let&#8217;s work through a method that will demonstrate the complete traceability from requirement to model to source code.</p><p>Save the implementation links in the model by <b>Analysis/Requirements/Links File/Save Links</b> so our changes will be used during code generation</p><p>To generate the code, do the following:</p><div><ol><li>Under <b>Code</b>, select <b>C/C++ Code</b>, and <b>Build Model</b>. Note: the options for embedding the requirement comments in the C source code have already been set.</li></ol></div><p><img vspace="5" hspace="5" src="Step_01_BuildModelMenu.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_BuildReqConfig.png" alt=""> </p><p>After the code has been generated (should be 5-10 sec), the following code generation report should open:</p><p><img vspace="5" hspace="5" src="Step_01_CodegenRptMdlLinks.png" alt=""> </p><p>Notice the links to the model blocks embedded in the code comments.</p><div><ul><li>Click on one of the <b>'&lt;Root&gt;/Brake'</b> links to highlight the "Brake" inport block in the model.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CodegenRptHiliteBlock.png" alt=""> </p><p>Next, we are going to use the <b>Navigate to Code</b> function to return from the model to the code.</p><div><ul><li>Right-click on the highlighted "Brake" inport block</li><li>Select <b>C/C++ Code</b> and <b>Navigate to C/C++ Code</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_NavigateToCodeMenu.png" alt=""> </p><p>This should take you back to the code generation report with the code comment associated with that block highlighted.</p><p><img vspace="5" hspace="5" src="Step_01_CodegenRptHiliteCode.png" alt=""> </p><p>Now we will navigate to a requirement using hyperlinks in the code generation report:</p><div><ul><li>Click on <b>"1.  Vehicle Brake Input"</b> to navigate to the associated requirement.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CodegenRptReqLinks.png" alt=""> </p><p>The "Requirements Editor" is displayed with the associated requirement highlighted.</p><p><img vspace="5" hspace="5" src="Step_01_LinkedReqFromCode.png" alt=""> </p><p>With these functions shown above, you can go from Requirement to Model to Source Code, or directly from Source Code to Requirement to demonstrate requirements traceability.</p><h2>Generating a Requirements Web View<a name="8"></a></h2><p>With any type of structured verification and validation activity, it is important to track what has been done.  This is especially true when it comes to requirements traceability.  With <b>Simulink Requirements</b>, you can generate a web view report that contains a snapshot of the model that is highlighted to show the links and provides a means to navigate to the requirement.</p><p>To show the reporting feature:</p><div><ul><li>Select <b>Analysis/Requirements Traceability/Generate Web View</b> option.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_GenReqWebView.png" alt=""> </p><p>An html report similar to the following screenshot should appear that provides the ability to navigate the model and the associated requirement links.</p><p><img vspace="5" hspace="5" src="Step_01_ReqWebView.png" alt=""> </p><p>Please note:  The generated web view requires Simulink Report Generator.</p><h2>Summary<a name="9"></a></h2><p>We have shown the following <b>Simulink Requirements</b> features:</p><div><ul><li>A requirements centric view with the Requirements Editor and the Requirements Perspective</li><li>Implementation links:  linking requirements to the model</li><li>Verification links: linking requirements to the test cases</li><li>A view of the requirements implementation and verification status</li><li>Generated code traceability from the code to the model and requirements</li><li>Creating a report to demonstrate traceability</li></ul></div><p>With the implementation and verification status views, we were able to see that all requirements were associated with at least one model object and many were associated with test cases.  So going forward we have confidence that our model has implemented all of the requirements.  We will continue to answer more of the questions in the next steps with our structured and formal testing framework for securing the quality, robustness and safety of our cruise controller.</p><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_Summary.png" alt=""> </p><div><ol><li>Close all models - <b><a href="matlab:bdclose('all');">click here</a></b>.</li><li>Go to <b>Step 2: Modeling Standards</b> - <b><a href="Step_02.html">click here</a></b>.</li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+  </style></head><body><div class="content"><h1>Step 1: Requirements Traceability</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li><li><a href="#2">Verification and Validation Tools Used</a></li><li><a href="#3">What requirements are implemented in the model?</a></li><li><a href="#4">Linking Requirements to Simulink Blocks</a></li><li><a href="#5">Linking Requirements to Stateflow Objects</a></li><li><a href="#6">What requirements are implemented in the data dictionary?</a></li><li><a href="#7">Linking Requirements to the Data Dictionary</a></li><li><a href="#8">What are the test cases to verify the implementation?</a></li><li><a href="#9">Linking to Property Proving Test Harnesses</a></li><li><a href="#10">Demonstrating Traceability to the Code</a></li><li><a href="#11">Generating a Requirements Web View</a></li><li><a href="#12">Handling a Requirements Change</a></li><li><a href="#13">Importing High Level Requirements</a></li><li><a href="#14">Importing Requirements from Word</a></li><li><a href="#15">Summary</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_WhatNow.png" alt=""> </p><p>Building executable specifications is an effective and proven way to communicate design ideas and documentation of low level requirements. Simulink and Stateflow are ideal platforms for defining executable specifications in embedded software development.  In the model-based development process these executable specifications are then elaborated to create production code ready models.</p><p>Executable specifications provide an opportunity for early validation of requirements. You can enhance this by providing a link between parts of your model and the corresponding requirements. And you can answer the question:  <i>Are all my requirements implemented?</i></p><p><b>Simulink Requirements</b> provides a requirements editor to enable you to author requirements without an external tool.  <b>Simulink Requirements</b> allows you to associate (or link) requirements to the implementation in Simulink models and to verification test cases in <b>Simulink Test</b>.</p><p>You can use <b>Simulink Requirements</b> to demonstrate requirements traceability by:</p><div><ul><li>Authoring requirements and importing external requirements for linking</li><li>Creating "implementation" links to Simulink blocks, to Stateflow objects and to lines within a MATLAB Function Block</li><li>Creating "verification" links to test cases authored in <b>Simulink Test</b> and property proof models in <b>Simulink Design Verifier</b></li><li>Creating "derived" links from low level requirements to high level requirements</li><li>Using the requirements editor (a requirements centric view) to navigate to the implementation and test cases</li><li>Creating a code generation report with hyperlinks to the requirements</li></ul></div><p>In the workshop, we will use <b>Simulink Requirements</b> to create and view three types of requirement links:</p><div><ul><li>Implementation links</li><li>Verification links</li><li>Derived links</li></ul></div><p>As we said above, we will answer the question:  <i>Are all my requirements implemented?</i>  The verification links will answer the question:  <i>Does the implementation pass all functional requirements?</i>  We will pull ahead the execution of the tests to demonstrate the implementation meets the functional requirements along with the requirements traceability to the test cases.  In a later step we will show in detail how to create the test cases.</p><h2>Verification and Validation Tools Used<a name="2"></a></h2><div><ul><li>Simulink Requirements</li><li>Simulink Test</li></ul></div><h2>What requirements are implemented in the model?<a name="3"></a></h2><p>Let's first take a look at a set of requirements for our Cruise Control model authored in <b>Simulink Requirements</b>.</p><p>Open the requirements "MW_CruiseControl.slreqx" in the <b>Requirements Editor</b> &#8211; <b><a href="matlab:B3_Req_LinkAndTest;">click here</a></b>.</p><p><img vspace="5" hspace="5" src="Step_01_HighLowReqsView.png" alt=""> </p><p>In the <b>Requirements Editor</b> we can see (2) levels of requirements:</p><div><ol><li>High level requirements, "SystemReqs" imported from an external spreadsheet</li><li>Low level requirements, "MW_CruiseControl" authored in <b>Simulink Requirements</b></li></ol></div><p>This example has links from the high level requirement to the low level requirements.  To navigate to the derived low level requirement:</p><div><ul><li>Select the high level requirement "INTF-1: Cruise Control Switch"</li><li>In the <b>Links</b> pane select "#2 Enable/Disable Switch"</li></ul></div><p>You can also navigate back from the low level requirement to the high level using the same method.  In a later section of this step we will show how the high level requirements were imported from a spreadsheet.</p><p>The low level requirements in this example have been interpreted into the design as an implementation model.  To demonstrate traceability from the requirements to the design implementation, there are links from the low level requirements to the model elements.  From the <b>Requirements Editor</b> you can navigate from the requirement to the model object using the implementation link.</p><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_ReqNav.png" alt=""> </p><p>To trace the requirement to the implementation, do the following:</p><div><ul><li>Select the requirement "Enable/Disable Switch"</li><li>Click the implementation link "CruiseOnOff" inport in the Cruise Control model</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_ToModel.png" alt=""> </p><p>To navigate to the associated requirement,do the following:</p><div><ul><li>Right-click on "CruiseOnOff" inport to show the block popup menu</li><li>Select <b>Requirements Traceability / 1.  "Enable/Disable Switch ..."</b> to navigate to the associated requirement</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_MdlNav.png" alt=""> </p><p>From the previous exercise, by right clicking on a block, you can tell if there is a requirement associated with that block, but what if you just want to get a "bird's eye view&#8221;?  For this section, we have a model that has multiple links to the requirement document. To get a "bird's eye view&#8221; of the blocks with requirement links, we will use the <b>Requirements Perspective</b> feature.</p><p>To enter the <b>Requirements Perspective</b>, do the following:</p><div><ul><li>In the model, click on the "perspective" badge in the lower right corner of the model to popup the list of perspectives.</li><li>Select  <b>Requirements</b> to enter the <b>Requirements Perspective</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_EnterReqsPerspective.png" alt=""> </p><p>You can now see all the blocks that have requirement links have a requirements badge.</p><p>To see the associated links, do the following:</p><div><ul><li>Click on any block to see the associated requirement is now highlighted in the <b>Requirements</b> list, or</li><li>Click on any requirement to see the associated block is now highlighted</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HighlightedModel.png" alt=""> </p><p>To view the links in the state chart, do the following:</p><div><ul><li>Open the "Compute target speed" subsystem to see the links associated with states and transitions in the Stateflow chart.</li><li>Click on transitions and states to see the associated requirement is now highlighted</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HighlightedSF.png" alt=""> </p><p><b>Note</b>:  Model objects can have one or more linked requirements and a requirement may be linked to one or more model objects.</p><h2>Linking Requirements to Simulink Blocks<a name="4"></a></h2><p>In the requirements list, we can see the implementation status for the the requirements by displaying the <b>Implemented</b> column to see if there are requirements without implementation (model) links.</p><p>To show the implementation status, do the following:</p><div><ul><li>Right-click in the <b>Requirements</b> list to show the popup menu.</li><li>Click <b>Implementation Status</b></li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ReqPerspectivePopupMenu.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_MissingInterfaceReqsLinks.png" alt=""> </p><p>From the implementation status we can see that (2) of the "Interface" requirements have no implementation links:</p><div><ul><li>Vehicle Speed Input</li><li>Vehicle Brake Input</li></ul></div><p>Return to the top level of the Cruise Control model. From the model, we can also see that the "Speed" inport and the "Brake" inport are not linked as shown by the absence of the "requirements badge".</p><p><img vspace="5" hspace="5" src="Step_01_MissingInterfaceMdlLinks.png" alt=""> </p><p>This may have happened due to missing requirements that were found during the implementation design. These requirements are color coded "green" to show they were created after the implementation.</p><p>The next task is to link these ports to the correct new requirement. To link the "Vehicle Speed Input" requirements to the "Speed" inport, drag the requirement to the block.  And do the same for linking "Vehicle Brake Input" to the model "Brake" inport.</p><p><img vspace="5" hspace="5" src="Step_01_SpeedInportLinking.png" alt=""> </p><p>Verify the links are correct by clicking on the model object and checking the correct requirement is highlighted.  You can also select the requirement to see the proper model object is highlighted.</p><p>This completes the exercise of linking requirements to <b>Simulink</b> objects. We will now repeat this for <b>Stateflow</b> in the next exercise.</p><h2>Linking Requirements to Stateflow Objects<a name="5"></a></h2><p>Open the "Compute target speed" state chart. Looking at the requirements link badges on the transitions, there were some inconsistencies with regard to the transitions with links and other transitions without links. One inconsistency to note is that both "hold" function transitions are are not linked to requirements.</p><p><i>We are pulling ahead an issue that we will find in a later step to illustrate linking to Stateflow objects.</i></p><p><img vspace="5" hspace="5" src="Step_01_SF_NotLinked.png" alt=""> </p><p>After reviewing the requirements, it was determined that there were not any requirements for the "hold" function.  These have been added to the requirements document to capture the "hold" function.  As you can see the (2) new "hold" requirements have no implementation links.  We will now link these new requirements to the "hold" transitions.</p><p>The same linking mechanism for the Simulink blocks can be applied to Stateflow objects.  To link the new "hold" function requirements to the Stateflow "hold" transitions, do the following:</p><div><ul><li>Select the requirement: "2.10 Continuous "Accelerate" input increases..."</li><li>Drag to the transition connected to the "Accel" state, "[after(10/holdrate*incdec,tick)]".</li><li>Next, select the requirement: "2.11 Continuous "Decelerate" input decreases..."</li><li>Drag to the transition connected to the "Coast" state, "[after(10/holdrate*incdec,tick)]".</li><li>Verify the links are correct by clicking on the transitions and requirements to check the associated links.</li></ul></div><p>After you've completed the Statelflow linking task, you can exit the <b>Requirements Perspective</b> by doing the following:</p><div><ul><li>Select the "perspective" badge and click <b>Exit Perspective</b>. model.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ExitReqsPerspective.png" alt=""> </p><h2>What requirements are implemented in the data dictionary?<a name="6"></a></h2><p>In the previous section we have shown links from the low level requirements to <b>Simulink</b> and <b>Stateflow</b> elements.  Another part of the design is the <b>Data Dictionary</b>, a persistent repository to store design data for parameters (calibrations) and signals that adds more definition to the behavior of the implementation model.</p><p>To view the linked <b>data dictionary</b> items, do the following:</p><div><ul><li>Open the <b>Model Explorer</b> with the <b>data dictionary</b> detailed view by selecting the badge in the lower left corner of the model.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_OpenDataDict.png" alt=""> </p><div><ul><li>To see what requirements are linked to the <b>data dictionary</b> items, right-click on an item to see if there is a reference to a linked requirement.  Use this popup menu to navigate from the "maxtspeed" item to the linked requirement.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_DataDictReqNav.png" alt=""> </p><p>The <b>Requirements Editor</b> now shows the requirement linked to the data item.  In the <b>Links</b> section of the highlighted or selected requirement there are (2) data items linked to this requirement.</p><div><ul><li>From the editor, navigate back to the linked data item in the <b>Model Explorer</b> by selecting one of the data item hyperlinks.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_Req2DataDictNav.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_Req2DataDictHilitedItem.png" alt=""> </p><h2>Linking Requirements to the Data Dictionary<a name="7"></a></h2><p>In the "Functional" section of the requirements, there is a requirement defining the expected behavior when the driver continues to press or "holds" one of the speed change button inputs ("accelerate" or "decelerate").  There is a design parameter, "holdrate" that controls the rate of how quickly the target speed changes during the "hold" event. We will now show how to link a requirement to a design data item by linking the "holdrate" parameter to the "hold" functional requirement:</p><div><ul><li>Select the requirement to be linked in the <b>Requirements Editor</b>.  In this case, select the requirement <i>Continuous "Accelerate" input increases...</i>.</li></ul></div><div><ul><li>Right-click on the requirement to select the menu item, <b>Select for Linking with Requirement</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ReqSelectForDataDict.png" alt=""> </p><div><ul><li>Navigate back to the <b>Model Explorer</b>.  Right-click on the "holdrate" data item and select <b>Requirements/Link to selection in Requirements Editor</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_MakeDataDictLink.png" alt=""> </p><div><ul><li>Once this step has been completed the link has now been created. Check the link by navigating from the data item to the requirement and back to the data item.</li></ul></div><p>This completes the exercise of linking requirements to design data items. We will now explore test case linking in the next sections.</p><h2>What are the test cases to verify the implementation?<a name="8"></a></h2><p>In the previous sections we showed how to create and view the implementation links to the requirements.  In this section we discuss how to create and view verification links to the requirements.  Functional requirements require some form of verification to demonstrate the implementation behavior is meeting the requirements.  Typically this is accomplished with a set of tests that check for the expected response to a stimulus designed to exercise the requirement function.</p><p>To show the requirement links to test cases we will return to the <b>Requirements Editor</b> and open the associated <b>Simulink Test</b> file, "CruiseControl_TestCase.mldatx" - <b><a href="matlab:uiopen('CruiseControl_TestCase.mldatx',1);uiopen('MW_CruiseControl.slreqx',1);">click here</a></b>.</p><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_ReqEditor.png" alt=""> </p><p>In addition to the implementation link, the requirement also has a verification link to navigate to the test case in <b>Simulink Test</b>.</p><p>To navigate to the test case, do the following:</p><div><ul><li>Click on the verification link "Init Not Enable or Engaged"</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_TestMgr.png" alt=""> </p><p>The test case is now displayed in <b>Simulink Test</b> along with the requirement summary hyperlink to navigate back to the associated requirement.</p><p>To navigate back to the requirement, do the following:</p><div><ul><li>Expand the <b>Requirement</b> field</li><li>Click on the requirement link "Init Not Enable or Engaged"</li></ul></div><p>As we did before in the <b>Requirements Perspective</b>, we can get an overall status of the implementation and the verification.  With the verification status we can easily to see what requirements have linked test cases and the result of the test case.</p><p>To show the implementation status and the verification status, do the following:</p><div><ul><li>Select the menu item <b>Display/Implementation Status</b> in the <b>Requirements Editor</b>.</li><li>Select the menu item <b>Display/Verification Status</b> in the <b>Requirements Editor</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ReqEditorPopupMenu.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_ReqEditorInitStatus.png" alt=""> </p><p>Now we can see all the requirements in the "Functional" section have implementation and verification links.  Currently the verification status is "unknown" so we need to execute the test cases to update the status.</p><p>To update the verification status, do the following:</p><div><ul><li>Navigate back to <b>Test Manager</b></li><li>Select the "TestSuite"</li><li>Right-click on the "TestSuite" and select "Run"</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_TestMgrRun.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_TestMgrResults.png" alt=""> </p><p>Once the tests are completed, press <b>Refresh</b> to update the verification status with the test results.</p><p><img vspace="5" hspace="5" src="Step_01_ReqEditorFinalStatus.png" alt=""> </p><p>Another way to update the verification status is to use the <b>Run Tests</b> feature that can be launched by right-clicking anywhere in the requirements set hierarchy.</p><p><img vspace="5" hspace="5" src="Step_01_RunTestsMenu.png" alt=""> </p><p>A set of tests are presented in the <b>Run Tests</b> popup dialog.  The tests in the dialog list depends upon where in the requirements set hierarchy the <b>Run Tests</b> feature was invoked.  From this dialog you can run all the tests or select a subset of tests to be executed.</p><p><img vspace="5" hspace="5" src="Step_01_RunTestsDlg.png" alt=""> </p><h2>Linking to Property Proving Test Harnesses<a name="9"></a></h2><p>In the previous sections we showed how dynamic test cases can be used to verify the requirements.  <b>Simulink Design Verifier</b> can also be used to verify requirements using behavioral proofs.  Using the <b>Property Proving</b> feature of <b>Design Verifier</b> we can prove the implementation model will always meet requirements based on a static analysis.</p><p>We will focus on proving the implementation will always satisfy the requirement <i>"Decelerate" input decreases target speed only when engaged (active)</i></p><p><img vspace="5" hspace="5" src="Step_01_DecelReqDescrip.png" alt=""> </p><p>To see how we can use this new method, do the following:</p><div><ul><li>Open the <b>Property Proving</b> harness - <b><a href="matlab:open_system('CruiseControl_Req_pp.slx');">click here</a></b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_DecelReqProveHarness.png" alt=""> </p><div><ul><li>Open the "Verification Subsystem" to inspect the requirements behavior model.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_DecelReqBehaveMdl.png" alt=""> </p><p>The <b>Proof</b> block "Prop_coast_mintspeed" is used to determine the results of the analysis.  It is linked to the requirement as a "verification" link type.</p><div><ul><li>Right-click the <b>Proof</b> and navigate to the requirement specified at the top of the submenu.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_DecelReqProofVerLink.png" alt=""> </p><div><ul><li>Notice the "Prop_coast_minspeed" verification link from the <b>Proof</b> block to the requirement.  Once the <b>Property Proving</b> analysis is complete the link will show the verification status similar to the dynamic testing verification links to <b>Simulink Test</b>.</li></ul></div><h2>Demonstrating Traceability to the Code<a name="10"></a></h2><p>Now that we have good traceability from the requirement to the model object.  Let&#8217;s work through a method that will demonstrate the complete traceability from requirement to model to source code.</p><p>Save the implementation links in the model by <b>Analysis/Requirements/Links File/Save Links</b> so our changes will be used during code generation</p><p>To generate the code, do the following:</p><div><ol><li>Under <b>Code</b>, select <b>C/C++ Code</b>, and <b>Build Model</b>. Note: the options for embedding the requirement comments in the C source code have already been set.</li></ol></div><p><img vspace="5" hspace="5" src="Step_01_BuildModelMenu.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_BuildReqConfig.png" alt=""> </p><p>After the code has been generated (should be 5-10 sec), the following code generation report should open:</p><p><img vspace="5" hspace="5" src="Step_01_CodegenRptMdlLinks.png" alt=""> </p><p>Notice the links to the model blocks embedded in the code comments.</p><div><ul><li>Click on one of the <b>'&lt;Root&gt;/Brake'</b> links to highlight the "Brake" inport block in the model.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CodegenRptHiliteBlock.png" alt=""> </p><p>Next, we are going to use the <b>Navigate to Code</b> function to return from the model to the code.</p><div><ul><li>Right-click on the highlighted "Brake" inport block</li><li>Select <b>C/C++ Code</b> and <b>Navigate to C/C++ Code</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_NavigateToCodeMenu.png" alt=""> </p><p>This should take you back to the code generation report with the code comment associated with that block highlighted.</p><p><img vspace="5" hspace="5" src="Step_01_CodegenRptHiliteCode.png" alt=""> </p><p>Now we will navigate to a requirement using hyperlinks in the code generation report:</p><div><ul><li>Click on <b>"1.  Vehicle Brake Input"</b> to navigate to the associated requirement.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_CodegenRptReqLinks.png" alt=""> </p><p>The <b>Requirements Editor</b> is displayed with the associated requirement highlighted.</p><p><img vspace="5" hspace="5" src="Step_01_LinkedReqFromCode.png" alt=""> </p><p>We can also trace from the <b>Requirements Editor</b> directly to the generated code.</p><div><ul><li>To enable tracing from the requirement to the code, select the menu item <b>Analysis/Show code traceability</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_EnableReq2Code.png" alt=""> </p><div><ul><li>To trace to the linked code from the requirement, select the "code" icon in the implementation link.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_Req2Code.png" alt=""> </p><p>In the generated code report, there are hyperlinked comments for the linked data items that includes the name of the <b>data dictionary</b> and the data item.</p><p><img vspace="5" hspace="5" src="Step_01_LinkedDatDictFromCode.png" alt=""> </p><p>With these functions shown above, you can go from Requirement to Model to Source Code, or directly from Source Code to Requirement to demonstrate requirements traceability.</p><h2>Generating a Requirements Web View<a name="11"></a></h2><p>With any type of structured verification and validation activity, it is important to track what has been done.  This is especially true when it comes to requirements traceability.  With <b>Simulink Requirements</b>, you can generate a web view report that contains a snapshot of the model that is highlighted to show the links and provides a means to navigate to the requirement.</p><p>To show the reporting feature:</p><div><ul><li>Select <b>Analysis/Requirements Traceability/Generate Web View</b> option.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_GenReqWebView.png" alt=""> </p><p>An html report similar to the following screenshot should appear that provides the ability to navigate the model and the associated requirement links.</p><p><img vspace="5" hspace="5" src="Step_01_ReqWebView.png" alt=""> </p><p>Please note:  The generated web view requires Simulink Report Generator.</p><h2>Handling a Requirements Change<a name="12"></a></h2><p>In our example there was a set of read-only high level requirements that had been imported from a spreadsheet into the <b>Requirements Editor</b>. In this section we'll show how to handle a change to these external high level requirements.</p><p>First we will update the external requirements by copying over the existing requirements spreadsheet with the new requirements spreadsheet.  To do the copy and view the updated, external high level requirements spreadsheet "SystemReqs.xlsx" - <b><a href="matlab:copyExtReqs('SystemReqs_2','SystemReqs',0);winopen('SystemReqs.xlsx');">click here</a></b></p><p><img vspace="5" hspace="5" src="Step_01_HLChangeXLSview.png" alt=""> </p><p>Check the first requirement "INTF-1" in the external requirements spreadsheet.  Notice it has been changed to now include a fourth button, "Cancel".  To handle the requirement change do the following:</p><div><ul><li>Let's use the update feature in <b>Simulink Requirements</b> to import the requirement change.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HLChangeUpdate.png" alt=""> </p><div><ul><li>Once the update has completed notice there is a summary of changes in the <b>Comments</b> section that indicates the "INTF-1" has been updated or changed.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HLChangeSummary.png" alt=""> </p><div><ul><li>There is a highlighting feature to show possibly impacted requirements. To highlight the changed requirement select <b>Display/Change Information</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_EnableChangeInfo.png" alt=""> </p><div><ul><li>Navigate to the changed requirement "INTF-1" to investigate the impact of the change which shows (3) linked requirements in the "Interface" section of the lower level requirements may be impacted.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ReqChangeImpact.png" alt=""> </p><div><ul><li>As described in the tooltip, to clear the issue open the <b>Links</b> view.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_OpenLinksEditorView.png" alt=""> </p><p>The requirements with <b>Change Issues</b> will not require any further handling so we can clear these change issues but we will need to add requirements to include the "Cancel" button in the "Interface" section and add a requirement to describe the functional behavior in the "Functional" section.</p><div><ul><li>In the <b>Links</b> view we can clear the issues by right-clicking at the links file level and select <b>Clear All Change Issues</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ClearChangeIssues.png" alt=""> </p><p>To add the (2) new requirements, it is assumed that you can intuitively add these requirements based on the popup menus in the editor and link the new requirements to the model as we did in the previous sections.</p><p>Or you can load the requirement set and model changes based on the new "Cancel" button from the "INTF-1" change - <b><a href="matlab:B4_Req_LoadChanges;">click here</a></b></p><div><ul><li>Based on requirements changes based on the discussion above, note the (2) new requirements added to the "MW_CruiseControl" requirement set.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ReqSetChanges.png" alt=""> </p><div><ul><li>We also linked the (2) new requirements to the (2) model modifications required to implement the new requirements.  Check these links in the <b>Requirements Perspective</b>.</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_InportMdlChange.png" alt=""> </p><p><img vspace="5" hspace="5" src="Step_01_ExitTransitionChange.png" alt=""> </p><h2>Importing High Level Requirements<a name="13"></a></h2><p>In our example there was a set of read-only high level requirements displayed in the <b>Requirements Editor</b>. In this section we'll show how these high level requirements were imported from a spreadsheet.</p><p>To open the high level requirements spreadsheet "SystemReqsImport.xlsx" - <b><a href="matlab:winopen('SystemReqsImport.xlsx');">click here</a></b></p><p><img vspace="5" hspace="5" src="Step_01_HighReqsXLSview.png" alt=""> </p><p>To import the spreadsheet into the <b>Requirements Editor</b> do the following:</p><div><ul><li>Close (if open) the existing high level requirements opened earlier in the step</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HighReqsClose.png" alt=""> </p><div><ul><li>Select <b>File/Import</b> to open the import dialog</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HighReqsImportMenu.png" alt=""> </p><div><ul><li>In the <b>Importing Requirements</b> dialog, select "Microsoft Excel Spreadsheet" in <b>Document Type</b></li><li>Browse to select "SystemReqsImport.xlsx" in <b>Document Location</b></li><li>Select <b>Configure Columns</b></li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ReqsImportDialog.png" alt=""> </p><div><ul><li>In the <b>Configure columns</b> dialog, assign the attributes to the column  header as shown below</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_ConfigColsDialog.png" alt=""> </p><div><ul><li>Select <b>OK</b> to use the column settings</li><li>Select <b>Import</b> in the <b>Importing Requirements</b> dialog to begin the import</li></ul></div><p>With the imported high level requirements, we will link a high level requirement to the model design low level requirements.</p><p>Do the following to create the link:</p><div><ul><li>In the <b>Reguirements Editor</b>, for the "INTF-1" high level requirement <b>Select for Linking With Requirement</b></li></ul></div><p><img vspace="5" hspace="5" src="Step_01_SelectHighReqForLinking.png" alt=""> </p><div><ul><li>Navigate to the "Enable/Disable Switch" requirement in the "MW_CruiseControl" set</li><li>Right-click and select * Create a link from "INTF-1: Cruise...*</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_SelectLowReqToLink.png" alt=""> </p><p>We now have a link from the imported high level requirement to the low level design requirement authored in <b>Simulink Requirements</b>.</p><p><img vspace="5" hspace="5" src="Step_01_LowReqToHighReqLink.png" alt=""> </p><h2>Importing Requirements from Word<a name="14"></a></h2><p>In the previous section we showed how to import high level requirements from a spreadsheet.  In this section we will show how to import requirements from a <b>Word</b> document.  For this example we will import an existing set of low level requirements similar to the requirement set we used to link to the model and test cases.</p><p>To open the low level requirements document "cruise_control_reqsID.docx" - <b><a href="matlab:winopen('cruise_control_reqsID.docx');">click here</a></b></p><p><img vspace="5" hspace="5" src="Step_01_ReqIDWord.png" alt=""> </p><p>Notice each requirement is identified as "RQnnn".  We will use this to import the requirements and use this as the "ID" attribute.</p><p>To perform the import do the following:</p><div><ul><li>Select <b>File/Import</b> to open the import dialog</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_HighReqsImportMenu.png" alt=""> </p><div><ul><li>In the <b>Importing Requirements</b> dialog, select "Microsoft Word" as <b>Document Type</b></li><li>Select <b>Browse</b> to select the document "cruise_control_reqsID.docx"</li><li>Select the option <b>Rich text (include graphics and tables)</b> from the document</li><li>Select the option <b>Identify items by occurrences of search pattern (REGEXP)</b></li><li>Enter the search pattern "RQ\d{3}" to import the items</li></ul></div><p><img vspace="5" hspace="5" src="Step_01_WordReqIDImportDlg.png" alt=""> </p><div><ul><li>Select <b>Import</b> in the <b>Importing Requirements</b> dialog to begin the import</li></ul></div><p>The requirements are now visible in the <b>Requirements Editor</b> and linking can be established to the requirements using the same steps performed in previous sections.</p><p><img vspace="5" hspace="5" src="Step_01_ImportedWordReqID.png" alt=""> </p><h2>Summary<a name="15"></a></h2><p>We have shown the following <b>Simulink Requirements</b> features:</p><div><ul><li>A requirements centric view with the Requirements Editor and the Requirements Perspective</li><li>Implementation links:  linking requirements to the model</li><li>Verification links: linking requirements to the test cases</li><li>Design Data links: linking requirements to data dictionary items</li><li>A view of the requirements implementation and verification status</li><li>Generated code traceability from the code to the model and requirements</li><li>Creating a report to demonstrate traceability</li><li>Importing a set of high level requirements</li><li>Derived links:  linking high level requirements to low level requirements</li></ul></div><p>With the implementation and verification status views, we were able to see that all requirements were associated with at least one model object and many were associated with test cases.  So going forward we have confidence that our model has implemented all of the requirements.  We will continue to answer more of the questions in the next steps with our structured and formal testing framework for securing the quality, robustness and safety of our cruise controller.</p><p><img vspace="5" hspace="5" src="Step_01_CruiseControl_Summary.png" alt=""> </p><div><ol><li>Close all models - <b><a href="matlab:bdclose('all');">click here</a></b>.</li><li>Go to <b>Step 2: Modeling Standards</b> - <b><a href="Step_02.html">click here</a></b>.</li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Step 1: Requirements Traceability
 %
@@ -97,16 +97,20 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % * Authoring requirements and importing external requirements for linking
 % * Creating "implementation" links to Simulink blocks, to 
 % Stateflow objects and to lines within a MATLAB Function Block
-% * Creating "verification" links to test cases authored in Simulink Test
+% * Creating "verification" links to test cases authored in *Simulink Test*
+% and property proof models in *Simulink Design Verifier*
+% * Creating "derived" links from low level requirements to high level
+% requirements
 % * Using the requirements editor (a requirements centric view) to navigate 
 % to the implementation and test cases
 % * Creating a code generation report with hyperlinks to the requirements 
 % 
 % In the workshop, we will use *Simulink Requirements* to create and view
-% two types of requirement links:
+% three types of requirement links:
 %
 % * Implementation links
 % * Verification links
+% * Derived links
 % 
 % As we said above, we will answer the question:  _Are all my requirements 
 % implemented?_  The verification links will answer the question:  _Does the 
@@ -125,16 +129,39 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % Let's first take a look at a set of requirements for our Cruise Control 
 % model authored in *Simulink Requirements*. 
 %
-% Open the requirements in the Requirements Editor: *MW_CruiseControl.slreqx* –
-% *<matlab:open_system('CruiseControl_Req.slx');uiopen('MW_CruiseControl.slreqx',1); click here>*.
+% Open the requirements "MW_CruiseControl.slreqx" in the *Requirements Editor* –
+% *<matlab:B3_Req_LinkAndTest; click here>*.
+%
+% <<Step_01_HighLowReqsView.png>>
+%
+% In the *Requirements Editor* we can see (2) levels of requirements:
+%
+% # High level requirements, "SystemReqs" imported from an external spreadsheet
+% # Low level requirements, "MW_CruiseControl" authored in *Simulink
+% Requirements*
+%
+% This example has links from the high level requirement to the low level 
+% requirements.  To navigate to the derived low level requirement:
+%
+% * Select the high level requirement "INTF-1: Cruise Control Switch"
+% * In the *Links* pane select "#2 Enable/Disable Switch"
+%
+% You can also navigate back from the low level requirement to the high
+% level using the same method.  In a later section of this step we will
+% show how the high level requirements were imported from a spreadsheet.
+%
+% The low level requirements in this example have been interpreted into the
+% design as an implementation model.  To demonstrate traceability from the 
+% requirements to the design implementation, there are links from the low
+% level requirements to the model elements.  From the *Requirements Editor*
+% you can navigate from the requirement to the model object using the 
+% implementation link. 
 %
 % <<Step_01_CruiseControl_ReqNav.png>>
 %
-% From the Requirements Editor you can navigate from the requirement to the
-% model object using the implementation link as shown above.  To navigate 
-% to the implementation, do the following:
+% To trace the requirement to the implementation, do the following:
 %
-% * Select the requirement"Enable/Disable Switch"
+% * Select the requirement "Enable/Disable Switch"
 % * Click the implementation link "CruiseOnOff" inport 
 % in the Cruise Control model
 %
@@ -153,13 +180,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % what if you just want to get a "bird's eye view”?  For this section, we
 % have a model that has multiple links to the requirement document.      
 % To get a "bird's eye view” of the blocks with requirement links, 
-% we will use the "Requirements Perspective" feature.  
+% we will use the *Requirements Perspective* feature.  
 %
-% To enter the "Requirements Perspective", do the following:
+% To enter the *Requirements Perspective*, do the following:
 %
 % * In the model, click on the "perspective" badge in the lower right corner 
 % of the model to popup the list of perspectives.  
-% * Select  "Requirements" to enter the "Requirements Perspective". 
+% * Select  *Requirements* to enter the *Requirements Perspective*. 
 %
 % <<Step_01_EnterReqsPerspective.png>>
 %
@@ -169,7 +196,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % To see the associated links, do the following:
 %
 % * Click on any block to see the associated requirement
-% is now highlighted in the "Requirements list", or
+% is now highlighted in the *Requirements* list, or
 % * Click on any requirement to see the associated block is now highlighted
 %
 % <<Step_01_HighlightedModel.png>>
@@ -189,18 +216,15 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %% Linking Requirements to Simulink Blocks
 %
 % In the requirements list, we can see the implementation status for the 
-% the requirements by displaying the "Implemented" column to see if there
+% the requirements by displaying the *Implemented* column to see if there
 % are requirements without implementation (model) links.
 %
 % To show the implementation status, do the following:
 %
-% * Right-click in the "Requirements list" to show the popup menu.
-% * Click "Select Columns" to show the "Column Selector" popup dialog.
-% * Add the "Implemented" column to display in the "Requirements list"
+% * Right-click in the *Requirements* list to show the popup menu.
+% * Click *Implementation Status* 
 %
 % <<Step_01_ReqPerspectivePopupMenu.png>>
-%
-% <<Step_01_ReqPerspectiveColumnUI.png>>
 %
 % <<Step_01_MissingInterfaceReqsLinks.png>>
 %
@@ -232,8 +256,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % checking the correct requirement is highlighted.  You can also select
 % the requirement to see the proper model object is highlighted.
 %
-% This completes the exercise of linking requirements to Simulink objects.
-% We will now repeat this for Stateflow in the next exercise.
+% This completes the exercise of linking requirements to *Simulink* objects.
+% We will now repeat this for *Stateflow* in the next exercise.
 %
 %% Linking Requirements to Stateflow Objects
 %
@@ -269,12 +293,76 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % requirements to check the associated links.
 %
 % After you've completed the Statelflow linking task, you can exit the 
-% "Requirement Perspective" by doing the following: 
+% *Requirements Perspective* by doing the following: 
 % 
-% * Select the "perspective" badge and click "Exit Perspective".
+% * Select the "perspective" badge and click *Exit Perspective*.
 % model.  
 %
 % <<Step_01_ExitReqsPerspective.png>>
+%
+%% What requirements are implemented in the data dictionary? 
+%
+% In the previous section we have shown links from the low level 
+% requirements to *Simulink* and *Stateflow* elements.  Another part of the 
+% design is the *Data Dictionary*, a persistent repository to store design 
+% data for parameters (calibrations) and signals that adds more definition
+% to the behavior of the implementation model.  
+%
+% To view the linked *data dictionary* items, do the following:
+%
+% * Open the *Model Explorer* with the *data dictionary* detailed view by 
+% selecting the badge in the lower left corner of the model.
+% 
+% <<Step_01_OpenDataDict.png>>
+%
+% *  To see what requirements are linked to the *data dictionary* items, 
+% right-click on an item to see if there is a reference to a linked
+% requirement.  Use this popup menu to navigate from the "maxtspeed" item
+% to the linked requirement.
+%
+% <<Step_01_DataDictReqNav.png>>
+%
+% The *Requirements Editor* now shows the requirement linked to the data
+% item.  In the *Links* section of the highlighted or selected
+% requirement there are (2) data items linked to this requirement.  
+%
+% * From the editor, navigate back to the linked data item in the *Model 
+% Explorer* by selecting one of the data item hyperlinks.
+%
+% <<Step_01_Req2DataDictNav.png>>
+%
+% <<Step_01_Req2DataDictHilitedItem.png>>
+%
+%% Linking Requirements to the Data Dictionary
+%
+% In the "Functional" section of the requirements, there is a requirement 
+% defining the expected behavior when the driver continues to press or 
+% "holds" one of the speed change button inputs ("accelerate" or 
+% "decelerate").  There is a design parameter, "holdrate" that controls the
+% rate of how quickly the target speed changes during the "hold" event.  
+% We will now show how to link a requirement to a design data item
+% by linking the "holdrate" parameter to the "hold" functional requirement:
+%
+% * Select the requirement to be linked in the *Requirements Editor*.  In
+% this case, select the requirement _Continuous "Accelerate" input increases..._.
+%
+% * Right-click on the requirement to select the menu item, *Select for 
+% Linking with Requirement*.
+%
+% <<Step_01_ReqSelectForDataDict.png>>
+%
+% * Navigate back to the *Model Explorer*.  Right-click on the "holdrate"
+% data item and select *Requirements/Link to selection in Requirements
+% Editor*.
+%
+% <<Step_01_MakeDataDictLink.png>>
+%
+% * Once this step has been completed the link has now been created. Check
+% the link by navigating from the data item to the requirement and back to 
+% the data item.  
+%  
+% This completes the exercise of linking requirements to design data items.
+% We will now explore test case linking in the next sections.
 %
 %% What are the test cases to verify the implementation?
 %
@@ -283,12 +371,12 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % to create and view verification links to the requirements.  Functional
 % requirements require some form of verification to demonstrate the
 % implementation behavior is meeting the requirements.  Typically this is
-% acoomplished with a set of tests that check for the expected response to a
+% accomplished with a set of tests that check for the expected response to a
 % stimulus designed to exercise the requirement function.
 %
 % To show the requirement links to test cases we will return to the
-% "Requirements Editor" and open the associated *Simulink Test* file,
-% "CruiseControl_TestCase.mldatx":
+% *Requirements Editor* and open the associated *Simulink Test* file,
+% "CruiseControl_TestCase.mldatx" -
 % *<matlab:uiopen('CruiseControl_TestCase.mldatx',1);uiopen('MW_CruiseControl.slreqx',1); click here>*.
 %
 % <<Step_01_CruiseControl_ReqEditor.png>>
@@ -308,10 +396,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 % To navigate back to the requirement, do the following:
 %
-% * Expand the "Requirement"
+% * Expand the *Requirement* field
 % * Click on the requirement link "Init Not Enable or Engaged"
 %
-% As we did before in the "Requirements Perspective", we can get an overall
+% As we did before in the *Requirements Perspective*, we can get an overall
 % status of the implementation and the verification.  With the verification
 % status we can easily to see what requirements have linked test cases and
 % the result of the test case.  
@@ -319,9 +407,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % To show the implementation status and the verification status, do the 
 % following:
 %
-% * Right-click in the "Requirements Editor" to show the popup menu.
-% * Click "Select Columns" to show the "Column Selector" popup dialog.
-% * Add the "Implemented" and "Verified" column 
+% * Select the menu item *Display/Implementation Status* in the 
+% *Requirements Editor*.
+% * Select the menu item *Display/Verification Status* in the 
+% *Requirements Editor*.
 %
 % <<Step_01_ReqEditorPopupMenu.png>>
 %
@@ -333,7 +422,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 % To update the verification status, do the following:
 %
-% * Navigate back to "Test Manager"
+% * Navigate back to *Test Manager*
 % * Select the "TestSuite"
 % * Right-click on the "TestSuite" and select "Run"
 %
@@ -341,10 +430,64 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 % <<Step_01_CruiseControl_TestMgrResults.png>>
 %
-% Once the tests are completed, press "Refresh" to update the verification
+% Once the tests are completed, press *Refresh* to update the verification
 % status with the test results.
 %
 % <<Step_01_ReqEditorFinalStatus.png>>
+%
+% Another way to update the verification status is to use the *Run Tests* 
+% feature that can be launched by right-clicking anywhere in the 
+% requirements set hierarchy.
+% 
+% <<Step_01_RunTestsMenu.png>>
+%
+% A set of tests are presented in the *Run Tests* popup dialog.  The tests 
+% in the dialog list depends upon where in the requirements set hierarchy 
+% the *Run Tests* feature was invoked.  From this dialog you can run all 
+% the tests or select a subset of tests to be executed.
+%
+% <<Step_01_RunTestsDlg.png>>
+%
+%% Linking to Property Proving Test Harnesses
+%
+% In the previous sections we showed how dynamic test cases can be used to
+% verify the requirements.  *Simulink Design Verifier* can also be used to
+% verify requirements using behavioral proofs.  Using the *Property Proving*
+% feature of *Design Verifier* we can prove the implementation model will
+% always meet requirements based on a static analysis.  
+%
+% We will focus on proving the implementation will always satisfy the
+% requirement _"Decelerate" input decreases target speed only when engaged
+% (active)_
+%
+% <<Step_01_DecelReqDescrip.png>>
+%
+% To see how we can 
+% use this new method, do the following:
+%
+% * Open the *Property Proving* harness - 
+% *<matlab:open_system('CruiseControl_Req_pp.slx'); click here>*.
+%
+% <<Step_01_DecelReqProveHarness.png>>
+%
+% * Open the "Verification Subsystem" to inspect the requirements behavior
+% model.
+%
+% <<Step_01_DecelReqBehaveMdl.png>>
+%
+% The *Proof* block "Prop_coast_mintspeed" is used to determine the results
+% of the analysis.  It is linked to the requirement as a "verification"
+% link type.
+%
+% * Right-click the *Proof* and navigate to the requirement specified at
+% the top of the submenu.
+%
+% <<Step_01_DecelReqProofVerLink.png>>
+%
+% * Notice the "Prop_coast_minspeed" verification link from the *Proof*
+% block to the requirement.  Once the *Property Proving* analysis is
+% complete the link will show the verification status similar to the
+% dynamic testing verification links to *Simulink Test*.
 %
 %% Demonstrating Traceability to the Code
 %
@@ -399,11 +542,30 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 % <<Step_01_CodegenRptReqLinks.png>>
 %
-% The "Requirements Editor" is displayed with the associated requirement
+% The *Requirements Editor* is displayed with the associated requirement
 % highlighted.
 %
 % <<Step_01_LinkedReqFromCode.png>>
 % 
+% We can also trace from the *Requirements Editor* directly to the
+% generated code.
+%
+% * To enable tracing from the requirement to the code, select the menu
+% item *Analysis/Show code traceability*.
+%
+% <<Step_01_EnableReq2Code.png>>
+%
+% * To trace to the linked code from the requirement, select the "code" 
+% icon in the implementation link.
+%
+% <<Step_01_Req2Code.png>>
+%
+% In the generated code report, there are hyperlinked comments for the
+% linked data items that includes the name of the *data dictionary* and the
+% data item.
+%
+% <<Step_01_LinkedDatDictFromCode.png>>
+%
 % With these functions shown above, you can go from Requirement to Model to
 % Source Code, or directly from Source Code to Requirement to demonstrate
 % requirements traceability.
@@ -431,6 +593,183 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 % Please note:  The generated web view requires Simulink Report Generator.   
 %
+%% Handling a Requirements Change 
+%
+% In our example there was a set of read-only high level requirements 
+% that had been imported from a spreadsheet into the *Requirements Editor*.
+% In this section we'll show how to handle a change to these external high
+% level requirements. 
+%
+% First we will update the external requirements by copying over the existing 
+% requirements spreadsheet with the new requirements spreadsheet.  To do 
+% the copy and view the updated, external high level requirements 
+% spreadsheet "SystemReqs.xlsx" -
+% *<matlab:copyExtReqs('SystemReqs_2','SystemReqs',0);winopen('SystemReqs.xlsx'); click here>*
+%
+% <<Step_01_HLChangeXLSview.png>>
+%
+% Check the first requirement "INTF-1" in the external requirements
+% spreadsheet.  Notice it has been changed to now include a fourth button, 
+% "Cancel".  To handle the requirement change do the following:
+%
+% * Let's use the update feature in *Simulink Requirements* to import the
+% requirement change.
+%
+% <<Step_01_HLChangeUpdate.png>>
+%
+% * Once the update has completed notice there is a summary of changes in the
+% *Comments* section that indicates the "INTF-1" has been updated or
+% changed.
+%
+% <<Step_01_HLChangeSummary.png>>
+%
+% * There is a highlighting feature to show possibly impacted requirements.
+% To highlight the changed requirement select *Display/Change Information*.
+%
+% <<Step_01_EnableChangeInfo.png>> 
+%
+% * Navigate to the changed requirement "INTF-1" to investigate the impact
+% of the change which shows (3) linked requirements in the "Interface" 
+% section of the lower level requirements may be impacted.
+%
+% <<Step_01_ReqChangeImpact.png>> 
+%
+% * As described in the tooltip, to clear the issue open the *Links* view.
+%
+% <<Step_01_OpenLinksEditorView.png>> 
+%
+% The requirements with *Change Issues* will not require any further 
+% handling so we can clear these change issues but we will need to add
+% requirements to include the "Cancel" button in the "Interface" section 
+% and add a requirement to describe the functional behavior in the 
+% "Functional" section.
+%
+% * In the *Links* view we can clear the issues by right-clicking at the
+% links file level and select *Clear All Change Issues*.
+%
+% <<Step_01_ClearChangeIssues.png>>  
+%
+% To add the (2) new requirements, it is assumed that you can intuitively
+% add these requirements based on the popup menus in the editor and link 
+% the new requirements to the model as we did in the previous sections.
+%
+% Or you can load the requirement set and model changes based on the new 
+% "Cancel" button from the "INTF-1" change -
+% *<matlab:B4_Req_LoadChanges; click here>*
+% 
+% * Based on requirements changes based on the discussion above, note the
+% (2) new requirements added to the "MW_CruiseControl" requirement set.
+%
+% <<Step_01_ReqSetChanges.png>>  
+%
+% * We also linked the (2) new requirements to the (2) model modifications
+% required to implement the new requirements.  Check these links in the
+% *Requirements Perspective*.
+%
+% <<Step_01_InportMdlChange.png>>  
+%
+% <<Step_01_ExitTransitionChange.png>>  
+%
+%% Importing High Level Requirements 
+%
+% In our example there was a set of read-only high level requirements 
+% displayed in the *Requirements Editor*. In this section we'll show how 
+% these high level requirements were imported from a spreadsheet.
+%
+% To open the high level requirements spreadsheet "SystemReqsImport.xlsx" -
+% *<matlab:winopen('SystemReqsImport.xlsx'); click here>*
+%
+% <<Step_01_HighReqsXLSview.png>>
+%
+% To import the spreadsheet into the *Requirements Editor* do the
+% following:
+%
+% * Close (if open) the existing high level requirements opened earlier in 
+% the step
+%
+% <<Step_01_HighReqsClose.png>>
+%
+% * Select *File/Import* to open the import dialog
+%
+% <<Step_01_HighReqsImportMenu.png>>
+%
+% * In the *Importing Requirements* dialog, select "Microsoft Excel 
+% Spreadsheet" in *Document Type*
+% * Browse to select "SystemReqsImport.xlsx" in *Document Location*
+% * Select *Configure Columns*
+%
+% <<Step_01_ReqsImportDialog.png>>
+%
+% * In the *Configure columns* dialog, assign the attributes to the column
+%  header as shown below
+%
+% <<Step_01_ConfigColsDialog.png>>
+%
+% * Select *OK* to use the column settings
+% * Select *Import* in the *Importing Requirements* dialog to begin the 
+% import
+%
+% With the imported high level requirements, we will link a high level
+% requirement to the model design low level requirements.
+%
+% Do the following to create the link:
+%
+% * In the *Reguirements Editor*, for the "INTF-1" high level requirement
+% *Select for Linking With Requirement*
+%
+% <<Step_01_SelectHighReqForLinking.png>>
+%
+% * Navigate to the "Enable/Disable Switch" requirement in the
+% "MW_CruiseControl" set
+% * Right-click and select * Create a link from "INTF-1: Cruise...*
+%
+% <<Step_01_SelectLowReqToLink.png>>
+%
+% We now have a link from the imported high level requirement to the low
+% level design requirement authored in *Simulink Requirements*.
+%
+% <<Step_01_LowReqToHighReqLink.png>>
+%
+% 
+%% Importing Requirements from Word
+% In the previous section we showed how to import high level requirements 
+% from a spreadsheet.  In this section we will show how to import 
+% requirements from a *Word* document.  For this example we will import an
+% existing set of low level requirements similar to the requirement set we
+% used to link to the model and test cases.
+% 
+% To open the low level requirements document "cruise_control_reqsID.docx" -
+% *<matlab:winopen('cruise_control_reqsID.docx'); click here>*
+% 
+% <<Step_01_ReqIDWord.png>>
+% 
+% Notice each requirement is identified as "RQnnn".  We will use this to
+% import the requirements and use this as the "ID" attribute.  
+% 
+% To perform the import do the following:
+%
+% * Select *File/Import* to open the import dialog
+%
+% <<Step_01_HighReqsImportMenu.png>>
+%
+% * In the *Importing Requirements* dialog, select "Microsoft Word" as *Document Type*
+% * Select *Browse* to select the document "cruise_control_reqsID.docx" 
+% * Select the option *Rich text (include graphics and tables)* from the
+% document
+% * Select the option *Identify items by occurrences of search pattern (REGEXP)*
+% * Enter the search pattern "RQ\d{3}" to import the items
+%
+% <<Step_01_WordReqIDImportDlg.png>>
+%
+% * Select *Import* in the *Importing Requirements* dialog to begin the 
+% import
+% 
+% The requirements are now visible in the *Requirements Editor* and linking
+% can be established to the requirements using the same steps performed in 
+% previous sections. 
+%
+% <<Step_01_ImportedWordReqID.png>>
+%
 %% Summary
 %
 % We have shown the following *Simulink Requirements* features:
@@ -439,9 +778,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % Requirements Perspective
 % * Implementation links:  linking requirements to the model
 % * Verification links: linking requirements to the test cases
+% * Design Data links: linking requirements to data dictionary items
 % * A view of the requirements implementation and verification status
 % * Generated code traceability from the code to the model and requirements
 % * Creating a report to demonstrate traceability
+% * Importing a set of high level requirements 
+% * Derived links:  linking high level requirements to low level
+% requirements
 %
 % With the implementation and verification status views, we were able to 
 % see that all requirements were associated with at least one

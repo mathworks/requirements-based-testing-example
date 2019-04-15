@@ -57,7 +57,7 @@ incdec.Max = 2;
 holdrate = mpt.Parameter;
 holdrate.Value = 5;
 holdrate.DataType = 'uint8';
-holdrate.Min = 1;
+holdrate.Min = 0;
 holdrate.Max = 10;
 
 maxtspeed = mpt.Parameter;

@@ -6,7 +6,7 @@ bdclose all
 clear all
 %%  Copy Cruise Control version for test
 p = slproject.getCurrentProject;
-copyfile(fullfile(p.RootFolder,'Models','CruiseControl_SLT_5.slx'), ...
+copyfile(fullfile(p.RootFolder,'Models','CruiseControl_SLT_3.slx'), ...
     fullfile(p.RootFolder,'Models','CruiseControl.slx'));
 clear p;
 % open the model

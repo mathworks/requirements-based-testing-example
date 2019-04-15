@@ -5,9 +5,8 @@
 bdclose all
 clear all
 %%  Copy Cruise Control version for test
-if exist('CruiseControl_VS.slx','file')
-    delete(which('CruiseControl_VS.slx'));
-end
+
+deleteAllInProj('CruiseControl_VS.slx');
 
 p = slproject.getCurrentProject;
 copyfile(fullfile(p.RootFolder,'Models','TestGenHarnesses','Coverage', ...

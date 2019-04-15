@@ -14,7 +14,6 @@ function startupProject
     addpath(fullfile(pRoot, 'Scripts', 'SLDV'));
     addpath(fullfile(pRoot, 'Scripts', 'ModelAdvisor'));
     addpath(genpath(fullfile(pRoot, 'Instructions')));
-    addpath(fullfile(pRoot, 'Reports'));
 
     %% Set location of slprj to be "Work" folder of current project:
     workFolder = fullfile(pRoot, 'Work');
