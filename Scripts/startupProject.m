@@ -7,13 +7,11 @@ function startupProject
 
     %% Add workshop paths
     addpath(genpath(fullfile(pRoot, 'Models')));
-    addpath(fullfile(pRoot, 'Docs'));
     addpath(fullfile(pRoot, 'Tests'));
     addpath(fullfile(pRoot, 'Scripts'));
     addpath(fullfile(pRoot, 'Scripts', 'WindowFcns'));
     addpath(fullfile(pRoot, 'Scripts', 'SLDV'));
-    addpath(fullfile(pRoot, 'Scripts', 'ModelAdvisor'));
-    addpath(genpath(fullfile(pRoot, 'Instructions')));
+
 
     %% Set location of slprj to be "Work" folder of current project:
     workFolder = fullfile(pRoot, 'Work');
@@ -28,9 +26,13 @@ function startupProject
     cd(workFolder);
 
     % clear workspace
-    clear all
+    clear
+    
+    % clear command window
+    clc
 
-    %% open html workshop instructions
-    openInstructions
+    %% open instructions
+    %openInstructions
+    edit Instructions.mlx
 
 end

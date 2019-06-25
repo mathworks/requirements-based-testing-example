@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<Info>
-    <odlr type="linkset">
-        <artifact domain="linktype_rmi_slreq" name="MW_CruiseControl" />
-    </odlr>
-</Info>

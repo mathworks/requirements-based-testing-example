@@ -25,7 +25,6 @@ clear S
 
 %% Remove common paths for this project
 rmpath(fullfile(pRoot, 'Models'));
-rmpath(fullfile(pRoot, 'Docs'));
 rmpath(fullfile(pRoot, 'Tests'));
 rmpath(fullfile(pRoot, 'Scripts'));
 rmpath(fullfile(pRoot, 'Work'));
