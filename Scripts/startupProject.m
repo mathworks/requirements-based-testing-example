@@ -5,11 +5,11 @@ function startupProject
     p = simulinkproject;
     pRoot = p.RootFolder;
 
-    %% Add workshop paths
+    %% Add paths
     addpath(genpath(fullfile(pRoot, 'Models')));
     addpath(fullfile(pRoot, 'Tests'));
     addpath(fullfile(pRoot, 'Scripts'));
-
+    addpath(fullfile(pRoot, 'Requirements'));
      % clear workspace
     clear
     
