@@ -77,6 +77,44 @@
     <P Name="OpenGraphs"/>
   </Harness>
   <Harness>
+    <P Name="Name">CruiseControl_TestSuite_Harness3</P>
+    <P Name="Description"/>
+    <P Name="CreatedBy">patcanny</P>
+    <P Name="CreatedOn">Fri Sep 27 10:35:56 2019</P>
+    <P Name="ModifiedBy">patcanny</P>
+    <P Name="LastSaved">Fri Sep 27 10:36:03 2019</P>
+    <P Name="Owner">bd</P>
+    <P Name="OwnerType">BD_HARNESS</P>
+    <P Name="OwnerPath">.</P>
+    <P Name="LockMode">off</P>
+    <P Name="Directory"/>
+    <P Name="FileName">CruiseControl_TestSuite_Harness3.slx</P>
+    <P Name="SavedVersion">10.0</P>
+    <P Name="HarnessUUID">32255704-8bc8-48ed-bcf9-6f6730d817fa</P>
+    <P Name="HarnessConnectionsMap">0,1,2,3,4|0,1|0,0,0,0||</P>
+    <P Name="VerificationMode">0</P>
+    <P Name="HarnessOwnerCheckSum">0,0,0,0</P>
+    <P Name="RebuildOnOpen">false</P>
+    <P Name="RebuildModelData">false</P>
+    <P Name="Graphical">false</P>
+    <P Name="DriveFcnCallWithTS">false</P>
+    <P Name="OwnerBDName">CruiseControl_TestSuite</P>
+    <P Name="ScheduleInitTermReset">false</P>
+    <P Name="AutoShapeInputs">true</P>
+    <P Name="SLDVCompatible">yes</P>
+    <P Name="SynchronizationMode">1</P>
+    <P Name="IsImported">false</P>
+    <P Name="PostRebuildCB"/>
+    <P Name="IsCodeContext">false</P>
+    <P Name="SchedulerBlock">0</P>
+    <P Name="SourceTypeString">Signal Builder</P>
+    <P Name="SinkTypeString">Outport</P>
+    <P Name="CustomSourcePath"/>
+    <P Name="CustomSinkPath"/>
+    <P Name="BlockSIDs">2|37|0|0|0|0|0</P>
+    <P Name="OpenGraphs"/>
+  </Harness>
+  <Harness>
     <P Name="Name">CruiseControl_TestSuite_Harness_Accel_fixed_rate</P>
     <P Name="Description"/>
     <P Name="CreatedBy">patcanny</P>
@@ -340,7 +378,7 @@
     <P Name="CustomSourcePath"/>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">2|27|0|0|0|0|0</P>
-    <P Name="OpenGraphs">||CruiseControl_TestSuite_Harness_Disengage_when_disabling</P>
+    <P Name="OpenGraphs">||||CruiseControl_TestSuite_Harness_Disengage_when_disabling</P>
   </Harness>
   <Harness>
     <P Name="Name">CruiseControl_TestSuite_Harness_Disengage_when_disabling2</P>
@@ -568,7 +606,7 @@
     <P Name="CustomSourcePath"/>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">2|27|0|0|0|0|0</P>
-    <P Name="OpenGraphs">||CruiseControl_TestSuite_Harness_Target_speed_limits_hi</P>
+    <P Name="OpenGraphs">||||CruiseControl_TestSuite_Harness_Target_speed_limits_hi</P>
   </Harness>
   <Harness>
     <P Name="Name">CruiseControl_TestSuite_Harness_Target_speed_limits_low</P>
