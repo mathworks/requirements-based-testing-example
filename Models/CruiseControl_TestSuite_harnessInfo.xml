@@ -153,6 +153,44 @@
     <P Name="OpenGraphs"/>
   </Harness>
   <Harness>
+    <P Name="Name">CruiseControl_TestSuite_Harness5</P>
+    <P Name="Description"/>
+    <P Name="CreatedBy">patcanny</P>
+    <P Name="CreatedOn">Mon Nov 04 10:25:58 2019</P>
+    <P Name="ModifiedBy">patcanny</P>
+    <P Name="LastSaved">Mon Nov 04 10:26:08 2019</P>
+    <P Name="Owner">bd</P>
+    <P Name="OwnerType">BD_HARNESS</P>
+    <P Name="OwnerPath">.</P>
+    <P Name="LockMode">off</P>
+    <P Name="Directory"/>
+    <P Name="FileName">CruiseControl_TestSuite_Harness5.slx</P>
+    <P Name="SavedVersion">10.0</P>
+    <P Name="HarnessUUID">e253ab87-233d-4a4d-a41a-cc0834ce9dbe</P>
+    <P Name="HarnessConnectionsMap">0,1,2,3,4|0,1|0,0,0,0||</P>
+    <P Name="VerificationMode">0</P>
+    <P Name="HarnessOwnerCheckSum">0,0,0,0</P>
+    <P Name="RebuildOnOpen">false</P>
+    <P Name="RebuildModelData">false</P>
+    <P Name="Graphical">false</P>
+    <P Name="DriveFcnCallWithTS">false</P>
+    <P Name="OwnerBDName">CruiseControl_TestSuite</P>
+    <P Name="ScheduleInitTermReset">false</P>
+    <P Name="AutoShapeInputs">true</P>
+    <P Name="SLDVCompatible">yes</P>
+    <P Name="SynchronizationMode">1</P>
+    <P Name="IsImported">false</P>
+    <P Name="PostRebuildCB"/>
+    <P Name="IsCodeContext">false</P>
+    <P Name="SchedulerBlock">0</P>
+    <P Name="SourceTypeString">Signal Builder</P>
+    <P Name="SinkTypeString">Outport</P>
+    <P Name="CustomSourcePath"/>
+    <P Name="CustomSinkPath"/>
+    <P Name="BlockSIDs">2|37|0|0|0|0|0</P>
+    <P Name="OpenGraphs"/>
+  </Harness>
+  <Harness>
     <P Name="Name">CruiseControl_TestSuite_Harness_Accel_fixed_rate</P>
     <P Name="Description"/>
     <P Name="CreatedBy">patcanny</P>
@@ -310,7 +348,7 @@
     <P Name="CreatedBy">patcanny</P>
     <P Name="CreatedOn">Fri Jul 26 11:38:26 2019</P>
     <P Name="ModifiedBy">patcanny</P>
-    <P Name="LastSaved">Fri Jul 26 11:38:31 2019</P>
+    <P Name="LastSaved">Mon Nov 04 10:12:57 2019</P>
     <P Name="Owner">bd</P>
     <P Name="OwnerType">BD_HARNESS</P>
     <P Name="OwnerPath">.</P>
@@ -340,7 +378,7 @@
     <P Name="CustomSourcePath"/>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">2|27|0|0|0|0|0</P>
-    <P Name="OpenGraphs">||||CruiseControl_TestSuite_Harness_Disable_during_startup</P>
+    <P Name="OpenGraphs"/>
   </Harness>
   <Harness>
     <P Name="Name">CruiseControl_TestSuite_Harness_Disengage_upon_braking</P>
