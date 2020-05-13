@@ -1,4 +1,4 @@
-function startupProject
+function openInstructions
     
     %% Open instructions
     edit Instructions.mlx
