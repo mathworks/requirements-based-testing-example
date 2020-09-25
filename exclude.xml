@@ -1,0 +1,10 @@
+<!--
+
+* Note from Pat: This is a customer-facing example which has already been published on File Exchange. 
+URL: https://www.mathworks.com/matlabcentral/fileexchange/72898-requirements-based-testing-workflow-example
+
+All files in the example can be viewed by customers. The purpose of this repository is for AEs to leverage the content as needed for demos and workshops. The File Exchange example can be used as a "leave behind" for customers to try the example themselves. The example includes Simulink Design Verifier, which requires a Sales-issued trial license.
+-->
+<xml>
+	<exclude></exclude>
+</xml>
