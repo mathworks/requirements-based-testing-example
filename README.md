@@ -25,7 +25,7 @@ In Part 2, users will learn how to:
 - ensure test coverage is based on the requirements
 
 ## Special Instructions
-Created with R2019b
+Created with R2022a
 
 ## Contact
 Pat Canny
@@ -39,7 +39,7 @@ IAM
 Transport/Rail
 
 ## Relevant Products
-Simulink Requirements
+Requirements Toolbox
 Simulink Test
 Simulink Coverage
 Simulink Design Verifier
