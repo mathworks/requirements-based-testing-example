@@ -1,4 +1,4 @@
-function shutdownProject
+function shutdownProj
 % Clean up the environment for the current project.
 
 %% Reset location of slprj

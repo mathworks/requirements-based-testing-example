@@ -1,1 +1,0 @@
-slreq.open('CruiseControl');
