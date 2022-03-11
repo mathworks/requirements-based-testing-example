@@ -3,9 +3,6 @@
 ## Overview
 This example workflow shows users how to get started with systematic, requirements-based testing using Simulink Verification and Validation products.
 
-## Alternative Titles
-This workshop may also be referred to informally as "The Tester Workflow Example"
-
 ## Agenda
 
 In Part 1, users will learn how to:
