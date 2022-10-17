@@ -40,3 +40,6 @@ Requirements Toolbox
 Simulink Test
 Simulink Coverage
 Simulink Design Verifier
+
+
+*Copyright 2022 The MathWorks, Inc.*
