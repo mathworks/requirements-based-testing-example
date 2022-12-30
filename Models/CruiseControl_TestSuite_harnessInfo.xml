@@ -571,6 +571,44 @@
     <P Name="FunctionInterfaceName"/>
   </Harness>
   <Harness>
+    <P Name="Name">CC_TS_Harness_speed_thrsh_diseng</P>
+    <P Name="Description"/>
+    <P Name="CreatedBy">bstevens</P>
+    <P Name="CreatedOn">Fri Dec 30 10:14:02 2022</P>
+    <P Name="ModifiedBy">bstevens</P>
+    <P Name="LastSaved">Fri Dec 30 10:15:00 2022</P>
+    <P Name="Owner">bd</P>
+    <P Name="OwnerType">BD_HARNESS</P>
+    <P Name="OwnerPath">.</P>
+    <P Name="Directory"/>
+    <P Name="FileName">CC_TS_Harness_speed_thrsh_diseng.slx</P>
+    <P Name="SavedVersion">10.5</P>
+    <P Name="HarnessUUID">31bee176-6d12-44f0-a50f-a55a77763491</P>
+    <P Name="HarnessConnectionsMap">0,1,2,3,4|0,1|0,0,0,0||</P>
+    <P Name="VerificationMode">0</P>
+    <P Name="HarnessOwnerCheckSum">0,0,0,0</P>
+    <P Name="RebuildOnOpen">false</P>
+    <P Name="RebuildModelData">false</P>
+    <P Name="Graphical">false</P>
+    <P Name="DriveFcnCallWithTS">true</P>
+    <P Name="ScheduleInitTermReset">false</P>
+    <P Name="AutoShapeInputs">false</P>
+    <P Name="SLDVCompatible">no</P>
+    <P Name="SynchronizationMode">1</P>
+    <P Name="IsImported">false</P>
+    <P Name="PostRebuildCB"/>
+    <P Name="IsCodeContext">false</P>
+    <P Name="SchedulerBlock">0</P>
+    <P Name="SourceTypeString">Test Sequence</P>
+    <P Name="SinkTypeString">Test Assessment</P>
+    <P Name="CustomSourcePath"/>
+    <P Name="CustomSinkPath"/>
+    <P Name="BlockSIDs">2|27|0|0|0|0|0</P>
+    <P Name="OpenGraphs"/>
+    <P Name="ExistingBuildFolder"/>
+    <P Name="FunctionInterfaceName"/>
+  </Harness>
+  <Harness>
     <P Name="Name">CruiseControl_TestSuite_Harness1</P>
     <P Name="Description"/>
     <P Name="CreatedBy">patcanny</P>
