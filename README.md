@@ -1,5 +1,10 @@
 # Requirements-Based Testing Workflow Example
 
+## READ THIS FIRST
+
+The example documented below is no longer maintained. For a newer version of the example, please visit [the example in MathWorks Documentation](https://www.mathworks.com/help/slcoverage/ug/resolve-missing-coverage-rbt-example.html)
+
+
 ## Overview
 This example workflow shows users how to get started with systematic, requirements-based testing using Simulink Verification and Validation products.
 
